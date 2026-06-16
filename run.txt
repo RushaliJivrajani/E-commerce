@@ -1,0 +1,49 @@
+========================================================================
+RUSH FASHION ADMIN PANEL - RUN INSTRUCTIONS & CREDENTIALS
+========================================================================
+
+1. HOW TO RUN THE PROJECT:
+------------------------------------------------------------------------
+Open your terminal inside this folder ("rush-fashion") and run:
+
+   npm run dev
+
+Once started, open your web browser and go to:
+
+   http://localhost:3000
+
+
+2. DEMO LOGIN CREDENTIALS:
+------------------------------------------------------------------------
+You can log in with either of the following pre-seeded accounts:
+
+   * SUPER ADMIN (Full system access)
+     - Email:    admin@rushfashion.com
+     - Password: Password123
+
+   * MANAGER (Access to products, orders, categories)
+     - Email:    manager@rushfashion.com
+     - Password: Admin123
+
+
+3. SECURITY CODES & RECOVERY:
+------------------------------------------------------------------------
+* Two-Factor Authentication (2FA) Code:
+  Use "555555" when prompted on the screen.
+
+* Forgot Password Reset OTP:
+  Use "123456" as the recovery code when resetting passwords.
+  
+* Forgot Password Option:
+  On the Portal login screen (http://localhost:3000/login), click the 
+  "Forgot?" link next to the Password label to launch the recovery view.
+
+
+4. LOCAL DATABASE FALLBACK:
+------------------------------------------------------------------------
+- The system automatically uses a persistent local file-based database
+  named ".mockdb.json" in this directory. 
+- You do NOT need to configure MongoDB to test the panel. 
+- Creating products, editing categories, or changing order statuses 
+  will instantly persist inside the ".mockdb.json" file.
+========================================================================
