@@ -42,10 +42,15 @@ export async function POST(req: NextRequest) {
       customer: { id: customer.id, email: customer.email, name: customer.name },
     });
 
-    response.headers.append(
-      'Set-Cookie',
-      `${cookieConf.name}=${token}; Max-Age=${cookieConf.maxAge}; Path=${cookieConf.path}; HttpOnly; SameSite=${cookieConf.sameSite}${cookieConf.secure ? '; Secure' : ''}`
-    );
+    response.cookies.set({
+      name: cookieConf.name,
+      value: token,
+      maxAge: cookieConf.maxAge,
+      path: cookieConf.path,
+      httpOnly: cookieConf.httpOnly,
+      secure: cookieConf.secure,
+      sameSite: cookieConf.sameSite,
+    });
 
     return response;
   } catch (err: any) {

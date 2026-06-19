@@ -522,7 +522,11 @@ const getModel = (collectionName: string) => {
   if (mongoose.models[collectionName]) {
     return mongoose.models[collectionName];
   }
-  const schema = new mongoose.Schema({}, { strict: false, collection: collectionName });
+  const schema = new mongoose.Schema({ id: String }, { 
+    strict: false, 
+    collection: collectionName,
+    id: false // Disable Mongoose virtual id to prevent conflicts
+  });
   return mongoose.model(collectionName, schema);
 };
 
@@ -536,7 +540,7 @@ export const db = {
     }
     await connectMongoDB();
     const Model = getModel(collectionName);
-    const data = await Model.find({}).lean();
+    const data = await Model.find().lean();
     // remove _id and __v for clean mapping
     return data.map((doc: any) => {
       const { _id, __v, ...rest } = doc;
@@ -565,7 +569,7 @@ export const db = {
     if (this.isMock) {
       const items = await this.getCollection(collectionName) as any[];
       if (typeof filter === 'function') {
-        return items.filter(filter);
+        return items.filter(filter as (item: any) => boolean);
       } else if (filter) {
         return items.filter(item => Object.keys(filter).every(k => item[k] === (filter as any)[k]));
       }
@@ -576,23 +580,23 @@ export const db = {
     const Model = getModel(collectionName);
     
     if (typeof filter === 'function') {
-       const data = await Model.find({}).lean();
+       const data = await Model.find().lean();
        const mappedData = data.map((doc: any) => {
           const { _id, __v, ...rest } = doc;
-          return rest;
+          return { id: _id.toString(), ...rest };
        });
-       return mappedData.filter(filter);
+       return mappedData.filter(filter as (item: any) => boolean);
     } else if (typeof filter === 'object') {
-       const data = await Model.find(filter).lean();
+       const data = await Model.find(filter as any).lean();
        return data.map((doc: any) => {
           const { _id, __v, ...rest } = doc;
-          return rest;
+          return { id: _id.toString(), ...rest };
        });
     } else {
-       const data = await Model.find({}).lean();
+       const data = await Model.find().lean();
        return data.map((doc: any) => {
           const { _id, __v, ...rest } = doc;
-          return rest;
+          return { id: _id.toString(), ...rest };
        });
     }
   },
@@ -635,7 +639,7 @@ export const db = {
   ): Promise<any | null> {
     if (this.isMock) {
       const items = await this.getCollection(collectionName) as any[];
-      const match = typeof filter === 'function' ? items.find(filter) : items.find(item => Object.keys(filter).every(k => item[k] === (filter as any)[k]));
+      const match = typeof filter === 'function' ? items.find(filter as (item: any) => boolean) : items.find(item => Object.keys(filter).every(k => item[k] === (filter as any)[k]));
       if (!match) return null;
       const index = items.findIndex(i => i.id === match.id);
       const updatedDoc = { ...items[index], ...updateData };
@@ -653,13 +657,13 @@ export const db = {
       if (items.length === 0) return null;
       targetId = items[0].id;
     } else {
-       const doc = await Model.findOne(filter).lean();
+       const doc = await Model.findOne(filter as any).lean();
        if (!doc) return null;
        targetId = (doc as any).id;
     }
 
-    await Model.updateOne({ id: targetId }, { $set: updateData });
-    const updated = await Model.findOne({ id: targetId }).lean();
+    await Model.updateOne({ id: targetId } as any, { $set: updateData } as any);
+    const updated = await Model.findOne({ id: targetId } as any).lean();
     if (updated) {
        const { _id, __v, ...rest } = updated as any;
        return rest;
@@ -675,7 +679,7 @@ export const db = {
       const items = await this.getCollection(collectionName) as any[];
       let matchId: string | null = null;
       if (typeof filter === 'function') {
-         const match = items.find(filter);
+         const match = items.find(filter as (item: any) => boolean);
          if (match) matchId = match.id;
       } else {
          const match = items.find(item => Object.keys(filter).every(k => item[k] === (filter as any)[k]));
@@ -696,12 +700,12 @@ export const db = {
       if (items.length === 0) return false;
       targetId = items[0].id;
     } else {
-      const doc = await Model.findOne(filter).lean();
+      const doc = await Model.findOne(filter as any).lean();
       if (!doc) return false;
       targetId = (doc as any).id;
     }
 
-    const res = await Model.deleteOne({ id: targetId });
+    const res = await Model.deleteOne({ id: targetId } as any);
     return res.deletedCount > 0;
   }
 };

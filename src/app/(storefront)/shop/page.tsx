@@ -28,7 +28,7 @@ function ShopCatalog() {
 
   // Filters State
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(initialCategory ? [initialCategory] : []);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState({ min: 0, max: 10000 });
   const [sortBy, setSortBy] = useState('newest');
@@ -37,7 +37,7 @@ function ShopCatalog() {
   // Sync category from URL param if it changes
   useEffect(() => {
     if (initialCategory) {
-      setSelectedCategory(initialCategory);
+      setSelectedCategories([initialCategory]);
     }
   }, [initialCategory]);
 
@@ -87,8 +87,7 @@ function ShopCatalog() {
 
     // Category tree check: Include parent AND children products
     let matchesCategory = true;
-    if (selectedCategory) {
-      // Find category list recursively or match category directly
+    if (selectedCategories.length > 0) {
       const getCategoryAndChildrenIds = (catId: string): string[] => {
         const ids = [catId];
         const children = categories.filter(c => c.parentId === catId);
@@ -97,7 +96,7 @@ function ShopCatalog() {
         });
         return ids;
       };
-      const allowedCategoryIds = getCategoryAndChildrenIds(selectedCategory);
+      const allowedCategoryIds = selectedCategories.flatMap(c => getCategoryAndChildrenIds(c));
       matchesCategory = allowedCategoryIds.includes(prod.category) || 
                         allowedCategoryIds.includes(prod.subcategory) || 
                         allowedCategoryIds.includes(prod.childcategory);
@@ -130,7 +129,7 @@ function ShopCatalog() {
 
   const clearFilters = () => {
     setSearchQuery('');
-    setSelectedCategory('');
+    setSelectedCategories([]);
     setSelectedBrands([]);
     if (products.length > 0) {
       const maxPrice = Math.max(...products.map((p: any) => p.sellingPrice));
@@ -192,42 +191,38 @@ function ShopCatalog() {
           {/* Categories Filter */}
           <div className="space-y-2">
             <h3 className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white">Categories</h3>
-            <div className="flex flex-col gap-1.5 max-h-48 overflow-y-auto pr-1">
-              <button
-                onClick={() => setSelectedCategory('')}
-                className={`text-left text-xs py-1 transition-all ${
-                  selectedCategory === ''
-                    ? 'font-bold text-slate-500'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-500'
-                }`}
-              >
-                All Categories
-              </button>
+            <div className="flex flex-col gap-2 max-h-48 overflow-y-auto pr-1">
               {categories.filter(c => !c.parentId).map((cat) => (
                 <div key={cat.id} className="space-y-1">
-                  <button
-                    onClick={() => setSelectedCategory(cat.id)}
-                    className={`text-left text-xs py-1 transition-all font-semibold ${
-                      selectedCategory === cat.id
-                        ? 'font-bold text-slate-500'
-                        : 'text-slate-600 dark:text-slate-300 hover:text-slate-500'
-                    }`}
-                  >
-                    {cat.name}
-                  </button>
+                  <label className="flex items-center gap-2 text-xs font-semibold cursor-pointer text-slate-700 dark:text-slate-300 hover:text-slate-500">
+                    <input
+                      type="checkbox"
+                      checked={selectedCategories.includes(cat.id)}
+                      onChange={() => {
+                        setSelectedCategories(prev => 
+                          prev.includes(cat.id) ? prev.filter(c => c !== cat.id) : [...prev, cat.id]
+                        );
+                      }}
+                      className="rounded border-slate-300 text-slate-600 focus:ring-slate-500 dark:border-slate-800 dark:bg-slate-950"
+                    />
+                    <span>{cat.name}</span>
+                  </label>
+                  
                   {/* Nested subcategories */}
-                  {selectedCategory && categories.filter(sub => sub.parentId === cat.id).map((sub) => (
-                    <button
-                      key={sub.id}
-                      onClick={() => setSelectedCategory(sub.id)}
-                      className={`text-left text-[11px] pl-3 py-0.5 block transition-all ${
-                        selectedCategory === sub.id
-                          ? 'font-bold text-slate-500'
-                          : 'text-slate-500 hover:text-slate-400'
-                      }`}
-                    >
-                      - {sub.name}
-                    </button>
+                  {categories.filter(sub => sub.parentId === cat.id).map((sub) => (
+                    <label key={sub.id} className="flex items-center gap-2 text-[11px] cursor-pointer text-slate-500 hover:text-slate-400 pl-4">
+                      <input
+                        type="checkbox"
+                        checked={selectedCategories.includes(sub.id)}
+                        onChange={() => {
+                          setSelectedCategories(prev => 
+                            prev.includes(sub.id) ? prev.filter(c => c !== sub.id) : [...prev, sub.id]
+                          );
+                        }}
+                        className="rounded border-slate-300 text-slate-600 focus:ring-slate-500 dark:border-slate-800 dark:bg-slate-950 scale-90"
+                      />
+                      <span>{sub.name}</span>
+                    </label>
                   ))}
                 </div>
               ))}
@@ -400,25 +395,38 @@ function ShopCatalog() {
               {/* Category */}
               <div className="space-y-2">
                 <h3 className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white">Categories</h3>
-                <div className="flex flex-col gap-1.5">
-                  <button
-                    onClick={() => { setSelectedCategory(''); setMobileFiltersOpen(false); }}
-                    className={`text-left text-xs py-1 transition-all ${
-                      selectedCategory === '' ? 'font-bold text-slate-500' : 'text-slate-600 dark:text-slate-400'
-                    }`}
-                  >
-                    All Categories
-                  </button>
+                <div className="flex flex-col gap-2">
                   {categories.filter(c => !c.parentId).map((cat) => (
                     <div key={cat.id} className="space-y-1">
-                      <button
-                        onClick={() => { setSelectedCategory(cat.id); setMobileFiltersOpen(false); }}
-                        className={`text-left text-xs py-1 transition-all font-semibold ${
-                          selectedCategory === cat.id ? 'font-bold text-slate-500' : 'text-slate-600 dark:text-slate-350'
-                        }`}
-                      >
-                        {cat.name}
-                      </button>
+                      <label className="flex items-center gap-2 text-xs font-semibold cursor-pointer text-slate-700 dark:text-slate-300">
+                        <input
+                          type="checkbox"
+                          checked={selectedCategories.includes(cat.id)}
+                          onChange={() => {
+                            setSelectedCategories(prev => 
+                              prev.includes(cat.id) ? prev.filter(c => c !== cat.id) : [...prev, cat.id]
+                            );
+                          }}
+                          className="rounded border-slate-300 text-slate-600 focus:ring-slate-500 dark:border-slate-800 dark:bg-slate-950"
+                        />
+                        <span>{cat.name}</span>
+                      </label>
+                      {/* Nested subcategories */}
+                      {categories.filter(sub => sub.parentId === cat.id).map((sub) => (
+                        <label key={sub.id} className="flex items-center gap-2 text-[11px] cursor-pointer text-slate-500 pl-4">
+                          <input
+                            type="checkbox"
+                            checked={selectedCategories.includes(sub.id)}
+                            onChange={() => {
+                              setSelectedCategories(prev => 
+                                prev.includes(sub.id) ? prev.filter(c => c !== sub.id) : [...prev, sub.id]
+                              );
+                            }}
+                            className="rounded border-slate-300 text-slate-600 focus:ring-slate-500 dark:border-slate-800 dark:bg-slate-950 scale-90"
+                          />
+                          <span>{sub.name}</span>
+                        </label>
+                      ))}
                     </div>
                   ))}
                 </div>

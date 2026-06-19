@@ -25,6 +25,16 @@ You can log in with either of the following pre-seeded accounts:
      - Email:    manager@rushfashion.com
      - Password: Admin123
 
+   * CUSTOMER ACCOUNTS (Storefront Access)
+     - Email:    manav@gmail.com
+     - Password: 123456 (or try resetting password)
+
+     - Email:    rushjivrajani48@gmail.com
+     - Password: (No password set / Social login)
+
+     - Email:    rush@gmail.com
+     - Password: 123456 (or try resetting password)
+
 
 3. SECURITY CODES & RECOVERY:
 ------------------------------------------------------------------------

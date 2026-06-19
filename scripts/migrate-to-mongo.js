@@ -27,7 +27,7 @@ async function migrate() {
     if (Array.isArray(dataArray) && dataArray.length > 0) {
       console.log(`Migrating ${dataArray.length} items to ${collectionName}...`);
       
-      const schema = new mongoose.Schema({}, { strict: false, collection: collectionName });
+      const schema = new mongoose.Schema({ id: String }, { strict: false, collection: collectionName, id: false });
       const Model = mongoose.models[collectionName] || mongoose.model(collectionName, schema);
       
       // Clear existing first
@@ -38,7 +38,7 @@ async function migrate() {
       console.log(`Successfully migrated ${collectionName}`);
     } else if (!Array.isArray(dataArray) && dataArray) {
        console.log(`Migrating object data to ${collectionName}...`);
-       const schema = new mongoose.Schema({}, { strict: false, collection: collectionName });
+       const schema = new mongoose.Schema({ id: String }, { strict: false, collection: collectionName, id: false });
        const Model = mongoose.models[collectionName] || mongoose.model(collectionName, schema);
        await Model.deleteMany({});
        await Model.create(dataArray);

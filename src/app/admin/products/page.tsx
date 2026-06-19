@@ -68,6 +68,10 @@ interface Product {
     fabrics: string[];
   };
   variants: Variant[];
+  seoTitle?: string;
+  seoDescription?: string;
+  metaKeywords?: string;
+  imageAlt?: string;
   createdAt: string;
 }
 

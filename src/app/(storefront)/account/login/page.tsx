@@ -30,9 +30,15 @@ function AccountLoginForm() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/';
 
-  const [tab, setTab] = useState<'login' | 'register'>('login');
+  const [tab, setTab] = useState<'login' | 'register' | 'forgot'>('login');
   const [loading, setLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
+
+  // Forgot password fields
+  const [forgotEmail, setForgotEmail] = useState('');
+  const [forgotOtp, setForgotOtp] = useState('');
+  const [forgotNewPassword, setForgotNewPassword] = useState('');
+  const [forgotStep, setForgotStep] = useState<'email' | 'otp'>('email');
 
   // Login fields
   const [loginEmail, setLoginEmail] = useState('');
@@ -67,6 +73,59 @@ function AccountLoginForm() {
       setTimeout(() => {
         window.location.href = callbackUrl;
       }, 800);
+    } catch {
+      toast.error('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleForgotRequest = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!forgotEmail) return toast.error('Please enter your email');
+    setLoading(true);
+    try {
+      const res = await fetch('/api/customer/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: forgotEmail }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        toast.error(data.message || 'Failed to request recovery code');
+        return;
+      }
+      toast.success(data.message);
+      setForgotStep('otp');
+    } catch {
+      toast.error('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleForgotReset = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!forgotOtp || !forgotNewPassword) return toast.error('Please fill all fields');
+    if (forgotNewPassword.length < 6) return toast.error('Password must be at least 6 characters');
+    setLoading(true);
+    try {
+      const res = await fetch('/api/customer/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: forgotEmail, otp: forgotOtp, newPassword: forgotNewPassword }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        toast.error(data.message || 'Failed to reset password');
+        return;
+      }
+      toast.success(data.message);
+      setTab('login');
+      setForgotStep('email');
+      setForgotEmail('');
+      setForgotOtp('');
+      setForgotNewPassword('');
     } catch {
       toast.error('Something went wrong. Please try again.');
     } finally {
@@ -177,28 +236,30 @@ function AccountLoginForm() {
           </div>
 
           {/* Tab Switcher */}
-          <div className="flex rounded-2xl bg-slate-100 p-1 mb-8">
-            <button
-              onClick={() => setTab('login')}
-              className={`flex-1 rounded-xl py-2.5 text-sm font-bold transition-all ${
-                tab === 'login'
-                  ? 'bg-white text-slate-900 shadow-sm'
-                  : 'text-slate-500 hover:text-slate-700'
-              }`}
-            >
-              Sign In
-            </button>
-            <button
-              onClick={() => setTab('register')}
-              className={`flex-1 rounded-xl py-2.5 text-sm font-bold transition-all ${
-                tab === 'register'
-                  ? 'bg-white text-slate-900 shadow-sm'
-                  : 'text-slate-500 hover:text-slate-700'
-              }`}
-            >
-              Create Account
-            </button>
-          </div>
+          {tab !== 'forgot' && (
+            <div className="flex rounded-2xl bg-slate-100 p-1 mb-8">
+              <button
+                onClick={() => setTab('login')}
+                className={`flex-1 rounded-xl py-2.5 text-sm font-bold transition-all ${
+                  tab === 'login'
+                    ? 'bg-white text-slate-900 shadow-sm'
+                    : 'text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                Sign In
+              </button>
+              <button
+                onClick={() => setTab('register')}
+                className={`flex-1 rounded-xl py-2.5 text-sm font-bold transition-all ${
+                  tab === 'register'
+                    ? 'bg-white text-slate-900 shadow-sm'
+                    : 'text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                Create Account
+              </button>
+            </div>
+          )}
 
           {/* LOGIN FORM */}
           {tab === 'login' && (
@@ -225,7 +286,10 @@ function AccountLoginForm() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">Password</label>
+                  <div className="flex justify-between items-center mb-1.5">
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide">Password</label>
+                    <button type="button" onClick={() => setTab('forgot')} className="text-xs text-slate-500 hover:text-slate-700 font-medium">Forgot?</button>
+                  </div>
                   <div className="relative">
                     <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                     <input
@@ -379,6 +443,93 @@ function AccountLoginForm() {
                 </button>
               </p>
             </form>
+          )}
+
+          {/* FORGOT PASSWORD FORM */}
+          {tab === 'forgot' && (
+            <div className="space-y-5">
+              <div>
+                <h2 className="text-2xl font-black text-slate-900">Reset Password</h2>
+                <p className="text-sm text-slate-500 mt-1">
+                  {forgotStep === 'email' ? 'Enter your email to receive a recovery code' : 'Enter the recovery code and your new password'}
+                </p>
+              </div>
+
+              {forgotStep === 'email' ? (
+                <form onSubmit={handleForgotRequest} className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">Email Address</label>
+                    <div className="relative">
+                      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                      <input
+                        type="email"
+                        value={forgotEmail}
+                        onChange={(e) => setForgotEmail(e.target.value)}
+                        placeholder="your@email.com"
+                        className="block w-full rounded-xl border border-slate-200 bg-white py-3 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 focus:border-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-500/20"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-slate-600 to-slate-600 py-3.5 text-sm font-bold text-white shadow-lg shadow-slate-600/20 transition-all hover:opacity-90 disabled:opacity-50 cursor-pointer"
+                  >
+                    {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Send Recovery Code'}
+                  </button>
+                </form>
+              ) : (
+                <form onSubmit={handleForgotReset} className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">Recovery Code</label>
+                    <input
+                      type="text"
+                      value={forgotOtp}
+                      onChange={(e) => setForgotOtp(e.target.value)}
+                      placeholder="e.g. 123456"
+                      className="block w-full rounded-xl border border-slate-200 bg-white py-3 px-4 text-sm text-slate-900 placeholder-slate-400 focus:border-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-500/20"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5">New Password</label>
+                    <div className="relative">
+                      <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                      <input
+                        type={showPass ? 'text' : 'password'}
+                        value={forgotNewPassword}
+                        onChange={(e) => setForgotNewPassword(e.target.value)}
+                        placeholder="Min 6 chars"
+                        className="block w-full rounded-xl border border-slate-200 bg-white py-3 pl-10 pr-11 text-sm text-slate-900 placeholder-slate-400 focus:border-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-500/20"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPass(!showPass)}
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                      >
+                        {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-slate-600 to-slate-600 py-3.5 text-sm font-bold text-white shadow-lg shadow-slate-600/20 transition-all hover:opacity-90 disabled:opacity-50 cursor-pointer"
+                  >
+                    {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Reset Password'}
+                  </button>
+                </form>
+              )}
+
+              <p className="text-center text-xs text-slate-500">
+                Remember your password?{' '}
+                <button type="button" onClick={() => { setTab('login'); setForgotStep('email'); }} className="font-bold text-slate-600 hover:underline">
+                  Back to Sign In
+                </button>
+              </p>
+            </div>
           )}
         </div>
       </div>

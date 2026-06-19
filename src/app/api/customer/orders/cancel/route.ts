@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: 'Order ID is required' }, { status: 400 });
     }
 
-    const order = await db.findById('orders', orderId);
+    const order = await db.findOne('orders', (o: any) => o.id === orderId);
     if (!order) {
       return NextResponse.json({ success: false, message: 'Order not found' }, { status: 404 });
     }
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
       timestamp: new Date().toISOString(),
     });
 
-    await db.update('orders', orderId, order);
+    await db.updateOne('orders', (o: any) => o.id === orderId, order);
 
     return NextResponse.json({ success: true, message: 'Order cancelled successfully' });
   } catch (err) {

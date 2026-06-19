@@ -32,7 +32,17 @@ export async function POST(req: NextRequest) {
 
     // 2. Stock Verification & Variant Matrix Checks
     for (const item of orderProducts) {
-      const dbProdIndex = products.findIndex((p: any) => p.id === item.productId);
+      let dbProdIndex = products.findIndex((p: any) => String(p.id) === String(item.productId));
+      
+      // Fallback for corrupted local carts
+      if (dbProdIndex === -1) {
+        dbProdIndex = products.findIndex((p: any) => p.name === item.name);
+        // If we found it by name, update the item's productId for consistency
+        if (dbProdIndex > -1) {
+          item.productId = products[dbProdIndex].id;
+        }
+      }
+
       if (dbProdIndex === -1) {
         return NextResponse.json({ success: false, message: `Product ${item.name} not found in database catalog` }) as Response;
       }

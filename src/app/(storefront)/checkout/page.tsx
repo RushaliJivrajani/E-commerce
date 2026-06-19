@@ -49,7 +49,10 @@ export default function CheckoutPage() {
     async function loadInit() {
       try {
         // Check customer login first
-        const meRes = await fetch('/api/customer/me');
+        const meRes = await fetch('/api/customer/me', { 
+          cache: 'no-store',
+          credentials: 'same-origin' 
+        });
         if (!meRes.ok) {
           // Not logged in — redirect to login with callbackUrl
           toast.error('Please login to continue to checkout');
