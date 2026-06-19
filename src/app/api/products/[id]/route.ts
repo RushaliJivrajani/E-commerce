@@ -70,6 +70,10 @@ export async function PATCH(
       trending,
       bestSeller,
       status,
+      seoTitle,
+      seoDescription,
+      metaKeywords,
+      imageAlt,
       attributes,
       variants,
     } = body;
@@ -94,6 +98,10 @@ export async function PATCH(
       trending: trending !== undefined ? !!trending : product.trending,
       bestSeller: bestSeller !== undefined ? !!bestSeller : product.bestSeller,
       status: status ?? product.status,
+      seoTitle: seoTitle !== undefined ? seoTitle : product.seoTitle,
+      seoDescription: seoDescription !== undefined ? seoDescription : product.seoDescription,
+      metaKeywords: metaKeywords !== undefined ? metaKeywords : product.metaKeywords,
+      imageAlt: imageAlt !== undefined ? imageAlt : product.imageAlt,
       attributes: attributes ?? product.attributes,
       variants: variants ?? product.variants,
     };

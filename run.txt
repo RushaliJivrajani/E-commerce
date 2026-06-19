@@ -47,3 +47,8 @@ You can log in with either of the following pre-seeded accounts:
 - Creating products, editing categories, or changing order statuses 
   will instantly persist inside the ".mockdb.json" file.
 ========================================================================
+
+
+git remote add origin https://github.com/rush4812/rush-fashion.git
+git branch -M main
+git push -u origin main

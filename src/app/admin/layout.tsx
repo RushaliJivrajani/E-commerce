@@ -26,7 +26,8 @@ import {
   Loader2,
   Sparkles,
   Bell,
-  Search
+  Search,
+  RotateCcw
 } from 'lucide-react';
 
 interface SidebarItem {
@@ -99,11 +100,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: 'Products', href: '/admin/products', icon: ShoppingBag },
     { name: 'Categories', href: '/admin/categories', icon: FolderTree },
     { name: 'Orders', href: '/admin/orders', icon: FileSpreadsheet },
+    { name: 'Returns', href: '/admin/returns', icon: RotateCcw },
     { name: 'Customers', href: '/admin/customers', icon: Users },
     { name: 'Banners', href: '/admin/banners', icon: ImageIcon },
     { name: 'Coupons', href: '/admin/coupons', icon: Ticket },
     { name: 'Reviews', href: '/admin/reviews', icon: MessageSquare },
     { name: 'Pages Content', href: '/admin/content', icon: FileText },
+    { name: 'Notifications', href: '/admin/notifications', icon: Bell },
+    { name: 'Reports', href: '/admin/reports', icon: FileText },
     { name: 'Activity Logs', href: '/admin/logs', icon: History, roles: ['Super Admin'] },
     { name: 'Settings', href: '/admin/settings', icon: Settings, roles: ['Super Admin', 'Admin'] },
   ];

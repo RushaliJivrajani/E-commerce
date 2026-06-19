@@ -122,6 +122,12 @@ export default function ProductsPage() {
   const [formBestSeller, setFormBestSeller] = useState(false);
   const [formStatus, setFormStatus] = useState<'Active' | 'Inactive'>('Active');
 
+  // SEO Fields
+  const [formSeoTitle, setFormSeoTitle] = useState('');
+  const [formSeoDescription, setFormSeoDescription] = useState('');
+  const [formMetaKeywords, setFormMetaKeywords] = useState('');
+  const [formImageAlt, setFormImageAlt] = useState('');
+
   // Attribute Lists in Form
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
@@ -236,6 +242,10 @@ export default function ProductsPage() {
     setFormTrending(false);
     setFormBestSeller(false);
     setFormStatus('Active');
+    setFormSeoTitle('');
+    setFormSeoDescription('');
+    setFormMetaKeywords('');
+    setFormImageAlt('');
     setSelectedSizes([]);
     setSelectedColors([]);
     setSelectedFabrics([]);
@@ -266,6 +276,10 @@ export default function ProductsPage() {
     setFormTrending(product.trending);
     setFormBestSeller(product.bestSeller);
     setFormStatus(product.status);
+    setFormSeoTitle(product.seoTitle || '');
+    setFormSeoDescription(product.seoDescription || '');
+    setFormMetaKeywords(product.metaKeywords || '');
+    setFormImageAlt(product.imageAlt || '');
     setSelectedSizes(product.attributes?.sizes || []);
     setSelectedColors(product.attributes?.colors || []);
     setSelectedFabrics(product.attributes?.fabrics || []);
@@ -336,6 +350,10 @@ export default function ProductsPage() {
       trending: formTrending,
       bestSeller: formBestSeller,
       status: formStatus,
+      seoTitle: formSeoTitle,
+      seoDescription: formSeoDescription,
+      metaKeywords: formMetaKeywords,
+      imageAlt: formImageAlt,
       attributes: {
         sizes: selectedSizes,
         colors: selectedColors,
@@ -1198,6 +1216,59 @@ export default function ProductsPage() {
                     </div>
                   </div>
                 )}
+              </div>
+
+              {/* SECTION: SEO MANAGEMENT */}
+              <div className="space-y-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block pb-2">
+                  SEO Management
+                </span>
+                
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-semibold text-slate-400 uppercase">Meta Title</label>
+                    <input
+                      type="text"
+                      value={formSeoTitle}
+                      onChange={(e) => setFormSeoTitle(e.target.value)}
+                      placeholder="e.g. Buy Elegant Silk Saree Online | Rush Fashion"
+                      className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                    />
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-semibold text-slate-400 uppercase">Meta Description</label>
+                    <textarea
+                      value={formSeoDescription}
+                      onChange={(e) => setFormSeoDescription(e.target.value)}
+                      rows={2}
+                      placeholder="High converting meta description snippet..."
+                      className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-400 uppercase">Target Keywords</label>
+                    <input
+                      type="text"
+                      value={formMetaKeywords}
+                      onChange={(e) => setFormMetaKeywords(e.target.value)}
+                      placeholder="saree, silk, ethnic"
+                      className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-400 uppercase">Image ALT Tags</label>
+                    <input
+                      type="text"
+                      value={formImageAlt}
+                      onChange={(e) => setFormImageAlt(e.target.value)}
+                      placeholder="e.g. Red silk saree front view"
+                      className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                    />
+                  </div>
+                </div>
               </div>
 
               {/* Form Action footer */}

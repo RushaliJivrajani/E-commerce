@@ -307,6 +307,19 @@
       "wishlistCount": 0,
       "status": "Active",
       "createdAt": "2026-06-15T09:34:52.650Z"
+    },
+    {
+      "id": "cust_rqzqxad7c",
+      "name": "rush",
+      "email": "rush@gmail.com",
+      "phone": "9099538086",
+      "passwordHash": "$2b$10$oqSHsH.uCdrr7LKN3416.OTxddlQ4k.uGfU7SJTIemxZQqxNDgdGK",
+      "addressList": [],
+      "totalSpent": 0,
+      "ordersCount": 0,
+      "wishlistCount": 0,
+      "status": "Active",
+      "createdAt": "2026-06-18T13:28:41.623Z"
     }
   ],
   "banners": [
@@ -508,6 +521,36 @@
       "details": "Updated order RF-2026-0002 status to Delivered",
       "ipAddress": "192.168.1.33",
       "createdAt": "2026-06-15T11:22:14.119Z"
+    },
+    {
+      "id": "acti_83gqs4yr6",
+      "userEmail": "admin@rushfashion.com",
+      "userName": "Rushali Jivrajani",
+      "role": "Super Admin",
+      "action": "Login Success",
+      "details": "Admin user logged in. Role: Super Admin",
+      "ipAddress": "192.168.1.33",
+      "createdAt": "2026-06-18T13:29:03.704Z"
+    },
+    {
+      "id": "acti_vn6nyp6d0",
+      "userEmail": "admin@rushfashion.com",
+      "userName": "Rushali Jivrajani",
+      "role": "Super Admin",
+      "action": "Logout",
+      "details": "Admin user logged out manually",
+      "ipAddress": "192.168.1.33",
+      "createdAt": "2026-06-18T13:31:28.303Z"
+    },
+    {
+      "id": "acti_i6ztk4kid",
+      "userEmail": "manager@rushfashion.com",
+      "userName": "John Doe",
+      "role": "Manager",
+      "action": "Login Success",
+      "details": "Admin user logged in. Role: Manager",
+      "ipAddress": "192.168.1.33",
+      "createdAt": "2026-06-18T13:31:42.263Z"
     }
   ],
   "settings": {

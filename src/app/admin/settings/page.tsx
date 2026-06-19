@@ -42,6 +42,9 @@ interface StoreSettings {
   shippingZones: ShippingZone[];
   razorpayKeyId?: string;
   razorpayKeySecret?: string;
+  whatsappNumber?: string;
+  gstDetails?: string;
+  maintenanceMode?: boolean;
 }
 
 export default function SettingsPage() {
@@ -54,6 +57,7 @@ export default function SettingsPage() {
   const [favicon, setFavicon] = useState('');
   const [contactEmail, setContactEmail] = useState('');
   const [contactPhone, setContactPhone] = useState('');
+  const [whatsappNumber, setWhatsappNumber] = useState('');
   const [address, setAddress] = useState('');
   
   const [facebook, setFacebook] = useState('');
@@ -63,6 +67,8 @@ export default function SettingsPage() {
   const [currency, setCurrency] = useState('INR');
   const [currencySymbol, setCurrencySymbol] = useState('₹');
   const [taxRateDefault, setTaxRateDefault] = useState('18');
+  const [gstDetails, setGstDetails] = useState('');
+  const [maintenanceMode, setMaintenanceMode] = useState(false);
 
   const [razorpayKeyId, setRazorpayKeyId] = useState('');
   const [razorpayKeySecret, setRazorpayKeySecret] = useState('');
@@ -90,6 +96,7 @@ export default function SettingsPage() {
         setFavicon(s.favicon);
         setContactEmail(s.contactEmail);
         setContactPhone(s.contactPhone);
+        setWhatsappNumber(s.whatsappNumber || '');
         setAddress(s.address);
         
         setFacebook(s.socialLinks?.facebook || '');
@@ -99,6 +106,8 @@ export default function SettingsPage() {
         setCurrency(s.currency);
         setCurrencySymbol(s.currencySymbol);
         setTaxRateDefault(s.taxRateDefault.toString());
+        setGstDetails(s.gstDetails || '');
+        setMaintenanceMode(s.maintenanceMode || false);
 
         setRazorpayKeyId(s.razorpayKeyId || '');
         setRazorpayKeySecret(s.razorpayKeySecret || '');
@@ -157,6 +166,7 @@ export default function SettingsPage() {
       favicon,
       contactEmail,
       contactPhone,
+      whatsappNumber,
       address,
       socialLinks: {
         facebook,
@@ -166,6 +176,8 @@ export default function SettingsPage() {
       currency,
       currencySymbol,
       taxRateDefault: Number(taxRateDefault) || 0,
+      gstDetails,
+      maintenanceMode,
       shippingZones,
       razorpayKeyId,
       razorpayKeySecret,
@@ -288,6 +300,17 @@ export default function SettingsPage() {
               />
             </div>
 
+            <div>
+              <label className="block text-xs font-semibold text-slate-400 uppercase">WhatsApp Number</label>
+              <input
+                type="text"
+                value={whatsappNumber}
+                onChange={(e) => setWhatsappNumber(e.target.value)}
+                placeholder="+91..."
+                className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white font-mono"
+              />
+            </div>
+
             <div className="sm:col-span-3">
               <label className="block text-xs font-semibold text-slate-400 uppercase">Corporate Head Office Address</label>
               <input
@@ -376,6 +399,32 @@ export default function SettingsPage() {
                 onChange={(e) => setTaxRateDefault(e.target.value)}
                 className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
               />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-400 uppercase">Registered GST Details</label>
+              <input
+                type="text"
+                value={gstDetails}
+                onChange={(e) => setGstDetails(e.target.value)}
+                placeholder="22AAAAA0000A1Z5"
+                className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white font-mono"
+              />
+            </div>
+
+            <div className="sm:col-span-3 mt-2">
+              <label className="flex items-center gap-3 p-4 rounded-xl border border-rose-500/20 bg-rose-500/5 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={maintenanceMode}
+                  onChange={(e) => setMaintenanceMode(e.target.checked)}
+                  className="h-5 w-5 rounded border-rose-500/50 text-rose-500 focus:ring-rose-500/50 bg-white dark:bg-slate-900"
+                />
+                <div>
+                  <span className="block text-sm font-bold text-rose-500">Maintenance Mode</span>
+                  <span className="block text-xs text-rose-500/70">Enable to temporarily disable customer storefront access (Admin remains accessible).</span>
+                </div>
+              </label>
             </div>
           </div>
         </div>

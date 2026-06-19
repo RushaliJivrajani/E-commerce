@@ -77,6 +77,10 @@ export interface Product {
     fabrics: string[];
   };
   variants: ProductVariant[];
+  seoTitle?: string;
+  seoDescription?: string;
+  metaKeywords?: string;
+  imageAlt?: string;
   createdAt: string;
 }
 
@@ -121,6 +125,11 @@ export interface Order {
     timestamp: string;
   }[];
   products: OrderProduct[];
+  tracking?: {
+    courierCompany?: string;
+    trackingId?: string;
+    trackingUrl?: string;
+  };
   createdAt: string;
 }
 
@@ -207,6 +216,9 @@ export interface StoreSettings {
   }[];
   razorpayKeyId?: string;
   razorpayKeySecret?: string;
+  whatsappNumber?: string;
+  gstDetails?: string;
+  maintenanceMode?: boolean;
 }
 
 export interface Review {
@@ -228,6 +240,32 @@ export interface WebsiteContent {
   lastUpdated: string;
 }
 
+export interface ReturnRequest {
+  id: string;
+  orderId: string;
+  customerId: string;
+  customerName: string;
+  productId: string;
+  productName: string;
+  reason: string;
+  customerNotes?: string;
+  images: string[];
+  status: 'Requested' | 'Approved' | 'Pickup Scheduled' | 'Received' | 'Refund Processing' | 'Refund Done' | 'Rejected';
+  refundAmount?: number;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export interface NotificationTemplate {
+  id: string;
+  type: 'Email' | 'SMS';
+  event: 'Order Placed' | 'Order Shipped' | 'Order Delivered' | 'Return Approved' | 'Refund Processed' | 'Custom';
+  subject?: string;
+  body: string;
+  isActive: boolean;
+  createdAt: string;
+}
+
 // In-Memory/JSON database structure
 interface MockDatabaseSchema {
   users: User[];
@@ -241,6 +279,8 @@ interface MockDatabaseSchema {
   settings: StoreSettings;
   reviews: Review[];
   website_content: WebsiteContent[];
+  return_requests: ReturnRequest[];
+  notification_templates: NotificationTemplate[];
 }
 
 // Connect to MongoDB
@@ -439,6 +479,18 @@ class JSONDatabase {
           content: '<h1>Return Policy</h1><p>We offer a hassle-free 7-day return and exchange policy on all unused garments containing tags intact.</p>',
           lastUpdated: new Date().toISOString()
         }
+      ],
+      return_requests: [],
+      notification_templates: [
+        {
+          id: 'notif_1',
+          type: 'Email',
+          event: 'Order Placed',
+          subject: 'Order Confirmation - Rush Fashion',
+          body: 'Hello {{customerName}}, thank you for placing your order {{orderId}} with us!',
+          isActive: true,
+          createdAt: new Date().toISOString()
+        }
       ]
     };
 
@@ -466,6 +518,14 @@ class JSONDatabase {
 
 const localDB = new JSONDatabase();
 
+const getModel = (collectionName: string) => {
+  if (mongoose.models[collectionName]) {
+    return mongoose.models[collectionName];
+  }
+  const schema = new mongoose.Schema({}, { strict: false, collection: collectionName });
+  return mongoose.model(collectionName, schema);
+};
+
 // General Database CRUD Helper Interface
 export const db = {
   isMock: !MONGODB_URI,
@@ -474,11 +534,14 @@ export const db = {
     if (this.isMock) {
       return localDB.getCollection(collectionName);
     }
-    // In real app, standard Mongoose queries would go here.
-    // For our fully working deployment, we support localDB database queries.
-    // We synchronize mongoDB queries to read from standard local file if not connected.
     await connectMongoDB();
-    return localDB.getCollection(collectionName);
+    const Model = getModel(collectionName);
+    const data = await Model.find({}).lean();
+    // remove _id and __v for clean mapping
+    return data.map((doc: any) => {
+      const { _id, __v, ...rest } = doc;
+      return rest;
+    }) as unknown as MockDatabaseSchema[K];
   },
 
   async saveCollection<K extends keyof MockDatabaseSchema>(collectionName: K, collectionData: MockDatabaseSchema[K]): Promise<void> {
@@ -487,72 +550,158 @@ export const db = {
       return;
     }
     await connectMongoDB();
-    localDB.saveCollection(collectionName, collectionData);
+    const Model = getModel(collectionName);
+    await Model.deleteMany({});
+    if (Array.isArray(collectionData) && collectionData.length > 0) {
+      await Model.insertMany(collectionData);
+    }
   },
 
   // Simplified CRUD handlers
   async find<K extends keyof MockDatabaseSchema>(
     collectionName: K,
-    filter?: (item: any) => boolean
+    filter?: ((item: any) => boolean) | object
   ): Promise<any[]> {
-    const items = await this.getCollection(collectionName) as any[];
-    if (filter) {
-      return items.filter(filter);
+    if (this.isMock) {
+      const items = await this.getCollection(collectionName) as any[];
+      if (typeof filter === 'function') {
+        return items.filter(filter);
+      } else if (filter) {
+        return items.filter(item => Object.keys(filter).every(k => item[k] === (filter as any)[k]));
+      }
+      return items;
     }
-    return items;
+
+    await connectMongoDB();
+    const Model = getModel(collectionName);
+    
+    if (typeof filter === 'function') {
+       const data = await Model.find({}).lean();
+       const mappedData = data.map((doc: any) => {
+          const { _id, __v, ...rest } = doc;
+          return rest;
+       });
+       return mappedData.filter(filter);
+    } else if (typeof filter === 'object') {
+       const data = await Model.find(filter).lean();
+       return data.map((doc: any) => {
+          const { _id, __v, ...rest } = doc;
+          return rest;
+       });
+    } else {
+       const data = await Model.find({}).lean();
+       return data.map((doc: any) => {
+          const { _id, __v, ...rest } = doc;
+          return rest;
+       });
+    }
   },
 
   async findOne<K extends keyof MockDatabaseSchema>(
     collectionName: K,
-    filter: (item: any) => boolean
+    filter: ((item: any) => boolean) | object
   ): Promise<any | null> {
-    const items = await this.getCollection(collectionName) as any[];
-    return items.find(filter) || null;
+    const items = await this.find(collectionName, filter);
+    return items.length > 0 ? items[0] : null;
   },
 
   async create<K extends keyof MockDatabaseSchema>(
     collectionName: K,
     document: any
   ): Promise<any> {
-    const items = await this.getCollection(collectionName) as any[];
     const newDoc = {
-      id: document.id || `${collectionName.slice(0, 4)}_${Math.random().toString(36).substr(2, 9)}`,
+      id: document.id || `${collectionName.slice(0, 4)}_${Math.random().toString(36).substring(2, 11)}`,
       ...document,
       createdAt: document.createdAt || new Date().toISOString()
     };
-    items.push(newDoc);
-    await this.saveCollection(collectionName, items as any);
+    
+    if (this.isMock) {
+      const items = await this.getCollection(collectionName) as any[];
+      items.push(newDoc);
+      localDB.saveCollection(collectionName, items as any);
+      return newDoc;
+    }
+
+    await connectMongoDB();
+    const Model = getModel(collectionName);
+    await Model.create(newDoc);
     return newDoc;
   },
 
   async updateOne<K extends keyof MockDatabaseSchema>(
     collectionName: K,
-    filter: (item: any) => boolean,
+    filter: ((item: any) => boolean) | object,
     updateData: any
   ): Promise<any | null> {
-    const items = await this.getCollection(collectionName) as any[];
-    const index = items.findIndex(filter);
-    if (index === -1) return null;
+    if (this.isMock) {
+      const items = await this.getCollection(collectionName) as any[];
+      const match = typeof filter === 'function' ? items.find(filter) : items.find(item => Object.keys(filter).every(k => item[k] === (filter as any)[k]));
+      if (!match) return null;
+      const index = items.findIndex(i => i.id === match.id);
+      const updatedDoc = { ...items[index], ...updateData };
+      items[index] = updatedDoc;
+      localDB.saveCollection(collectionName, items as any);
+      return updatedDoc;
+    }
 
-    const updatedDoc = {
-      ...items[index],
-      ...updateData
-    };
-    items[index] = updatedDoc;
-    await this.saveCollection(collectionName, items as any);
-    return updatedDoc;
+    await connectMongoDB();
+    const Model = getModel(collectionName);
+    
+    let targetId;
+    if (typeof filter === 'function') {
+      const items = await this.find(collectionName, filter);
+      if (items.length === 0) return null;
+      targetId = items[0].id;
+    } else {
+       const doc = await Model.findOne(filter).lean();
+       if (!doc) return null;
+       targetId = (doc as any).id;
+    }
+
+    await Model.updateOne({ id: targetId }, { $set: updateData });
+    const updated = await Model.findOne({ id: targetId }).lean();
+    if (updated) {
+       const { _id, __v, ...rest } = updated as any;
+       return rest;
+    }
+    return null;
   },
 
   async deleteOne<K extends keyof MockDatabaseSchema>(
     collectionName: K,
-    filter: (item: any) => boolean
+    filter: ((item: any) => boolean) | object
   ): Promise<boolean> {
-    const items = await this.getCollection(collectionName) as any[];
-    const initialLength = items.length;
-    const filteredItems = items.filter(item => !filter(item));
-    if (filteredItems.length === initialLength) return false;
+    if (this.isMock) {
+      const items = await this.getCollection(collectionName) as any[];
+      let matchId: string | null = null;
+      if (typeof filter === 'function') {
+         const match = items.find(filter);
+         if (match) matchId = match.id;
+      } else {
+         const match = items.find(item => Object.keys(filter).every(k => item[k] === (filter as any)[k]));
+         if (match) matchId = match.id;
+      }
+      if (!matchId) return false;
+      const filteredItems = items.filter(item => item.id !== matchId);
+      localDB.saveCollection(collectionName, filteredItems as any);
+      return true;
+    }
 
-    await this.saveCollection(collectionName, filteredItems as any);
-    return true;
+    await connectMongoDB();
+    const Model = getModel(collectionName);
+    
+    let targetId;
+    if (typeof filter === 'function') {
+      const items = await this.find(collectionName, filter);
+      if (items.length === 0) return false;
+      targetId = items[0].id;
+    } else {
+      const doc = await Model.findOne(filter).lean();
+      if (!doc) return false;
+      targetId = (doc as any).id;
+    }
+
+    const res = await Model.deleteOne({ id: targetId });
+    return res.deletedCount > 0;
   }
 };

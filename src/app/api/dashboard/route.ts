@@ -14,6 +14,7 @@ export async function GET(req: NextRequest) {
     const products = await db.find('products');
     const customers = await db.find('customers');
     const categories = await db.find('categories');
+    const returnRequests = await db.find('return_requests');
 
     // Time-based variables
     const now = new Date();
@@ -59,6 +60,8 @@ export async function GET(req: NextRequest) {
         : (prod.stock || 0);
       return stockLevel <= (prod.lowStockAlert || 10);
     }).length;
+
+    const returnRequestsCount = returnRequests.length;
 
 
     // --- 2. SALES CHARTS GENERATION ---
@@ -216,6 +219,7 @@ export async function GET(req: NextRequest) {
         totalCustomers: totalCustomersCount,
         totalProducts: totalProductsCount,
         lowStockProducts: lowStockProductsCount,
+        returnRequests: returnRequestsCount,
       },
       charts: {
         daily: dailyChartData,

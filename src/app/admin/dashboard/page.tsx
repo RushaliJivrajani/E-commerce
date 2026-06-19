@@ -17,7 +17,8 @@ import {
   ArrowDownRight,
   Loader2,
   Calendar,
-  Sparkles
+  Sparkles,
+  RefreshCcw
 } from 'lucide-react';
 import {
   ResponsiveContainer,
@@ -47,6 +48,7 @@ interface Metrics {
   totalCustomers: number;
   totalProducts: number;
   lowStockProducts: number;
+  returnRequests: number;
 }
 
 interface ChartsData {
@@ -157,6 +159,14 @@ export default function DashboardPage() {
       isPositive: false,
       icon: XCircle,
       color: "from-rose-500/10 to-red-500/10 text-rose-500 border-rose-500/20"
+    },
+    {
+      title: "Return Requests",
+      value: metrics.returnRequests,
+      change: "Needs attention",
+      isPositive: metrics.returnRequests === 0 ? true : false,
+      icon: RefreshCcw,
+      color: "from-indigo-500/10 to-blue-500/10 text-indigo-500 border-indigo-500/20"
     },
     {
       title: "Total Customers",
