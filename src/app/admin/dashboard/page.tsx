@@ -294,7 +294,7 @@ export default function DashboardPage() {
                   stroke="#fbbf24"
                   strokeWidth={3}
                   dot={{ r: 4, fill: '#fbbf24', strokeWidth: 0 }}
-                  activeDot={{ r: 6, fill: '#fbbf24', strokeWidth: 0, stroke: 'rgba(251,191,36,0.3)', strokeWidth: 4 }}
+                  activeDot={{ r: 6, fill: '#fbbf24', stroke: 'rgba(251,191,36,0.3)', strokeWidth: 4 }}
                 />
               </LineChart>
             </ResponsiveContainer>
