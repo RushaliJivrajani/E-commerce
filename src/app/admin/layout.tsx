@@ -109,6 +109,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: 'Notifications', href: '/admin/notifications', icon: Bell },
     { name: 'Reports', href: '/admin/reports', icon: FileText },
     { name: 'Activity Logs', href: '/admin/logs', icon: History, roles: ['Super Admin'] },
+    { name: 'Staff Members', href: '/admin/staff', icon: Users, roles: ['Super Admin'] },
     { name: 'Settings', href: '/admin/settings', icon: Settings, roles: ['Super Admin', 'Admin'] },
   ];
 
@@ -157,7 +158,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </div>
             {!collapsed && (
               <span className="text-base font-extrabold text-slate-900 dark:text-white">
-                RUSH <span className="bg-gradient-to-r from-slate-500 to-slate-500 bg-clip-text text-transparent">FASHION</span>
+                RUSH <span className="bg-gradient-to-r from-slate-500 to-slate-500 bg-clip-text text-transparent">CLOSET</span>
               </span>
             )}
           </Link>
@@ -235,7 +236,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-600 text-white shrink-0">
                   <Sparkles className="h-5 w-5" />
                 </div>
-                <span className="text-base font-extrabold text-slate-950 dark:text-white">RUSH FASHION</span>
+                <span className="text-base font-extrabold text-slate-950 dark:text-white">RUSH CLOSET</span>
               </Link>
             </div>
             

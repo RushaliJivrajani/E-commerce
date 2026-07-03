@@ -61,7 +61,7 @@ export default function AboutUsPage() {
             <br />Worn Across India.
           </h1>
           <p className="text-slate-100 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-            Rush Fashion is more than a brand — it's a vision crafted by one passionate designer to make premium fashion accessible to every Indian.
+            Rush Closet is more than a brand — it's a vision crafted by one passionate designer to make premium fashion accessible to every Indian.
           </p>
         </div>
       </section>
@@ -77,7 +77,7 @@ export default function AboutUsPage() {
             <div className="relative rounded-3xl overflow-hidden border border-slate-200 shadow-xl aspect-[4/5]">
               <img
                 src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&auto=format&fit=crop&q=80"
-                alt="Rushali Jivrajani - Founder of Rush Fashion"
+                alt="Rushali Jivrajani - Founder of Rush Closet"
                 className="w-full h-full object-cover"
               />
               {/* Overlay tag */}
@@ -106,13 +106,13 @@ export default function AboutUsPage() {
 
             <div className="space-y-4 text-sm text-slate-600 leading-relaxed">
               <p>
-                Rushali Jivrajani is the heart, soul, and brains behind Rush Fashion. As a <span className="font-bold text-slate-600">Software Engineer</span> turned fashion entrepreneur, she didn't just design the clothes — she wrote the code and built this entire platform from the ground up!
+                Rushali Jivrajani is the heart, soul, and brains behind Rush Closet. As a <span className="font-bold text-slate-600">Software Engineer</span> turned fashion entrepreneur, she didn't just design the clothes — she wrote the code and built this entire platform from the ground up!
               </p>
               <p>
                 Born in Ahmedabad, Gujarat, Rushali combined her technical expertise with her love for design to create a startup that breaks boundaries. Her vision is simple but powerful: <span className="font-bold text-slate-900">budget-friendly, high-quality fashion should be accessible to everyone</span>.
               </p>
               <p>
-                As a female founder in tech and fashion, her journey is dedicated to inspiring young girls everywhere to dream big. Whether you're writing code or sketching designs, you can build your own empire. Rush Fashion is proof that with passion, grit, and vision, you can create something extraordinary.
+                As a female founder in tech and fashion, her journey is dedicated to inspiring young girls everywhere to dream big. Whether you're writing code or sketching designs, you can build your own empire. Rush Closet is proof that with passion, grit, and vision, you can create something extraordinary.
               </p>
             </div>
 
@@ -158,7 +158,7 @@ export default function AboutUsPage() {
             Delivering Style to<br />Every Corner of India
           </h2>
           <p className="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed mb-8">
-            Whether you're in Mumbai, Delhi, Bengaluru, Kolkata, or a small town in Rajasthan — Rush Fashion delivers premium fashion right to your doorstep, across all 28 states and 8 Union Territories of India.
+            Whether you're in Mumbai, Delhi, Bengaluru, Kolkata, or a small town in Rajasthan — Rush Closet delivers premium fashion right to your doorstep, across all 28 states and 8 Union Territories of India.
           </p>
           <div className="flex flex-wrap justify-center gap-2 mb-8 text-xs">
             {['Gujarat', 'Maharashtra', 'Delhi', 'Karnataka', 'Tamil Nadu', 'West Bengal', 'Rajasthan', 'Uttar Pradesh', 'Punjab', 'Andhra Pradesh', '+ 18 more states'].map((state) => (

@@ -247,7 +247,7 @@ export default function SettingsPage() {
                 required
                 value={storeName}
                 onChange={(e) => setStoreName(e.target.value)}
-                placeholder="Rush Fashion"
+                placeholder="Rush Closet"
                 className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
               />
             </div>
@@ -283,7 +283,7 @@ export default function SettingsPage() {
                 required
                 value={contactEmail}
                 onChange={(e) => setContactEmail(e.target.value)}
-                placeholder="support@rushfashion.com"
+                placeholder="support@rushcloset.com"
                 className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
               />
             </div>

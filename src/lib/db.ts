@@ -337,7 +337,7 @@ class JSONDatabase {
       users: [
         {
           id: 'usr_1',
-          email: 'admin@rushfashion.com',
+          email: 'admin@rushcloset.com',
           name: 'Rushali Jivrajani',
           passwordHash: superAdminPasswordHash,
           role: 'Super Admin',
@@ -347,7 +347,7 @@ class JSONDatabase {
         },
         {
           id: 'usr_2',
-          email: 'manager@rushfashion.com',
+          email: 'manager@rushcloset.com',
           name: 'John Doe',
           passwordHash: adminPasswordHash,
           role: 'Manager',
@@ -437,7 +437,7 @@ class JSONDatabase {
       activity_logs: [
         {
           id: 'log_1',
-          userEmail: 'admin@rushfashion.com',
+          userEmail: 'admin@rushcloset.com',
           userName: 'Rushali Jivrajani',
           role: 'Super Admin',
           action: 'DB Initialize',
@@ -447,15 +447,15 @@ class JSONDatabase {
         }
       ],
       settings: {
-        storeName: 'Rush Fashion',
-        logo: 'https://placehold.co/150x50/slate/white?text=RUSH+FASHION',
+        storeName: 'Rush Closet',
+        logo: 'https://placehold.co/150x50/slate/white?text=RUSH+CLOSET',
         favicon: 'https://placehold.co/32x32/slate/white?text=RF',
-        contactEmail: 'rushfashion@gmail.com',
+        contactEmail: 'rushcloset@gmail.com',
         contactPhone: '+91 79 4001 0203',
         address: '501-505, Titanium Square, Thaltej, Ahmedabad, Gujarat, India',
         socialLinks: {
-          facebook: 'https://facebook.com/rushfashion',
-          instagram: 'https://instagram.com/rushfashion'
+          facebook: 'https://facebook.com/rushcloset',
+          instagram: 'https://instagram.com/rushcloset'
         },
         currency: 'INR',
         currencySymbol: '₹',
@@ -469,8 +469,8 @@ class JSONDatabase {
       website_content: [
         {
           id: 'about-us',
-          title: 'About Rush Fashion',
-          content: '<h1>About Us</h1><p>Rush Fashion is a premium fashion destination offering contemporary apparel for men, women, and children. Founded in 2024, we aim to merge luxury textures with streetwear styles.</p>',
+          title: 'About Rush Closet',
+          content: '<h1>About Us</h1><p>Rush Closet is a premium fashion destination offering contemporary apparel for men, women, and children. Founded in 2024, we aim to merge luxury textures with streetwear styles.</p>',
           lastUpdated: new Date().toISOString()
         },
         {
@@ -486,7 +486,7 @@ class JSONDatabase {
           id: 'notif_1',
           type: 'Email',
           event: 'Order Placed',
-          subject: 'Order Confirmation - Rush Fashion',
+          subject: 'Order Confirmation - Rush Closet',
           body: 'Hello {{customerName}}, thank you for placing your order {{orderId}} with us!',
           isActive: true,
           createdAt: new Date().toISOString()

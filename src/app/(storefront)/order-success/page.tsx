@@ -82,7 +82,7 @@ function OrderSuccessDetails() {
       
       {/* Printable Invoice Header - hidden on screen */}
       <div className="hidden print:block text-center space-y-2 mb-8">
-        <h1 className="text-xl font-black uppercase tracking-wider">RUSH FASHION INVOICE</h1>
+        <h1 className="text-xl font-black uppercase tracking-wider">Rush Closet INVOICE</h1>
         <p className="text-xs text-slate-500">Order Number: {order.orderNumber} | Date: {new Date(order.createdAt).toLocaleDateString()}</p>
         <hr className="border-slate-300" />
       </div>
@@ -227,7 +227,7 @@ function OrderSuccessDetails() {
       </div>
 
       <div className="text-center text-[10px] text-slate-500 py-4 print:block hidden">
-        Thank you for choosing Rush Fashion! Reach rushfashion@gmail.com for returns or help.
+        Thank you for choosing Rush Closet! Reach rushfashion@gmail.com for returns or help.
       </div>
       
     </div>

@@ -186,7 +186,7 @@ function LoginForm() {
             <Sparkles className="h-6 w-6 text-white" />
           </div>
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-            RUSH <span className="bg-gradient-to-r from-slate-600 to-slate-600 bg-clip-text text-transparent">FASHION</span>
+            RUSH <span className="bg-gradient-to-r from-slate-600 to-slate-600 bg-clip-text text-transparent">CLOSET</span>
           </h2>
           <p className="mt-2 text-sm text-slate-500">
             Enterprise Management Panel
@@ -249,7 +249,7 @@ function LoginForm() {
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="admin@rushfashion.com"
+                      placeholder="admin@rushcloset.com"
                       className="block w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
                     />
                   </div>
@@ -385,7 +385,7 @@ function LoginForm() {
                       disabled={recoveryStep === 'verify'}
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="admin@rushfashion.com"
+                      placeholder="admin@rushcloset.com"
                       className="block w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-450 focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500 disabled:opacity-60"
                     />
                   </div>

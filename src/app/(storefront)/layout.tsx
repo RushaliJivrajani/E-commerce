@@ -104,7 +104,7 @@ export default function StorefrontLayout({ children }: { children: React.ReactNo
       <div className="flex min-h-screen items-center justify-center bg-background text-foreground">
         <div className="flex flex-col items-center gap-3">
           <Loader2 className="h-8 w-8 animate-spin text-slate-500" />
-          <p className="text-sm text-muted-foreground">Entering Rush Fashion...</p>
+          <p className="text-sm text-muted-foreground">Entering RUSH CLOSET...</p>
         </div>
       </div>
     );
@@ -315,7 +315,7 @@ export default function StorefrontLayout({ children }: { children: React.ReactNo
                   <ShoppingBag className="h-4 w-4" />
                 </div>
                 <span className="text-sm font-extrabold text-slate-900 dark:text-white uppercase">
-                  {settings?.storeName || 'RUSH FASHION'}
+                  {settings?.storeName || 'RUSH CLOSET'}
                 </span>
               </div>
               <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400">
@@ -399,7 +399,7 @@ export default function StorefrontLayout({ children }: { children: React.ReactNo
           <hr className="border-slate-200 dark:border-slate-800 my-8" />
           
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] text-slate-500 tracking-wide uppercase text-center sm:text-right">
-            <span>© {new Date().getFullYear()} Rush Fashion. All rights reserved.</span>
+            <span>© {new Date().getFullYear()} RUSH CLOSET. All rights reserved.</span>
             <span className="leading-relaxed">A Startup Built & Designed by <span className="text-slate-500 font-bold">Software Engineer Rushali Jivrajani</span><br/>Inspiring Girls in Tech & Fashion · Ahmedabad, Gujarat, India</span>
           </div>
         </div>
