@@ -26,18 +26,20 @@ Once started, open your web browser and go to:
 ------------------------------------------------------------------------
 * SUPER ADMIN (Full system access, staff management)
   - Email:    admin@rushcloset.com
-  - Password: Password123
+  - Password: Rush@123
 
 * CUSTOMER ACCOUNTS (Storefront Access)
-  - Email:    manav@gmail.com
-  - Password: 123456
+  - You can create a new customer account directly from the website checkout.
 
-4. LIVE DATABASE (MongoDB Atlas):
+4. LIVE DATABASE (MongoDB Atlas) & HANDOVER:
 ------------------------------------------------------------------------
-- The system is now fully connected to your live MongoDB Atlas database.
+- The system is connected to MongoDB (via URI) or uses a local storage layer if not provided.
 - Any changes you make locally (adding products, editing categories, 
-  creating new managers) will be instantly saved to your live database.
-- The dummy data has been KEPT for now so you can test the website. 
-  Once you are done testing, let me know and I will delete all the dummy 
-  products and orders.
+  creating new managers) will be instantly saved.
+- All dummy data (products, orders, reviews, test customers) have been 
+  CLEARED. The database is fresh and ready for client handover.
+- The Admin Panel and Storefront have been redesigned with a premium "Light Glass" 
+  aesthetic (clean white panels, glassmorphism effects, and premium accents) with 
+  smooth animations and micro-interactions, providing a premium shopping experience.
+- Customers can freely browse, but will be prompted to log in to complete checkout.
 ========================================================================

@@ -192,9 +192,9 @@ export default function CategoriesPage() {
   if (loading) {
     return (
       <div className="flex h-[60vh] items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-slate-500" />
-          <p className="text-sm text-slate-400">Loading dynamic hierarchy tree...</p>
+        <div className="flex flex-col items-center gap-3 glass-panel p-8 rounded-2xl border border-white/10">
+          <Loader2 className="h-8 w-8 animate-spin text-indigo-400" />
+          <p className="text-sm font-semibold text-slate-400">Loading dynamic hierarchy tree...</p>
         </div>
       </div>
     );
@@ -206,53 +206,53 @@ export default function CategoriesPage() {
       {/* Header Info */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl flex items-center gap-2">
-            Categories Directory <FolderTree className="h-6 w-6 text-slate-500" />
+          <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl flex items-center gap-2 text-glow">
+            Categories Directory <FolderTree className="h-6 w-6 text-indigo-400" />
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-slate-400">
             Build and organize infinite nested levels of Main, Sub, and Child categories.
           </p>
         </div>
 
         <button
           onClick={() => handleOpenAdd()}
-          className="flex items-center gap-2 rounded-xl bg-slate-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-slate-600/10 hover:opacity-90 transition-opacity"
+          className="flex items-center gap-2 rounded-xl bg-indigo-400 px-4 py-2.5 text-sm font-bold text-slate-900 shadow-[0_0_15px_rgba(251,191,36,0.3)] hover:bg-indigo-300 transition-colors"
         >
           <Plus className="h-4 w-4" /> Add Root Category
         </button>
       </div>
 
       {/* Directory Filter Bar */}
-      <div className="flex items-center gap-3 max-w-md bg-white dark:bg-slate-900/60 rounded-xl border border-slate-200 dark:border-slate-800 px-3 py-2 text-sm">
+      <div className="flex items-center gap-3 max-w-md bg-white/5 rounded-xl border border-white/10 px-3 py-2 text-sm focus-within:ring-2 focus-within:ring-indigo-400 focus-within:border-indigo-400 transition-shadow">
         <Search className="h-4 w-4 text-slate-400 shrink-0" />
         <input
           type="text"
           placeholder="Filter categories by name..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1 bg-transparent focus:outline-none dark:text-white text-slate-900"
+          className="flex-1 bg-transparent focus:outline-none text-white placeholder-slate-500 font-medium"
         />
       </div>
 
       {/* Category Tree Grid */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/60">
-        <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-6">Hierarchy Tree</h2>
+      <div className="rounded-2xl border border-white/10 glass-panel p-6 shadow-sm">
+        <h2 className="text-lg font-bold text-white mb-6">Hierarchy Tree</h2>
 
         {searchQuery ? (
           /* Search results matching list flat */
           <div className="space-y-2">
             {filtered.map(cat => (
-              <div key={cat.id} className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-950/40 border border-slate-100 dark:border-slate-800">
+              <div key={cat.id} className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
                 <div className="flex items-center gap-3">
-                  <Tag className="h-4 w-4 text-slate-500" />
+                  <Tag className="h-4 w-4 text-indigo-400" />
                   <div>
-                    <span className="font-semibold text-sm text-slate-900 dark:text-white">{cat.name}</span>
+                    <span className="font-semibold text-sm text-white">{cat.name}</span>
                     <p className="text-xs text-slate-400 font-mono mt-0.5">slug: {cat.slug}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button onClick={() => handleOpenEdit(cat)} className="p-1.5 rounded-lg text-slate-400 hover:text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"><Edit className="h-4 w-4" /></button>
-                  <button onClick={() => handleDelete(cat.id)} className="p-1.5 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-500/10"><Trash2 className="h-4 w-4" /></button>
+                  <button onClick={() => handleOpenEdit(cat)} className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-colors"><Edit className="h-4 w-4" /></button>
+                  <button onClick={() => handleDelete(cat.id)} className="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"><Trash2 className="h-4 w-4" /></button>
                 </div>
               </div>
             ))}
@@ -266,40 +266,40 @@ export default function CategoriesPage() {
               const subs = getSubCategories(mainCat.id);
 
               return (
-                <div key={mainCat.id} className="rounded-xl border border-slate-100 dark:border-slate-800/80 bg-slate-50/30 dark:bg-slate-950/20 p-4 space-y-3">
+                <div key={mainCat.id} className="rounded-xl border border-white/10 bg-white/5 p-4 space-y-3">
                   
                   {/* ROOT ROW */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <button onClick={() => toggleExpand(mainCat.id)} className="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1">
+                      <button onClick={() => toggleExpand(mainCat.id)} className="text-slate-400 hover:text-white p-1 transition-colors">
                         {subs.length > 0 ? (
                           mainExpanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />
                         ) : (
                           <div className="w-4" />
                         )}
                       </button>
-                      {mainExpanded && subs.length > 0 ? <FolderOpen className="h-5 w-5 text-slate-500" /> : <Folder className="h-5 w-5 text-slate-400" />}
-                      <span className="font-bold text-slate-900 dark:text-white text-base">{mainCat.name}</span>
+                      {mainExpanded && subs.length > 0 ? <FolderOpen className="h-5 w-5 text-indigo-400" /> : <Folder className="h-5 w-5 text-indigo-400/80" />}
+                      <span className="font-bold text-white text-base">{mainCat.name}</span>
                       <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 ml-2">Root Position {mainCat.position}</span>
-                      {mainCat.status === 'Inactive' && <span className="rounded bg-rose-500/10 px-1.5 py-0.5 text-[9px] font-bold text-rose-500 ml-2">Inactive</span>}
+                      {mainCat.status === 'Inactive' && <span className="rounded border border-rose-500/20 bg-rose-500/10 px-1.5 py-0.5 text-[9px] font-bold text-rose-400 ml-2">Inactive</span>}
                     </div>
 
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => handleOpenAdd(mainCat.id)}
-                        className="flex items-center gap-1 text-[11px] font-bold text-slate-400 hover:text-slate-300 bg-slate-500/10 px-2 py-1 rounded-lg"
+                        className="flex items-center gap-1 text-[11px] font-bold text-slate-300 hover:text-indigo-400 bg-white/5 border border-white/10 px-2 py-1 rounded-lg transition-colors"
                         title="Add Subcategory"
                       >
                         <Plus className="h-3.5 w-3.5" /> Sub
                       </button>
-                      <button onClick={() => handleOpenEdit(mainCat)} className="p-1 text-slate-400 hover:text-slate-500"><Edit className="h-4 w-4" /></button>
-                      <button onClick={() => handleDelete(mainCat.id)} className="p-1 text-slate-400 hover:text-rose-500"><Trash2 className="h-4 w-4" /></button>
+                      <button onClick={() => handleOpenEdit(mainCat)} className="p-1 text-slate-400 hover:text-white transition-colors"><Edit className="h-4 w-4" /></button>
+                      <button onClick={() => handleDelete(mainCat.id)} className="p-1 text-slate-400 hover:text-rose-400 transition-colors"><Trash2 className="h-4 w-4" /></button>
                     </div>
                   </div>
 
                   {/* SUBS TREE RENDER */}
                   {mainExpanded && subs.length > 0 && (
-                    <div className="pl-6 border-l-2 border-dashed border-slate-200 dark:border-slate-800 space-y-3 mt-2">
+                    <div className="pl-6 border-l-2 border-dashed border-white/20 space-y-3 mt-2">
                       {subs.map((subCat) => {
                         const subExpanded = !!expandedNodes[subCat.id];
                         const childs = getSubCategories(subCat.id);
@@ -308,44 +308,44 @@ export default function CategoriesPage() {
                           <div key={subCat.id} className="space-y-2">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2">
-                                <button onClick={() => toggleExpand(subCat.id)} className="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1">
+                                <button onClick={() => toggleExpand(subCat.id)} className="text-slate-400 hover:text-white p-1 transition-colors">
                                   {childs.length > 0 ? (
                                     subExpanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />
                                   ) : (
                                     <div className="w-4" />
                                   )}
                                 </button>
-                                {subExpanded && childs.length > 0 ? <FolderOpen className="h-4 w-4 text-slate-400" /> : <Folder className="h-4 w-4 text-slate-400/80" />}
-                                <span className="font-semibold text-sm text-slate-900 dark:text-white">{subCat.name}</span>
-                                {subCat.status === 'Inactive' && <span className="rounded bg-rose-500/10 px-1 py-0.5 text-[8px] font-bold text-rose-500 ml-2">Inactive</span>}
+                                {subExpanded && childs.length > 0 ? <FolderOpen className="h-4 w-4 text-indigo-400/80" /> : <Folder className="h-4 w-4 text-indigo-400/60" />}
+                                <span className="font-semibold text-sm text-white">{subCat.name}</span>
+                                {subCat.status === 'Inactive' && <span className="rounded border border-rose-500/20 bg-rose-500/10 px-1 py-0.5 text-[8px] font-bold text-rose-400 ml-2">Inactive</span>}
                               </div>
 
                               <div className="flex items-center gap-2">
                                 <button
                                   onClick={() => handleOpenAdd(subCat.id)}
-                                  className="flex items-center gap-1 text-[10px] font-bold text-slate-400 hover:text-slate-300 bg-slate-500/10 px-1.5 py-0.5 rounded"
+                                  className="flex items-center gap-1 text-[10px] font-bold text-slate-300 hover:text-indigo-400 bg-white/5 border border-white/10 px-1.5 py-0.5 rounded transition-colors"
                                   title="Add Child Category"
                                 >
                                   <Plus className="h-3 w-3" /> Child
                                 </button>
-                                <button onClick={() => handleOpenEdit(subCat)} className="p-1 text-slate-400 hover:text-slate-500"><Edit className="h-3.5 w-3.5" /></button>
-                                <button onClick={() => handleDelete(subCat.id)} className="p-1 text-slate-400 hover:text-rose-500"><Trash2 className="h-3.5 w-3.5" /></button>
+                                <button onClick={() => handleOpenEdit(subCat)} className="p-1 text-slate-400 hover:text-white transition-colors"><Edit className="h-3.5 w-3.5" /></button>
+                                <button onClick={() => handleDelete(subCat.id)} className="p-1 text-slate-400 hover:text-rose-400 transition-colors"><Trash2 className="h-3.5 w-3.5" /></button>
                               </div>
                             </div>
 
                             {/* CHILDS TREE RENDER */}
                             {subExpanded && childs.length > 0 && (
-                              <div className="pl-6 border-l-2 border-dotted border-slate-200 dark:border-slate-800 space-y-2 mt-1">
+                              <div className="pl-6 border-l-2 border-dotted border-white/20 space-y-2 mt-1">
                                 {childs.map((childCat) => (
-                                  <div key={childCat.id} className="flex items-center justify-between py-1 px-2 rounded-lg bg-slate-50/50 dark:bg-slate-900/40">
+                                  <div key={childCat.id} className="flex items-center justify-between py-1 px-2 rounded-lg bg-white/5 border border-white/5">
                                     <div className="flex items-center gap-2">
-                                      <Tag className="h-3.5 w-3.5 text-slate-500" />
-                                      <span className="text-xs text-slate-900 dark:text-slate-200 font-medium">{childCat.name}</span>
-                                      {childCat.status === 'Inactive' && <span className="rounded bg-rose-500/10 px-1 py-0.5 text-[8px] font-bold text-rose-500">Inactive</span>}
+                                      <Tag className="h-3.5 w-3.5 text-indigo-400/60" />
+                                      <span className="text-xs text-white font-medium">{childCat.name}</span>
+                                      {childCat.status === 'Inactive' && <span className="rounded border border-rose-500/20 bg-rose-500/10 px-1 py-0.5 text-[8px] font-bold text-rose-400">Inactive</span>}
                                     </div>
                                     <div className="flex items-center gap-1">
-                                      <button onClick={() => handleOpenEdit(childCat)} className="p-1 text-slate-400 hover:text-slate-500"><Edit className="h-3.5 w-3.5" /></button>
-                                      <button onClick={() => handleDelete(childCat.id)} className="p-1 text-slate-400 hover:text-rose-500"><Trash2 className="h-3.5 w-3.5" /></button>
+                                      <button onClick={() => handleOpenEdit(childCat)} className="p-1 text-slate-400 hover:text-white transition-colors"><Edit className="h-3.5 w-3.5" /></button>
+                                      <button onClick={() => handleDelete(childCat.id)} className="p-1 text-slate-400 hover:text-rose-400 transition-colors"><Trash2 className="h-3.5 w-3.5" /></button>
                                     </div>
                                   </div>
                                 ))}

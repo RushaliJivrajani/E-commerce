@@ -134,7 +134,7 @@ export default function NotificationsPage() {
   const getTypeIcon = (type: string) => {
     switch (type) {
       case 'Email': return <Mail className="h-4 w-4 text-blue-500" />;
-      case 'SMS': return <MessageSquare className="h-4 w-4 text-emerald-500" />;
+      case 'SMS': return <MessageSquare className="h-4 w-4 text-teal-500" />;
       case 'WhatsApp': return <MessageSquare className="h-4 w-4 text-green-500" />;
       default: return <BellRing className="h-4 w-4 text-slate-500" />;
     }
@@ -203,7 +203,7 @@ export default function NotificationsPage() {
             </div>
 
             <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs">
-              <span className={t.isActive ? 'text-emerald-500 font-bold' : 'text-rose-500 font-bold'}>
+              <span className={t.isActive ? 'text-teal-500 font-bold' : 'text-rose-500 font-bold'}>
                 {t.isActive ? 'Active' : 'Inactive'}
               </span>
               <span className="text-slate-400">
@@ -270,7 +270,7 @@ export default function NotificationsPage() {
                     required
                     value={formSubject}
                     onChange={(e) => setFormSubject(e.target.value)}
-                    placeholder="Your Rush Fashion Order..."
+                    placeholder="Your Rush Closet Order..."
                     className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
                   />
                 </div>

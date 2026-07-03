@@ -90,53 +90,56 @@ export default function StaffMembersPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between pb-6 border-b border-slate-200">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Staff Members</h1>
-          <p className="mt-1 text-sm text-slate-500">Manage admin and manager accounts</p>
+          <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-3">
+            Staff Members
+          </h1>
+          <p className="text-sm font-medium text-slate-500 mt-1">
+            Manage admin and manager accounts
+          </p>
         </div>
         <button
           onClick={() => setShowModal(true)}
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 dark:focus:ring-white dark:focus:ring-offset-slate-900"
+          className="flex items-center gap-2 bg-blue-600 px-4 py-2 text-sm font-bold text-white rounded-md hover:bg-blue-700 transition-colors shadow-sm"
         >
-          <Plus className="h-5 w-5" />
-          Add Staff Member
+          <Plus className="h-4 w-4" /> Add Staff Member
         </button>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900 overflow-hidden">
+      <div className="border border-slate-200 bg-white rounded-lg shadow-sm overflow-hidden mt-6">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-slate-600 dark:text-slate-400">
-            <thead className="bg-slate-50 text-xs uppercase tracking-wider text-slate-500 dark:bg-slate-800/50 dark:text-slate-400">
+          <table className="w-full text-left text-sm text-slate-900">
+            <thead className="bg-slate-50 text-xs font-semibold text-slate-600 border-b border-slate-200">
               <tr>
-                <th className="px-6 py-4 font-medium">Name</th>
-                <th className="px-6 py-4 font-medium">Email</th>
-                <th className="px-6 py-4 font-medium">Role</th>
-                <th className="px-6 py-4 font-medium text-right">Created</th>
+                <th className="px-6 py-4">Name</th>
+                <th className="px-6 py-4">Email</th>
+                <th className="px-6 py-4">Role</th>
+                <th className="px-6 py-4 text-right">Created</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
+            <tbody className="divide-y divide-slate-100">
               {staff.map((user) => (
-                <tr key={user.id} className="transition-colors hover:bg-slate-50/50 dark:hover:bg-slate-800/50">
+                <tr key={user.id} className="transition-colors hover:bg-slate-50">
                   <td className="whitespace-nowrap px-6 py-4">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+                    <div className="flex items-center gap-4">
+                      <div className="flex h-10 w-10 items-center justify-center bg-slate-100 text-blue-600 rounded-full">
                         <User className="h-5 w-5" />
                       </div>
-                      <span className="font-semibold text-slate-900 dark:text-white">{user.name}</span>
+                      <span className="text-sm font-semibold text-slate-900">{user.name}</span>
                     </div>
                   </td>
-                  <td className="whitespace-nowrap px-6 py-4">{user.email}</td>
+                  <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-slate-600">{user.email}</td>
                   <td className="whitespace-nowrap px-6 py-4">
-                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                    <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
                       user.role === 'Super Admin' 
-                        ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300'
-                        : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300'
+                        ? 'bg-indigo-100 text-indigo-800'
+                        : 'bg-blue-100 text-blue-800'
                     }`}>
                       {user.role}
                     </span>
                   </td>
-                  <td className="whitespace-nowrap px-6 py-4 text-right">
+                  <td className="whitespace-nowrap px-6 py-4 text-right text-sm font-medium text-slate-500">
                     {new Date(user.createdAt).toLocaleDateString()}
                   </td>
                 </tr>
@@ -155,12 +158,12 @@ export default function StaffMembersPage() {
 
       {/* Add Staff Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
-          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl dark:bg-slate-900">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6">Create New Staff Member</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/80 backdrop-blur-sm p-4">
+          <div className="w-full max-w-md bg-white rounded-xl shadow-2xl p-6">
+            <h2 className="text-lg font-bold text-slate-900 mb-6 border-b border-slate-200 pb-4">Create New Staff Member</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">Full Name</label>
+                <label className="mb-1.5 block text-xs font-semibold text-slate-600 uppercase tracking-wide">Full Name</label>
                 <div className="relative">
                   <User className="absolute left-3 top-2.5 h-5 w-5 text-slate-400" />
                   <input
@@ -168,14 +171,14 @@ export default function StaffMembersPage() {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full rounded-xl border border-slate-300 bg-transparent py-2 pl-10 pr-4 text-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500 dark:border-slate-700 dark:text-white"
+                    className="w-full border border-slate-300 rounded-md bg-white py-2.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow text-slate-900"
                     placeholder="John Doe"
                   />
                 </div>
               </div>
               
               <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">Email Address</label>
+                <label className="mb-1.5 block text-xs font-semibold text-slate-600 uppercase tracking-wide">Email Address</label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-2.5 h-5 w-5 text-slate-400" />
                   <input
@@ -183,14 +186,14 @@ export default function StaffMembersPage() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full rounded-xl border border-slate-300 bg-transparent py-2 pl-10 pr-4 text-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500 dark:border-slate-700 dark:text-white"
+                    className="w-full border border-slate-300 rounded-md bg-white py-2.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow text-slate-900"
                     placeholder="john@rushcloset.com"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">Password</label>
+                <label className="mb-1.5 block text-xs font-semibold text-slate-600 uppercase tracking-wide">Password</label>
                 <div className="relative">
                   <Shield className="absolute left-3 top-2.5 h-5 w-5 text-slate-400" />
                   <input
@@ -198,36 +201,36 @@ export default function StaffMembersPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full rounded-xl border border-slate-300 bg-transparent py-2 pl-10 pr-4 text-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500 dark:border-slate-700 dark:text-white"
+                    className="w-full border border-slate-300 rounded-md bg-white py-2.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow text-slate-900"
                     placeholder="Set temporary password"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">Role</label>
+                <label className="mb-1.5 block text-xs font-semibold text-slate-600 uppercase tracking-wide">Role</label>
                 <select
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
-                  className="w-full rounded-xl border border-slate-300 bg-transparent py-2 pl-4 pr-4 text-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500 dark:border-slate-700 dark:text-white"
+                  className="w-full border border-slate-300 rounded-md bg-white py-2.5 px-3 text-sm font-medium text-slate-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-shadow"
                 >
                   <option value="Manager">Manager</option>
                   <option value="Admin">Admin</option>
                 </select>
               </div>
 
-              <div className="mt-8 flex gap-3">
+              <div className="mt-8 flex gap-3 pt-6 border-t border-slate-100">
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="flex-1 rounded-xl border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
+                  className="flex-1 border border-slate-300 rounded-md px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2 disabled:opacity-50 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100"
+                  className="flex flex-1 items-center justify-center gap-2 bg-blue-600 rounded-md px-4 py-2 text-sm font-bold text-white hover:bg-blue-700 transition-colors disabled:opacity-50 shadow-sm"
                 >
                   {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
                   Create Staff

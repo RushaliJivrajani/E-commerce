@@ -208,9 +208,9 @@ export default function SettingsPage() {
   if (loading) {
     return (
       <div className="flex h-[60vh] items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-slate-500" />
-          <p className="text-sm text-slate-400">Loading settings registers...</p>
+        <div className="flex flex-col items-center gap-3 glass-panel p-8 rounded-2xl border border-white/10">
+          <Loader2 className="h-8 w-8 animate-spin text-indigo-400" />
+          <p className="text-sm font-semibold text-slate-400">Loading settings registers...</p>
         </div>
       </div>
     );
@@ -222,10 +222,10 @@ export default function SettingsPage() {
       {/* Header Panel */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl flex items-center gap-2">
-            System Configuration Settings <Settings className="h-6 w-6 text-slate-500" />
+          <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl flex items-center gap-2 text-glow">
+            System Configuration Settings <Settings className="h-6 w-6 text-indigo-400" />
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-slate-400">
             Manage store brand assets, taxes, currencies, payment credentials, and shipping zone thresholds.
           </p>
         </div>
@@ -234,9 +234,9 @@ export default function SettingsPage() {
       <form onSubmit={handleSave} className="space-y-6 text-sm">
         
         {/* SECTION 1: BRAND IDENTITY */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/60 space-y-4">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block border-b border-slate-100 dark:border-slate-800 pb-2 flex items-center gap-1.5">
-            <Building className="h-4 w-4" /> 1. Brand Identity & Contacts
+        <div className="rounded-2xl border border-white/10 glass-panel p-6 shadow-sm space-y-4">
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block border-b border-white/10 pb-2 flex items-center gap-1.5">
+            <Building className="h-4 w-4 text-indigo-400" /> 1. Brand Identity & Contacts
           </span>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -248,7 +248,7 @@ export default function SettingsPage() {
                 value={storeName}
                 onChange={(e) => setStoreName(e.target.value)}
                 placeholder="Rush Closet"
-                className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                className="mt-1 block w-full rounded-xl border border-white/10 bg-white/5 py-2.5 px-3 focus:outline-none focus:border-indigo-400 text-white transition-colors"
               />
             </div>
 
@@ -260,7 +260,7 @@ export default function SettingsPage() {
                 value={logo}
                 onChange={(e) => setLogo(e.target.value)}
                 placeholder="https://..."
-                className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                className="mt-1 block w-full rounded-xl border border-white/10 bg-white/5 py-2.5 px-3 focus:outline-none focus:border-indigo-400 text-white transition-colors"
               />
             </div>
 
@@ -272,7 +272,7 @@ export default function SettingsPage() {
                 value={favicon}
                 onChange={(e) => setFavicon(e.target.value)}
                 placeholder="https://..."
-                className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                className="mt-1 block w-full rounded-xl border border-white/10 bg-white/5 py-2.5 px-3 focus:outline-none focus:border-indigo-400 text-white transition-colors"
               />
             </div>
 
@@ -284,7 +284,7 @@ export default function SettingsPage() {
                 value={contactEmail}
                 onChange={(e) => setContactEmail(e.target.value)}
                 placeholder="support@rushcloset.com"
-                className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                className="mt-1 block w-full rounded-xl border border-white/10 bg-white/5 py-2.5 px-3 focus:outline-none focus:border-indigo-400 text-white transition-colors"
               />
             </div>
 
@@ -296,7 +296,7 @@ export default function SettingsPage() {
                 value={contactPhone}
                 onChange={(e) => setContactPhone(e.target.value)}
                 placeholder="+91..."
-                className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white font-mono"
+                className="mt-1 block w-full rounded-xl border border-white/10 bg-white/5 py-2.5 px-3 focus:outline-none focus:border-indigo-400 text-white transition-colors font-mono"
               />
             </div>
 
@@ -307,7 +307,7 @@ export default function SettingsPage() {
                 value={whatsappNumber}
                 onChange={(e) => setWhatsappNumber(e.target.value)}
                 placeholder="+91..."
-                className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white font-mono"
+                className="mt-1 block w-full rounded-xl border border-white/10 bg-white/5 py-2.5 px-3 focus:outline-none focus:border-indigo-400 text-white transition-colors font-mono"
               />
             </div>
 
@@ -319,7 +319,7 @@ export default function SettingsPage() {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="501 Titanium Square, Ahmedabad, Gujarat, India"
-                className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                className="mt-1 block w-full rounded-xl border border-white/10 bg-white/5 py-2.5 px-3 focus:outline-none focus:border-indigo-400 text-white transition-colors"
               />
             </div>
 
@@ -331,7 +331,7 @@ export default function SettingsPage() {
                 value={facebook}
                 onChange={(e) => setFacebook(e.target.value)}
                 placeholder="https://facebook.com/..."
-                className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                className="mt-1 block w-full rounded-xl border border-white/10 bg-white/5 py-2.5 px-3 focus:outline-none focus:border-indigo-400 text-white transition-colors"
               />
             </div>
 
@@ -342,7 +342,7 @@ export default function SettingsPage() {
                 value={instagram}
                 onChange={(e) => setInstagram(e.target.value)}
                 placeholder="https://instagram.com/..."
-                className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                className="mt-1 block w-full rounded-xl border border-white/10 bg-white/5 py-2.5 px-3 focus:outline-none focus:border-indigo-400 text-white transition-colors"
               />
             </div>
 
@@ -353,16 +353,16 @@ export default function SettingsPage() {
                 value={twitter}
                 onChange={(e) => setTwitter(e.target.value)}
                 placeholder="https://twitter.com/..."
-                className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                className="mt-1 block w-full rounded-xl border border-white/10 bg-white/5 py-2.5 px-3 focus:outline-none focus:border-indigo-400 text-white transition-colors"
               />
             </div>
           </div>
         </div>
 
         {/* SECTION 2: CURRENCY & TAXES */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/60 space-y-4">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block border-b border-slate-100 dark:border-slate-800 pb-2 flex items-center gap-1.5">
-            <Globe className="h-4 w-4" /> 2. Currency & Defaults
+        <div className="rounded-2xl border border-white/10 glass-panel p-6 shadow-sm space-y-4">
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block border-b border-white/10 pb-2 flex items-center gap-1.5">
+            <Globe className="h-4 w-4 text-indigo-400" /> 2. Currency & Defaults
           </span>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -374,7 +374,7 @@ export default function SettingsPage() {
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
                 placeholder="INR"
-                className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                className="mt-1 block w-full rounded-xl border border-white/10 bg-white/5 py-2.5 px-3 focus:outline-none focus:border-indigo-400 text-white transition-colors"
               />
             </div>
 
@@ -386,7 +386,7 @@ export default function SettingsPage() {
                 value={currencySymbol}
                 onChange={(e) => setCurrencySymbol(e.target.value)}
                 placeholder="₹"
-                className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white font-bold"
+                className="mt-1 block w-full rounded-xl border border-white/10 bg-white/5 py-2.5 px-3 focus:outline-none focus:border-indigo-400 text-indigo-400 transition-colors font-bold"
               />
             </div>
 
@@ -397,7 +397,7 @@ export default function SettingsPage() {
                 required
                 value={taxRateDefault}
                 onChange={(e) => setTaxRateDefault(e.target.value)}
-                className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                className="mt-1 block w-full rounded-xl border border-white/10 bg-white/5 py-2.5 px-3 focus:outline-none focus:border-indigo-400 text-white transition-colors"
               />
             </div>
 
@@ -408,21 +408,21 @@ export default function SettingsPage() {
                 value={gstDetails}
                 onChange={(e) => setGstDetails(e.target.value)}
                 placeholder="22AAAAA0000A1Z5"
-                className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white font-mono"
+                className="mt-1 block w-full rounded-xl border border-white/10 bg-white/5 py-2.5 px-3 focus:outline-none focus:border-indigo-400 text-white transition-colors font-mono"
               />
             </div>
 
             <div className="sm:col-span-3 mt-2">
-              <label className="flex items-center gap-3 p-4 rounded-xl border border-rose-500/20 bg-rose-500/5 cursor-pointer">
+              <label className="flex items-center gap-3 p-4 rounded-xl border border-rose-500/20 bg-rose-500/10 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={maintenanceMode}
                   onChange={(e) => setMaintenanceMode(e.target.checked)}
-                  className="h-5 w-5 rounded border-rose-500/50 text-rose-500 focus:ring-rose-500/50 bg-white dark:bg-slate-900"
+                  className="h-5 w-5 rounded border-rose-500/50 text-rose-500 focus:ring-rose-500/50 bg-white/5"
                 />
                 <div>
-                  <span className="block text-sm font-bold text-rose-500">Maintenance Mode</span>
-                  <span className="block text-xs text-rose-500/70">Enable to temporarily disable customer storefront access (Admin remains accessible).</span>
+                  <span className="block text-sm font-bold text-rose-400">Maintenance Mode</span>
+                  <span className="block text-xs text-rose-400/70">Enable to temporarily disable customer storefront access (Admin remains accessible).</span>
                 </div>
               </label>
             </div>
@@ -430,14 +430,14 @@ export default function SettingsPage() {
         </div>
 
         {/* SECTION 3: SHIPPING ZONES MATRIX */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/60 space-y-4">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block border-b border-slate-100 dark:border-slate-800 pb-2 flex items-center gap-1.5">
-            <Truck className="h-4 w-4" /> 3. Regional Shipping Zones Matrix
+        <div className="rounded-2xl border border-white/10 glass-panel p-6 shadow-sm space-y-4">
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block border-b border-white/10 pb-2 flex items-center gap-1.5">
+            <Truck className="h-4 w-4 text-indigo-400" /> 3. Regional Shipping Zones Matrix
           </span>
 
           {/* Add zone miniform */}
-          <div className="rounded-xl border border-slate-100 bg-slate-50 dark:border-slate-800 dark:bg-slate-950/40 p-4 space-y-3">
-            <span className="text-xs font-bold text-slate-500 block border-b border-slate-200 pb-2">Add Regional Shipping Rule:</span>
+          <div className="rounded-xl border border-white/10 bg-white/5 p-4 space-y-3">
+            <span className="text-xs font-bold text-slate-400 block border-b border-white/10 pb-2">Add Regional Shipping Rule:</span>
             
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
               <div>
@@ -447,7 +447,7 @@ export default function SettingsPage() {
                   value={newZoneName}
                   onChange={(e) => setNewZoneName(e.target.value)}
                   placeholder="e.g. West Zone Local"
-                  className="mt-1 block w-full rounded-lg border border-slate-200 bg-white py-2 px-2.5 focus:outline-none dark:border-slate-800 dark:bg-slate-900 text-slate-900 dark:text-white"
+                  className="mt-1 block w-full rounded-lg border border-white/10 bg-white/5 py-2 px-2.5 focus:outline-none focus:border-indigo-400 text-white transition-colors"
                 />
               </div>
 
@@ -458,7 +458,7 @@ export default function SettingsPage() {
                   value={newRegions}
                   onChange={(e) => setNewRegions(e.target.value)}
                   placeholder="e.g. Gujarat, Maharashtra"
-                  className="mt-1 block w-full rounded-lg border border-slate-200 bg-white py-2 px-2.5 focus:outline-none dark:border-slate-800 dark:bg-slate-900 text-slate-900 dark:text-white"
+                  className="mt-1 block w-full rounded-lg border border-white/10 bg-white/5 py-2 px-2.5 focus:outline-none focus:border-indigo-400 text-white transition-colors"
                 />
               </div>
 
@@ -468,7 +468,7 @@ export default function SettingsPage() {
                   type="number"
                   value={newCharge}
                   onChange={(e) => setNewCharge(e.target.value)}
-                  className="mt-1 block w-full rounded-lg border border-slate-200 bg-white py-2 px-2.5 focus:outline-none dark:border-slate-800 dark:bg-slate-900 text-slate-900 dark:text-white"
+                  className="mt-1 block w-full rounded-lg border border-white/10 bg-white/5 py-2 px-2.5 focus:outline-none focus:border-indigo-400 text-white transition-colors"
                 />
               </div>
 
@@ -478,7 +478,7 @@ export default function SettingsPage() {
                   type="number"
                   value={newFreeShippingMin}
                   onChange={(e) => setNewFreeShippingMin(e.target.value)}
-                  className="mt-1 block w-full rounded-lg border border-slate-200 bg-white py-2 px-2.5 focus:outline-none dark:border-slate-800 dark:bg-slate-900 text-slate-900 dark:text-white"
+                  className="mt-1 block w-full rounded-lg border border-white/10 bg-white/5 py-2 px-2.5 focus:outline-none focus:border-indigo-400 text-white transition-colors"
                 />
               </div>
 
@@ -488,7 +488,7 @@ export default function SettingsPage() {
                   type="number"
                   value={newDeliveryDays}
                   onChange={(e) => setNewDeliveryDays(e.target.value)}
-                  className="mt-1 block w-full rounded-lg border border-slate-200 bg-white py-2 px-2.5 focus:outline-none dark:border-slate-800 dark:bg-slate-900 text-slate-900 dark:text-white"
+                  className="mt-1 block w-full rounded-lg border border-white/10 bg-white/5 py-2 px-2.5 focus:outline-none focus:border-indigo-400 text-white transition-colors"
                 />
               </div>
             </div>
@@ -496,7 +496,7 @@ export default function SettingsPage() {
             <button
               type="button"
               onClick={handleAddZone}
-              className="flex items-center gap-1 rounded-lg bg-slate-600 px-3.5 py-1.5 text-xs font-bold text-white shadow"
+              className="flex items-center gap-1 rounded-lg bg-indigo-400 px-3.5 py-1.5 text-xs font-bold text-slate-900 shadow hover:bg-indigo-300 transition-colors"
             >
               <Plus className="h-3.5 w-3.5" /> Save Shipping Zone
             </button>
@@ -504,18 +504,18 @@ export default function SettingsPage() {
 
           {/* Active zones list */}
           {shippingZones.length > 0 && (
-            <div className="grid grid-cols-1 gap-2 border border-slate-100 dark:border-slate-800 rounded-xl p-3 bg-slate-950/20">
-              <span className="text-xs font-bold text-slate-500">Active Shipping Matrices:</span>
+            <div className="grid grid-cols-1 gap-2 border border-white/10 rounded-xl p-3 bg-white/5">
+              <span className="text-xs font-bold text-slate-400">Active Shipping Matrices:</span>
               {shippingZones.map((zone, idx) => (
-                <div key={idx} className="flex items-center justify-between p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-xs text-white">
+                <div key={idx} className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/10 text-xs text-white">
                   <div>
-                    <span className="font-bold text-slate-800 dark:text-slate-200 block">{zone.zoneName} ({zone.deliveryDays} days)</span>
+                    <span className="font-bold text-white block">{zone.zoneName} ({zone.deliveryDays} days)</span>
                     <span className="text-slate-400 mt-1 block">Regions: {zone.regions.join(', ')}</span>
                   </div>
                   <div className="flex items-center gap-4">
                     <div>Charge: <span className="font-bold">₹{zone.charge}</span></div>
-                    <div>Free Shipping threshold: <span className="font-bold text-emerald-400">₹{zone.freeShippingMin}</span></div>
-                    <button type="button" onClick={() => handleRemoveZone(idx)} className="p-1 rounded text-rose-500 hover:bg-rose-500/10"><Trash2 className="h-4 w-4" /></button>
+                    <div>Free Shipping threshold: <span className="font-bold text-indigo-400">₹{zone.freeShippingMin}</span></div>
+                    <button type="button" onClick={() => handleRemoveZone(idx)} className="p-1 rounded text-rose-400 hover:bg-rose-500/10 transition-colors"><Trash2 className="h-4 w-4" /></button>
                   </div>
                 </div>
               ))}
@@ -524,9 +524,9 @@ export default function SettingsPage() {
         </div>
 
         {/* SECTION 4: PAYMENT MOCK CREDENTIALS */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/60 space-y-4">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block border-b border-slate-100 dark:border-slate-800 pb-2 flex items-center gap-1.5">
-            <CreditCard className="h-4 w-4" /> 4. Razorpay Payments API Setup
+        <div className="rounded-2xl border border-white/10 glass-panel p-6 shadow-sm space-y-4">
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block border-b border-white/10 pb-2 flex items-center gap-1.5">
+            <CreditCard className="h-4 w-4 text-indigo-400" /> 4. Razorpay Payments API Setup
           </span>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -537,7 +537,7 @@ export default function SettingsPage() {
                 value={razorpayKeyId}
                 onChange={(e) => setRazorpayKeyId(e.target.value)}
                 placeholder="rzp_test_..."
-                className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white font-mono"
+                className="mt-1 block w-full rounded-xl border border-white/10 bg-white/5 py-2.5 px-3 focus:outline-none focus:border-indigo-400 text-white transition-colors font-mono"
               />
             </div>
 
@@ -548,13 +548,13 @@ export default function SettingsPage() {
                 value={razorpayKeySecret}
                 onChange={(e) => setRazorpayKeySecret(e.target.value)}
                 placeholder="••••••••••••"
-                className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white font-mono"
+                className="mt-1 block w-full rounded-xl border border-white/10 bg-white/5 py-2.5 px-3 focus:outline-none focus:border-indigo-400 text-white transition-colors font-mono"
               />
             </div>
 
             {/* Informational Warning */}
-            <div className="sm:col-span-2 rounded-xl border border-slate-100 bg-slate-50 dark:border-slate-800 dark:bg-slate-950/40 p-3 text-xs text-slate-400 flex gap-2">
-              <Info className="h-4 w-4 text-slate-500 shrink-0" />
+            <div className="sm:col-span-2 rounded-xl border border-indigo-500/20 bg-indigo-500/10 p-3 text-xs text-indigo-400/80 flex gap-2">
+              <Info className="h-4 w-4 text-indigo-400 shrink-0" />
               <span>Make sure to use test key credentials for staging testing validation sandbox integrations. Sandbox checkouts mock orders directly.</span>
             </div>
           </div>
@@ -565,7 +565,7 @@ export default function SettingsPage() {
           <button
             type="submit"
             disabled={saving}
-            className="flex items-center gap-2 rounded-xl bg-slate-600 px-6 py-3 text-xs font-bold text-white hover:opacity-90 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-xl bg-indigo-400 px-6 py-3 text-xs font-bold text-slate-900 shadow-[0_0_15px_rgba(251,191,36,0.3)] hover:bg-indigo-300 transition-colors disabled:opacity-50"
           >
             {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
             Save Global Store Configuration

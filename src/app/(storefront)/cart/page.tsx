@@ -16,6 +16,7 @@ import {
   Loader2
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import FadeIn from '@/components/FadeIn';
 
 export default function CartPage() {
   const router = useRouter();
@@ -85,14 +86,12 @@ export default function CartPage() {
     
     // Recalculate coupon if already applied
     if (appliedCoupon) {
-      // Re-validate coupon against new subtotal
       const newSubtotal = newCart.reduce((sum, item) => sum + item.price * item.quantity, 0);
       if (newSubtotal < appliedCoupon.minAmount) {
         setAppliedCoupon(null);
         localStorage.removeItem('rf_coupon');
         toast.error('Applied coupon removed as subtotal fell below requirements.');
       } else {
-        // Recalculate discount
         let newDiscount = 0;
         if (appliedCoupon.type === 'Percentage') {
           newDiscount = (newSubtotal * appliedCoupon.value) / 100;
@@ -114,12 +113,10 @@ export default function CartPage() {
     saveCartState(newCart);
     toast.success('Product removed from cart');
 
-    // Remove coupon if cart is empty
     if (newCart.length === 0) {
       setAppliedCoupon(null);
       localStorage.removeItem('rf_coupon');
     } else if (appliedCoupon) {
-      // Recheck subtotal limits
       const newSubtotal = newCart.reduce((sum, item) => sum + item.price * item.quantity, 0);
       if (newSubtotal < appliedCoupon.minAmount) {
         setAppliedCoupon(null);
@@ -129,7 +126,6 @@ export default function CartPage() {
     }
   };
 
-  // Coupon Submission
   const handleApplyCoupon = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!couponCode.trim()) return;
@@ -168,231 +164,221 @@ export default function CartPage() {
     toast.success('Coupon removed');
   };
 
-  // Billing math
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  
-  // Tax calculations
   const taxRate = settings?.taxRateDefault || 18;
   const taxAmount = Math.round(subtotal * (taxRate / 100));
 
-  // Shipping charge zones calculations
   const getShippingCharges = () => {
     if (subtotal === 0) return 0;
-    // Default flat calculations: free shipping above 1499, else 100
     if (subtotal >= 1499) return 0;
     return 100;
   };
   const shippingCharges = getShippingCharges();
-
   const discountAmount = appliedCoupon ? appliedCoupon.discount : 0;
   const totalAmount = subtotal + taxAmount + shippingCharges - discountAmount;
 
   if (loading) {
     return (
       <div className="flex h-[60vh] items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-slate-500" />
-          <p className="text-sm text-slate-400">Loading your cart items...</p>
-        </div>
+        <Loader2 className="h-8 w-8 animate-spin text-indigo-400" strokeWidth={1} />
       </div>
     );
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 space-y-12 min-h-screen">
       
       {/* Path Breadcrumbs */}
-      <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-        <Link href="/" className="hover:text-slate-500">Home</Link>
-        <ChevronRight className="h-3.5 w-3.5 text-slate-350 dark:text-slate-800" />
-        <span className="text-slate-600 dark:text-slate-400 font-bold">Shopping Cart</span>
-      </div>
+      <FadeIn direction="up">
+        <div className="flex justify-center items-center gap-2 text-[9px] font-bold uppercase tracking-widest text-slate-400">
+          <Link href="/" className="hover:text-indigo-400 transition-colors">Home</Link>
+          <ChevronRight className="h-3 w-3" />
+          <span className="text-indigo-400 text-glow">Shopping Bag</span>
+        </div>
+      </FadeIn>
 
-      <h1 className="text-2xl font-black uppercase tracking-tight">YOUR CART BAG</h1>
+      <FadeIn direction="up" delay={0.1}>
+        <div className="text-center pb-8 border-b border-white/10">
+          <h1 className="text-3xl font-extrabold uppercase tracking-[0.2em] text-white text-glow">Your Shopping Bag</h1>
+        </div>
+      </FadeIn>
 
       {cart.length === 0 ? (
-        <div className="text-center py-16 bg-white dark:bg-slate-900 rounded-2xl border border-slate-205 dark:border-slate-800 p-8 space-y-4">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-slate-400 dark:bg-slate-950">
-            <ShoppingBag className="h-7 w-7" />
+        <FadeIn direction="up" delay={0.2}>
+          <div className="text-center py-24 space-y-8 glass-panel border border-white/10 rounded-3xl mx-auto max-w-2xl shadow-2xl">
+            <ShoppingBag className="h-12 w-12 mx-auto text-indigo-400 drop-shadow-lg" strokeWidth={1} />
+            <div className="space-y-2">
+              <h3 className="text-sm font-bold uppercase tracking-[0.1em] text-white">Your Bag is Empty</h3>
+              <p className="text-xs text-slate-400 font-light">Explore our curated collection to add items.</p>
+            </div>
+            <Link
+              href="/shop"
+              className="inline-block border border-indigo-400/50 px-8 py-4 text-[10px] font-bold text-slate-900 bg-indigo-400 hover:bg-indigo-300 transition-all uppercase tracking-widest shadow-[0_0_20px_rgba(251,191,36,0.3)] rounded-xl"
+            >
+              Discover New Arrivals
+            </Link>
           </div>
-          <div className="space-y-1">
-            <h3 className="text-base font-bold">Your Cart is Empty</h3>
-            <p className="text-xs text-slate-500">Looks like you haven&apos;t added any items to your cart yet.</p>
-          </div>
-          <Link
-            href="/shop"
-            className="inline-flex rounded-xl bg-slate-600 px-5 py-2.5 text-xs font-bold text-white hover:bg-slate-500 transition-all uppercase tracking-wide"
-          >
-            Start Shopping
-          </Link>
-        </div>
+        </FadeIn>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          
-          {/* Left: Items list table */}
-          <div className="lg:col-span-2 space-y-4">
-            {cart.map((item) => (
-              <div
-                key={item.sku}
-                className="flex flex-col sm:flex-row items-center gap-4 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm"
-              >
-                {/* Product Thumbnail */}
-                <div className="h-20 w-20 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-950 shrink-0">
-                  <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
-                </div>
-
-                {/* Details */}
-                <div className="flex-1 space-y-1 text-center sm:text-left overflow-hidden">
-                  <h3 className="text-sm font-bold text-slate-900 dark:text-white truncate">{item.name}</h3>
-                  {item.variantInfo && (
-                    <p className="text-[10px] text-slate-500 font-medium">{item.variantInfo}</p>
-                  )}
-                  <p className="text-[10px] text-slate-400">SKU: {item.sku}</p>
-                </div>
-
-                {/* Controls (quantity, price, remove) */}
-                <div className="flex items-center gap-6 justify-between w-full sm:w-auto shrink-0">
-                  {/* Quantity control */}
-                  <div className="flex items-center border border-slate-205 dark:border-slate-800 rounded-xl overflow-hidden bg-slate-50 dark:bg-slate-950">
-                    <button
-                      onClick={() => handleQuantityChange(item.sku, -1)}
-                      className="p-2 hover:bg-slate-150 dark:hover:bg-slate-900"
-                    >
-                      <Minus className="h-3 w-3" />
-                    </button>
-                    <span className="px-3 text-xs font-bold">{item.quantity}</span>
-                    <button
-                      onClick={() => handleQuantityChange(item.sku, 1)}
-                      className="p-2 hover:bg-slate-150 dark:hover:bg-slate-900"
-                    >
-                      <Plus className="h-3 w-3" />
-                    </button>
-                  </div>
-
-                  {/* Price */}
-                  <div className="text-right min-w-[70px]">
-                    <p className="text-sm font-black text-slate-600 dark:text-slate-400">₹{item.price * item.quantity}</p>
-                    {item.quantity > 1 && (
-                      <p className="text-[10px] text-slate-400">₹{item.price} each</p>
-                    )}
-                  </div>
-
-                  {/* Delete Icon */}
-                  <button
-                    onClick={() => handleRemoveItem(item.sku)}
-                    className="p-2 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 transition-all cursor-pointer"
-                    title="Remove Item"
-                  >
-                    <Trash2 className="h-4.5 w-4.5" />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Right: Order Summary Sidebar */}
-          <div className="space-y-6">
+        <FadeIn direction="up" delay={0.2}>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             
-            {/* Coupon Card */}
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-3">
-              <h3 className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white">Discount Coupon</h3>
-              
-              {appliedCoupon ? (
-                <div className="flex items-center justify-between rounded-xl bg-slate-50/50 dark:bg-slate-950/20 border border-slate-150 dark:border-slate-950/60 p-3 text-xs">
-                  <div className="flex items-center gap-2">
-                    <Percent className="h-4 w-4 text-slate-500 shrink-0" />
-                    <div>
-                      <p className="font-bold text-slate-800 dark:text-white">{appliedCoupon.code}</p>
-                      <p className="text-[10px] text-slate-500">Applied (₹{appliedCoupon.discount} off)</p>
+            {/* Left: Items list table */}
+            <div className="lg:col-span-8 space-y-8">
+              <div className="hidden sm:grid grid-cols-12 gap-4 pb-4 border-b border-white/10 text-[9px] font-bold uppercase tracking-widest text-slate-500">
+                <div className="col-span-6">Product</div>
+                <div className="col-span-3 text-center">Quantity</div>
+                <div className="col-span-2 text-right">Total</div>
+                <div className="col-span-1"></div>
+              </div>
+
+              <div className="space-y-8">
+                {cart.map((item) => (
+                  <div
+                    key={item.sku}
+                    className="flex flex-col sm:grid sm:grid-cols-12 gap-6 items-center pb-8 border-b border-white/10 group"
+                  >
+                    {/* Product Info */}
+                    <div className="w-full sm:col-span-6 flex items-center gap-6">
+                      <div className="h-32 w-24 bg-white/5 shrink-0 rounded-xl overflow-hidden border border-white/5 group-hover:border-indigo-400/30 transition-colors">
+                        <img src={item.image} alt={item.name} className="h-full w-full object-cover mix-blend-screen" />
+                      </div>
+                      <div className="space-y-2">
+                        <Link href={`/product/${item.productId}`} className="text-sm font-semibold text-white hover:text-indigo-400 transition-colors tracking-wide block">
+                          {item.name}
+                        </Link>
+                        {item.variantInfo && (
+                          <p className="text-[10px] text-indigo-400/80 font-bold uppercase tracking-widest">{item.variantInfo}</p>
+                        )}
+                        <p className="text-[9px] text-slate-500 font-light uppercase tracking-widest">Ref: {item.sku}</p>
+                        <p className="text-xs font-bold text-white pt-2 hidden sm:block">₹{item.price}</p>
+                      </div>
+                    </div>
+
+                    {/* Quantity control */}
+                    <div className="w-full sm:col-span-3 flex justify-between sm:justify-center items-center">
+                      <span className="sm:hidden text-[10px] font-bold uppercase tracking-widest text-slate-500">Quantity</span>
+                      <div className="flex items-center border border-white/20 rounded-lg overflow-hidden bg-white/5">
+                        <button
+                          onClick={() => handleQuantityChange(item.sku, -1)}
+                          className="px-3 py-2 hover:bg-white/10 transition-colors text-white hover:text-indigo-400"
+                        >
+                          <Minus className="h-3 w-3" />
+                        </button>
+                        <span className="w-8 text-center text-[11px] font-bold text-white">{item.quantity}</span>
+                        <button
+                          onClick={() => handleQuantityChange(item.sku, 1)}
+                          className="px-3 py-2 hover:bg-white/10 transition-colors text-white hover:text-indigo-400"
+                        >
+                          <Plus className="h-3 w-3" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Price Total */}
+                    <div className="w-full sm:col-span-2 flex justify-between sm:justify-end items-center">
+                      <span className="sm:hidden text-[10px] font-bold uppercase tracking-widest text-slate-500">Total</span>
+                      <p className="text-sm font-bold text-indigo-400 tracking-wide">₹{item.price * item.quantity}</p>
+                    </div>
+
+                    {/* Remove */}
+                    <div className="w-full sm:col-span-1 flex justify-end">
+                      <button
+                        onClick={() => handleRemoveItem(item.sku)}
+                        className="text-[9px] font-bold text-slate-500 hover:text-rose-400 transition-colors uppercase tracking-widest underline underline-offset-4"
+                      >
+                        Remove
+                      </button>
                     </div>
                   </div>
-                  <button
-                    onClick={handleRemoveCoupon}
-                    className="text-[10px] font-bold text-rose-500 hover:underline uppercase"
-                  >
-                    Remove
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleApplyCoupon} className="flex gap-2">
-                  <input
-                    type="text"
-                    placeholder="Enter Coupon (e.g. RUSH20)"
-                    value={couponCode}
-                    onChange={(e) => setCouponCode(e.target.value)}
-                    className="flex-1 text-xs rounded-xl border border-slate-200 bg-white px-3 py-2.5 focus:border-slate-500 focus:outline-none dark:border-slate-800 dark:bg-slate-950 uppercase"
-                  />
-                  <button
-                    type="submit"
-                    disabled={couponLoading}
-                    className="px-4 py-2.5 bg-slate-950 hover:bg-slate-900 text-white dark:bg-slate-600 dark:hover:bg-slate-500 text-xs font-bold rounded-xl uppercase transition-all shadow-sm flex items-center gap-1.5"
-                  >
-                    {couponLoading ? <Loader2 className="h-3 w-3 animate-spin" /> : <Tag className="h-3.5 w-3.5" />}
-                    <span>Apply</span>
-                  </button>
-                </form>
-              )}
+                ))}
+              </div>
             </div>
 
-            {/* Billing breakdown */}
-            <div className="bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-4">
-              <h3 className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white">Order Summary</h3>
+            {/* Right: Order Summary Sidebar */}
+            <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-8">
               
-              <div className="space-y-2.5 text-xs">
-                <div className="flex justify-between text-slate-500">
-                  <span>Bag Subtotal</span>
-                  <span className="font-bold text-slate-800 dark:text-slate-200">₹{subtotal}</span>
-                </div>
-                <div className="flex justify-between text-slate-500">
-                  <span>Estimated Taxes ({taxRate}%)</span>
-                  <span className="font-bold text-slate-800 dark:text-slate-200">₹{taxAmount}</span>
-                </div>
-                <div className="flex justify-between text-slate-500">
-                  <span>Shipping Charges</span>
-                  {shippingCharges === 0 ? (
-                    <span className="font-bold text-emerald-500 uppercase text-[10px]">Free</span>
-                  ) : (
-                    <span className="font-bold text-slate-800 dark:text-slate-200">₹{shippingCharges}</span>
+              <div className="glass-panel border border-white/10 rounded-2xl p-8 space-y-8 shadow-xl">
+                <h3 className="text-xs font-extrabold uppercase tracking-[0.2em] text-white text-glow">Order Summary</h3>
+                
+                <div className="space-y-4 text-xs font-light text-slate-300 tracking-wide">
+                  <div className="flex justify-between items-center">
+                    <span>Subtotal</span>
+                    <span className="font-bold text-white">₹{subtotal}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span>Estimated Tax ({taxRate}%)</span>
+                    <span className="font-bold text-white">₹{taxAmount}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span>Shipping</span>
+                    {shippingCharges === 0 ? (
+                      <span className="font-bold text-indigo-400 uppercase tracking-widest text-[10px]">Complimentary</span>
+                    ) : (
+                      <span className="font-bold text-white">₹{shippingCharges}</span>
+                    )}
+                  </div>
+                  {appliedCoupon && (
+                    <div className="flex justify-between items-center text-teal-400 font-bold bg-teal-400/10 p-2 rounded-lg border border-teal-400/20">
+                      <span>Discount ({appliedCoupon.code})</span>
+                      <span>- ₹{discountAmount}</span>
+                    </div>
                   )}
                 </div>
-                {appliedCoupon && (
-                  <div className="flex justify-between text-slate-600 dark:text-slate-400 font-bold">
-                    <span>Coupon Discount ({appliedCoupon.code})</span>
-                    <span>- ₹{discountAmount}</span>
-                  </div>
-                )}
 
-                {/* Subtotal limit alert */}
-                {subtotal < 1499 && (
-                  <div className="flex gap-2 rounded-xl bg-amber-50/50 dark:bg-amber-950/20 border border-amber-150 dark:border-amber-950/40 p-2.5 text-[10px] text-amber-600 dark:text-amber-450 leading-relaxed font-medium">
-                    <Info className="h-4.5 w-4.5 shrink-0" />
-                    <span>Add ₹{1499 - subtotal} more items to unlock FREE shipping!</span>
-                  </div>
-                )}
+                <hr className="border-white/10" />
 
-                <hr className="border-slate-200 dark:border-slate-800 my-2" />
-
-                <div className="flex justify-between text-sm font-black text-slate-900 dark:text-white pt-1">
-                  <span>Total Amount</span>
-                  <span className="text-lg text-slate-600 dark:text-slate-400">₹{totalAmount}</span>
+                <div className="flex justify-between items-center text-sm font-extrabold text-white uppercase tracking-widest">
+                  <span>Total</span>
+                  <span className="text-xl tracking-wide text-indigo-400 drop-shadow-md">₹{totalAmount}</span>
                 </div>
-              </div>
 
-              {/* Checkout CTA */}
-              <div className="pt-2">
+                {subtotal < 1499 && (
+                  <div className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest border border-indigo-400/20 bg-indigo-400/5 p-4 text-center rounded-xl">
+                    Add ₹{1499 - subtotal} more items to unlock COMPLIMENTARY shipping!
+                  </div>
+                )}
+
                 <button
                   onClick={() => router.push('/checkout')}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-slate-600 hover:bg-slate-500 text-white text-xs font-extrabold uppercase tracking-widest shadow-lg shadow-slate-600/20 active:scale-[0.99] transition-all cursor-pointer"
+                  className="w-full py-4 bg-indigo-400 text-slate-900 hover:bg-indigo-300 rounded-xl text-xs font-bold uppercase tracking-[0.15em] shadow-[0_0_20px_rgba(251,191,36,0.3)] transition-all flex items-center justify-center gap-2"
                 >
                   <span>Proceed to Checkout</span>
                   <ArrowRight className="h-4 w-4" />
                 </button>
               </div>
 
+              {/* Coupon Form */}
+              <div className="space-y-4">
+                <h3 className="text-[10px] font-bold uppercase tracking-widest text-white">Apply VIP Discount Code</h3>
+                {appliedCoupon ? (
+                  <div className="flex justify-between items-center border border-indigo-400/30 bg-indigo-400/10 p-4 rounded-xl text-[10px] font-bold uppercase tracking-widest text-indigo-400">
+                    <span>{appliedCoupon.code} (₹{appliedCoupon.discount} OFF)</span>
+                    <button onClick={handleRemoveCoupon} className="text-slate-400 hover:text-white transition-colors underline">Remove</button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleApplyCoupon} className="flex">
+                    <input
+                      type="text"
+                      placeholder="Enter code"
+                      value={couponCode}
+                      onChange={(e) => setCouponCode(e.target.value)}
+                      className="flex-1 border border-white/20 bg-white/5 border-r-0 px-4 py-3.5 rounded-l-xl text-xs font-light text-white focus:outline-none focus:border-indigo-400 uppercase placeholder-slate-500 transition-colors"
+                    />
+                    <button
+                      type="submit"
+                      disabled={couponLoading}
+                      className="px-6 bg-white/10 border border-white/20 border-l-0 rounded-r-xl text-white text-[10px] font-bold uppercase tracking-widest hover:bg-indigo-400 hover:text-slate-900 hover:border-indigo-400 transition-colors disabled:opacity-50"
+                    >
+                      {couponLoading ? <Loader2 className="h-3 w-3 animate-spin mx-auto" /> : 'Apply'}
+                    </button>
+                  </form>
+                )}
+              </div>
+
             </div>
           </div>
-
-        </div>
+        </FadeIn>
       )}
     </div>
   );

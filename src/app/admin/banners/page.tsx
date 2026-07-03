@@ -211,7 +211,7 @@ export default function BannersPage() {
               {/* Status and Action Buttons */}
               <div className="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-3">
                 <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-semibold ${
-                  ban.status === 'Active' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-slate-500/10 text-slate-500'
+                  ban.status === 'Active' ? 'bg-teal-500/10 text-teal-500' : 'bg-slate-500/10 text-slate-500'
                 }`}>{ban.status}</span>
                 <div className="flex items-center gap-1">
                   <button onClick={() => handleOpenEdit(ban)} className="p-1.5 rounded-lg text-slate-400 hover:text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-850"><Edit className="h-4 w-4" /></button>

@@ -266,7 +266,7 @@ export default function CouponsPage() {
                     <span
                       className={`inline-block rounded-full px-2 py-0.5 text-xs font-semibold ${
                         c.status === 'Active'
-                          ? 'bg-emerald-500/10 text-emerald-500'
+                          ? 'bg-teal-500/10 text-teal-500'
                           : 'bg-slate-500/10 text-slate-500'
                       }`}
                     >

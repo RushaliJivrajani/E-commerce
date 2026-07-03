@@ -17,7 +17,7 @@ import {
 
 const VALUES = [
   {
-    icon: <Star className="h-5 w-5 text-amber-500" />,
+    icon: <Star className="h-5 w-5 text-indigo-500" />,
     title: 'Premium Quality',
     desc: 'Every piece is hand-picked for exceptional fabric quality, fine stitching, and lasting comfort.',
   },

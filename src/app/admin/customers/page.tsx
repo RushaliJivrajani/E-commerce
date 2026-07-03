@@ -147,9 +147,9 @@ export default function CustomersPage() {
   if (loading && customers.length === 0) {
     return (
       <div className="flex h-[60vh] items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-slate-500" />
-          <p className="text-sm text-slate-400">Loading customer roster...</p>
+        <div className="flex flex-col items-center gap-3 glass-panel p-8 rounded-2xl">
+          <Loader2 className="h-8 w-8 animate-spin text-indigo-500" />
+          <p className="text-sm font-semibold text-slate-500">Loading customer roster...</p>
         </div>
       </div>
     );
@@ -161,32 +161,32 @@ export default function CustomersPage() {
       {/* Header Info */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl flex items-center gap-2">
-            Customers Directory <Users className="h-6 w-6 text-slate-500" />
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl flex items-center gap-2">
+            Customers Directory <Users className="h-6 w-6 text-indigo-500" />
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-slate-500">
             View profiles, wishlist stats, order history, write remarks, and manage blocks.
           </p>
         </div>
       </div>
 
       {/* Directory Filter Bar */}
-      <div className="flex items-center gap-3 max-w-md bg-white dark:bg-slate-900/60 rounded-xl border border-slate-200 dark:border-slate-800 px-3 py-2 text-sm">
+      <div className="flex items-center gap-3 max-w-md bg-white rounded-xl border border-slate-300 px-3 py-2 text-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500 transition-shadow shadow-sm">
         <Search className="h-4 w-4 text-slate-400 shrink-0" />
         <input
           type="text"
           placeholder="Search customers by name, email, phone..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1 bg-transparent focus:outline-none dark:text-white text-slate-900"
+          className="flex-1 bg-transparent focus:outline-none text-slate-900 placeholder-slate-400 font-medium"
         />
       </div>
 
       {/* Customer List Table */}
-      <div className="rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900/60 overflow-hidden">
+      <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-slate-500 dark:text-slate-400">
-            <thead className="text-xs uppercase bg-slate-50 dark:bg-slate-950 font-semibold border-b border-slate-200 dark:border-slate-800 text-slate-400">
+          <table className="w-full text-left text-sm text-slate-600">
+            <thead className="text-xs uppercase bg-slate-50 font-semibold border-b border-slate-200 text-slate-500">
               <tr>
                 <th className="px-6 py-4">Customer Name</th>
                 <th className="px-6 py-4">Contact Phone</th>
@@ -197,40 +197,40 @@ export default function CustomersPage() {
                 <th className="px-6 py-4 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-slate-100">
               {customers.map((c) => (
-                <tr key={c.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-950/20">
+                <tr key={c.id} className="hover:bg-slate-50 transition-colors">
                   <td className="px-6 py-4">
                     <div>
-                      <span className="font-bold text-slate-900 dark:text-white block">{c.name}</span>
-                      <span className="text-xs text-slate-400">{c.email}</span>
+                      <span className="font-bold text-slate-900 block">{c.name}</span>
+                      <span className="text-xs text-slate-500">{c.email}</span>
                     </div>
                   </td>
 
-                  <td className="px-6 py-4 font-mono text-slate-800 dark:text-slate-300">
+                  <td className="px-6 py-4 font-mono text-slate-600">
                     {c.phone || 'No Contact Phone'}
                   </td>
 
-                  <td className="px-6 py-4 text-center font-semibold text-slate-700 dark:text-slate-300">
+                  <td className="px-6 py-4 text-center font-semibold text-slate-700">
                     {c.ordersCount}
                   </td>
 
-                  <td className="px-6 py-4 text-right font-bold text-slate-950 dark:text-white">
+                  <td className="px-6 py-4 text-right font-bold text-indigo-600">
                     ₹{c.totalSpent.toLocaleString('en-IN')}
                   </td>
 
                   <td className="px-6 py-4 text-center">
                     <span className="inline-flex items-center gap-1 text-xs text-pink-500 font-semibold">
-                      <Heart className="h-3.5 w-3.5 fill-pink-500/10" /> {c.wishlistCount}
+                      <Heart className="h-3.5 w-3.5 fill-pink-100" /> {c.wishlistCount}
                     </span>
                   </td>
 
                   <td className="px-6 py-4 text-center">
                     <span
-                      className={`inline-block rounded-full px-2 py-0.5 text-xs font-semibold ${
+                      className={`inline-block rounded-full px-2 py-0.5 text-xs font-semibold border ${
                         c.status === 'Active'
-                          ? 'bg-emerald-500/10 text-emerald-500'
-                          : 'bg-rose-500/10 text-rose-500'
+                          ? 'border-teal-200 bg-teal-50 text-teal-600'
+                          : 'border-rose-200 bg-rose-50 text-rose-600'
                       }`}
                     >
                       {c.status}
@@ -241,7 +241,7 @@ export default function CustomersPage() {
                     <div className="flex items-center justify-center gap-2">
                       <button
                         onClick={() => handleOpenProfile(c.id)}
-                        className="inline-flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-slate-400 bg-slate-500/10 px-2 py-1.5 rounded-lg"
+                        className="inline-flex items-center gap-1 text-xs font-bold text-slate-600 hover:text-slate-900 bg-white border border-slate-200 px-2 py-1.5 rounded-lg transition-colors hover:bg-slate-50 shadow-sm"
                       >
                         <Eye className="h-3.5 w-3.5" /> Profile
                       </button>
@@ -249,8 +249,8 @@ export default function CustomersPage() {
                         onClick={() => handleToggleBlock(c)}
                         className={`p-1.5 rounded-lg border transition-all ${
                           c.status === 'Blocked'
-                            ? 'border-emerald-500/25 bg-emerald-500/5 text-emerald-500 hover:bg-emerald-500/20'
-                            : 'border-rose-500/25 bg-rose-500/5 text-rose-500 hover:bg-rose-500/20'
+                            ? 'border-teal-200 bg-teal-50 text-teal-600 hover:bg-teal-100'
+                            : 'border-rose-200 bg-rose-50 text-rose-600 hover:bg-rose-100'
                         }`}
                         title={c.status === 'Blocked' ? 'Unblock Customer' : 'Block Customer'}
                       >
@@ -262,7 +262,7 @@ export default function CustomersPage() {
               ))}
               {customers.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="text-center py-12 text-slate-400">No customers registered under search parameters.</td>
+                  <td colSpan={7} className="text-center py-12 text-slate-500">No customers registered under search parameters.</td>
                 </tr>
               )}
             </tbody>
@@ -273,28 +273,28 @@ export default function CustomersPage() {
       {/* --- PROFILE DETAILS MODAL PANEL --- */}
       {profileOpen && selectedCustomer && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={() => setProfileOpen(false)} />
+          <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md" onClick={() => setProfileOpen(false)} />
           
-          <div className="relative w-full max-w-4xl rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl dark:border-slate-800 dark:bg-slate-900 max-h-[90vh] overflow-y-auto">
+          <div className="relative w-full max-w-4xl rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setProfileOpen(false)}
-              className="absolute top-4 right-4 rounded-lg p-1 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="absolute top-4 right-4 rounded-lg p-1 text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition-colors"
             >
               <X className="h-5 w-5" />
             </button>
 
             {/* Profile Header */}
-            <div className="flex flex-wrap items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4 mb-6 gap-3">
+            <div className="flex flex-wrap items-center justify-between border-b border-slate-200 pb-4 mb-6 gap-3">
               <div>
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white">{selectedCustomer.name}</h3>
-                <span className="text-xs text-slate-400 block mt-0.5">{selectedCustomer.email} | Joined: {new Date(selectedCustomer.createdAt).toLocaleDateString()}</span>
+                <h3 className="text-xl font-bold text-slate-900">{selectedCustomer.name}</h3>
+                <span className="text-xs text-slate-500 block mt-0.5">{selectedCustomer.email} | Joined: {new Date(selectedCustomer.createdAt).toLocaleDateString()}</span>
               </div>
               <button
                 onClick={() => handleToggleBlock(selectedCustomer)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold ${
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold border transition-colors ${
                   selectedCustomer.status === 'Blocked'
-                    ? 'bg-emerald-600 text-white'
-                    : 'bg-rose-500/10 text-rose-500 hover:bg-rose-500/20'
+                    ? 'border-teal-200 bg-teal-50 text-teal-600 hover:bg-teal-100'
+                    : 'border-rose-200 bg-rose-50 text-rose-600 hover:bg-rose-100'
                 }`}
               >
                 {selectedCustomer.status === 'Blocked' ? (
@@ -316,38 +316,38 @@ export default function CustomersPage() {
               <div className="space-y-6">
                 
                 {/* Contacts Box */}
-                <div className="rounded-xl border border-slate-200 dark:border-slate-800 p-4 space-y-3 bg-slate-50/50 dark:bg-slate-950/20">
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block border-b border-slate-100 dark:border-slate-800 pb-1">Particulars</span>
+                <div className="rounded-xl border border-slate-200 p-4 space-y-3 bg-slate-50">
+                  <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider block border-b border-slate-200 pb-1">Particulars</span>
                   <div className="space-y-2">
                     <div>
-                      <span className="text-xs text-slate-400 block">Phone Mobile</span>
-                      <span className="font-semibold text-slate-900 dark:text-white">{selectedCustomer.phone || 'N/A'}</span>
+                      <span className="text-xs text-slate-500 block">Phone Mobile</span>
+                      <span className="font-semibold text-slate-900">{selectedCustomer.phone || 'N/A'}</span>
                     </div>
                     <div>
-                      <span className="text-xs text-slate-400 block">Total Spent</span>
-                      <span className="font-bold text-emerald-500">₹{selectedCustomer.totalSpent.toLocaleString()}</span>
+                      <span className="text-xs text-slate-500 block">Total Spent</span>
+                      <span className="font-bold text-teal-600">₹{selectedCustomer.totalSpent.toLocaleString()}</span>
                     </div>
                     <div>
-                      <span className="text-xs text-slate-400 block">Purchase volume</span>
-                      <span className="font-semibold text-slate-900 dark:text-white">{selectedCustomer.ordersCount} orders</span>
+                      <span className="text-xs text-slate-500 block">Purchase volume</span>
+                      <span className="font-semibold text-slate-900">{selectedCustomer.ordersCount} orders</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Notes box Form */}
                 <form onSubmit={handleSaveNotes} className="space-y-3">
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block border-b border-slate-100 dark:border-slate-800 pb-1">Private Admin Notes</span>
+                  <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider block border-b border-slate-200 pb-1">Private Admin Notes</span>
                   <textarea
                     value={formNotes}
                     onChange={(e) => setFormNotes(e.target.value)}
                     rows={4}
                     placeholder="Enter private tracking info, customer preferences..."
-                    className="w-full text-xs rounded-xl border border-slate-200 bg-slate-50 p-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                    className="w-full text-xs rounded-xl border border-slate-300 bg-white p-3 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-slate-900 transition-colors placeholder-slate-400"
                   />
                   <button
                     type="submit"
                     disabled={savingNotes}
-                    className="flex items-center gap-1 bg-slate-600 text-white font-bold text-xs px-3 py-2 rounded-xl"
+                    className="flex items-center gap-1 bg-indigo-500 text-white font-bold text-xs px-3 py-2 rounded-xl hover:bg-indigo-600 transition-colors shadow-sm disabled:opacity-50"
                   >
                     {savingNotes && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
                     Save Notes
@@ -361,48 +361,48 @@ export default function CustomersPage() {
                 
                 {/* Address Cards */}
                 <div className="space-y-3">
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block border-b border-slate-100 dark:border-slate-800 pb-1">Registered Addresses</span>
+                  <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider block border-b border-slate-200 pb-1">Registered Addresses</span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {selectedCustomer.addressList.map((addr, idx) => (
-                      <div key={idx} className="flex gap-3 rounded-xl border border-slate-100 dark:border-slate-800 p-3 bg-white dark:bg-slate-900 text-xs">
-                        <MapPin className="h-4 w-4 text-slate-500 shrink-0 mt-0.5" />
+                      <div key={idx} className="flex gap-3 rounded-xl border border-slate-200 p-3 bg-slate-50 text-xs hover:bg-slate-100 transition-colors">
+                        <MapPin className="h-4 w-4 text-indigo-500 shrink-0 mt-0.5" />
                         <div>
-                          <span className="font-bold text-slate-800 dark:text-slate-300 block">Address #{idx + 1}</span>
-                          <p className="text-slate-400 mt-1">{addr.addressLine}</p>
-                          <p className="text-slate-400">{addr.city}, {addr.state} - {addr.zipCode}</p>
-                          <p className="text-slate-500 font-semibold">{addr.country}</p>
+                          <span className="font-bold text-slate-900 block">Address #{idx + 1}</span>
+                          <p className="text-slate-600 mt-1">{addr.addressLine}</p>
+                          <p className="text-slate-600">{addr.city}, {addr.state} - {addr.zipCode}</p>
+                          <p className="text-indigo-600 font-semibold">{addr.country}</p>
                         </div>
                       </div>
                     ))}
                     {selectedCustomer.addressList.length === 0 && (
-                      <p className="text-xs text-slate-400">No shipping addresses listed.</p>
+                      <p className="text-xs text-slate-500">No shipping addresses listed.</p>
                     )}
                   </div>
                 </div>
 
                 {/* Purchase Order History list */}
                 <div className="space-y-3">
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block border-b border-slate-100 dark:border-slate-800 pb-1">Order Transaction History</span>
-                  <div className="border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden text-xs">
+                  <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider block border-b border-slate-200 pb-1">Order Transaction History</span>
+                  <div className="border border-slate-200 rounded-xl overflow-hidden text-xs bg-white">
                     {selectedCustomer.orders?.map((ord: any) => (
-                      <div key={ord.id} className="flex items-center justify-between p-3 border-b border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 last:border-b-0">
+                      <div key={ord.id} className="flex items-center justify-between p-3 border-b border-slate-200 hover:bg-slate-50 transition-colors last:border-b-0">
                         <div>
-                          <span className="font-bold text-slate-900 dark:text-white block">{ord.orderNumber}</span>
-                          <span className="text-slate-400">{new Date(ord.createdAt).toLocaleDateString()} | {ord.products.length} products</span>
+                          <span className="font-bold text-slate-900 block">{ord.orderNumber}</span>
+                          <span className="text-slate-500">{new Date(ord.createdAt).toLocaleDateString()} | {ord.products.length} products</span>
                         </div>
                         <div className="flex items-center gap-3 text-right">
                           <div>
-                            <span className="font-bold text-slate-900 dark:text-white block">₹{ord.totalAmount.toLocaleString()}</span>
-                            <span className="text-[10px] text-slate-400 uppercase font-semibold">{ord.paymentStatus}</span>
+                            <span className="font-bold text-teal-600 block">₹{ord.totalAmount.toLocaleString()}</span>
+                            <span className="text-[10px] text-slate-500 uppercase font-semibold">{ord.paymentStatus}</span>
                           </div>
-                          <span className={`rounded-full px-2 py-0.5 font-semibold ${
-                            ord.status === 'Delivered' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-amber-500/10 text-amber-500'
+                          <span className={`rounded-full px-2 py-0.5 font-semibold border ${
+                            ord.status === 'Delivered' ? 'border-teal-200 bg-teal-50 text-teal-600' : 'border-indigo-200 bg-indigo-50 text-indigo-600'
                           }`}>{ord.status}</span>
                         </div>
                       </div>
                     ))}
                     {(!selectedCustomer.orders || selectedCustomer.orders.length === 0) && (
-                      <p className="text-xs text-slate-400 p-4 bg-white dark:bg-slate-900 text-center">No purchases recorded.</p>
+                      <p className="text-xs text-slate-500 p-4 text-center">No purchases recorded.</p>
                     )}
                   </div>
                 </div>

@@ -70,7 +70,7 @@ export default function BannerSlider({ banners }: BannerSliderProps) {
                   <div>
                     <Link
                       href={banner.redirectLink}
-                      className="inline-flex items-center gap-2 rounded-xl bg-slate-600 hover:bg-slate-500 text-white px-5 py-3 text-xs md:text-sm font-extrabold uppercase tracking-wider transition-all shadow-lg shadow-slate-600/30"
+                      className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white px-6 py-3.5 text-xs md:text-sm font-black uppercase tracking-wider transition-all shadow-lg shadow-indigo-500/40 glow-on-hover"
                     >
                       <span>{banner.buttonText}</span>
                       <ArrowRight className="h-4 w-4" />

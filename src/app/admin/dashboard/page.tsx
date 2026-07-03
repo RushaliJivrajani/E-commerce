@@ -12,7 +12,6 @@ import {
   Package,
   AlertTriangle,
   TrendingUp,
-  Filter,
   ArrowUpRight,
   ArrowDownRight,
   Loader2,
@@ -91,9 +90,9 @@ export default function DashboardPage() {
   if (loading || !metrics || !charts) {
     return (
       <div className="flex h-[60vh] items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-slate-500" />
-          <p className="text-sm text-slate-400">Compiling financial performance analytics...</p>
+        <div className="flex flex-col items-center gap-3 glass-panel p-8 rounded-2xl">
+          <Loader2 className="h-8 w-8 animate-spin text-indigo-500" />
+          <p className="text-sm font-semibold text-slate-500">Compiling Analytics...</p>
         </div>
       </div>
     );
@@ -107,149 +106,138 @@ export default function DashboardPage() {
       ? charts.weekly
       : charts.monthly;
 
-  // Pie chart accent palettes
-  const COLORS = ['#6366f1', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6'];
+  // Pie chart accent palettes - more muted/premium
+  const COLORS = ['#f59e0b', '#3b82f6', '#10b981', '#6366f1', '#f43f5e'];
 
   // Metric Box Configuration
   const metricCards = [
     {
       title: "Today's Revenue",
       value: `₹${metrics.todayRevenue.toLocaleString('en-IN')}`,
-      change: "+12.4% vs yesterday",
+      change: "+12.4%",
       isPositive: true,
-      icon: IndianRupee,
-      color: "from-emerald-500/10 to-teal-500/10 text-emerald-500 border-emerald-500/20"
+      icon: IndianRupee
     },
     {
       title: "Total Revenue",
       value: `₹${metrics.totalRevenue.toLocaleString('en-IN')}`,
-      change: "+8.2% this month",
+      change: "+8.2%",
       isPositive: true,
-      icon: TrendingUp,
-      color: "from-slate-500/10 to-blue-500/10 text-slate-500 border-slate-500/20"
+      icon: TrendingUp
     },
     {
       title: "Total Orders",
       value: metrics.totalOrders,
-      change: "+4.1% this week",
+      change: "+4.1%",
       isPositive: true,
-      icon: ShoppingBag,
-      color: "from-slate-500/10 to-purple-500/10 text-slate-500 border-slate-500/20"
+      icon: ShoppingBag
     },
     {
       title: "Pending Orders",
       value: metrics.pendingOrders,
-      change: "Needs packaging",
+      change: "Action required",
       isPositive: null,
-      icon: Clock,
-      color: "from-amber-500/10 to-orange-500/10 text-amber-500 border-amber-500/20"
+      icon: Clock
     },
     {
-      title: "Delivered Orders",
+      title: "Delivered",
       value: metrics.deliveredOrders,
-      change: "Fulfillment complete",
+      change: "Completed",
       isPositive: null,
-      icon: CheckCircle,
-      color: "from-green-500/10 to-emerald-500/10 text-green-500 border-green-500/20"
+      icon: CheckCircle
     },
     {
-      title: "Cancelled Orders",
+      title: "Cancelled",
       value: metrics.cancelledOrders,
-      change: "Returned / Cancelled",
+      change: "Lost revenue",
       isPositive: false,
-      icon: XCircle,
-      color: "from-rose-500/10 to-red-500/10 text-rose-500 border-rose-500/20"
+      icon: XCircle
     },
     {
-      title: "Return Requests",
+      title: "Returns",
       value: metrics.returnRequests,
-      change: "Needs attention",
+      change: "Pending requests",
       isPositive: metrics.returnRequests === 0 ? true : false,
-      icon: RefreshCcw,
-      color: "from-indigo-500/10 to-blue-500/10 text-indigo-500 border-indigo-500/20"
+      icon: RefreshCcw
     },
     {
-      title: "Total Customers",
+      title: "Customers",
       value: metrics.totalCustomers,
-      change: "Active user count",
+      change: "Active users",
       isPositive: true,
-      icon: Users,
-      color: "from-sky-500/10 to-cyan-500/10 text-sky-500 border-sky-500/20"
+      icon: Users
     },
     {
-      title: "Total Products",
+      title: "Products",
       value: metrics.totalProducts,
-      change: "In catalog listings",
+      change: "Live listings",
       isPositive: null,
-      icon: Package,
-      color: "from-pink-500/10 to-rose-500/10 text-pink-500 border-pink-500/20"
+      icon: Package
     },
     {
-      title: "Low Stock Products",
+      title: "Low Stock",
       value: metrics.lowStockProducts,
       change: "Needs reorder",
       isPositive: false,
-      icon: AlertTriangle,
-      color: metrics.lowStockProducts > 0 
-        ? "from-red-500/20 to-orange-500/20 text-red-500 border-red-500/30 animate-pulse"
-        : "from-slate-500/10 to-slate-600/10 text-slate-500 border-slate-500/20"
+      icon: AlertTriangle
     }
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-12">
       
       {/* Upper Dashboard Brief */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl flex items-center gap-2">
-            Dashboard Overview <Sparkles className="h-5 w-5 text-slate-500" />
+      <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between pb-2">
+        <div className="space-y-1">
+          <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-3">
+            Dashboard Overview <Sparkles className="h-5 w-5 text-indigo-500" />
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            Real-time analytics and store status performance reports.
+          <p className="text-sm font-medium text-slate-500">
+            Real-time analytics and store status.
           </p>
         </div>
 
-        {/* Global Controls Info */}
-        <div className="flex items-center gap-2 rounded-xl border border-border bg-card px-3 py-2 text-xs font-semibold text-muted-foreground shadow-sm">
-          <Calendar className="h-4 w-4 text-slate-500" />
-          <span>Syncing automatically</span>
+        <div className="flex items-center gap-2 border border-slate-200 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm">
+          <Calendar className="h-4 w-4 text-indigo-500" />
+          <span>Live Sync</span>
         </div>
       </div>
 
       {/* Metrics Card Grid */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
         {metricCards.map((card, idx) => {
           const Icon = card.icon;
           return (
             <div
               key={idx}
-              className={`rounded-2xl border border-border bg-card p-6 shadow-sm glow-on-hover ${card.color.split(' ').pop()}`}
+              className={`bg-white border border-slate-200 p-5 rounded-2xl flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow ${
+                card.title === 'Low Stock' && metrics.lowStockProducts > 0 ? 'border-rose-200 bg-rose-50' : ''
+              }`}
             >
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-slate-500 dark:text-slate-400">{card.title}</span>
-                <div className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr ${card.color.split(' ')[0]} ${card.color.split(' ')[1]}`}>
-                  <Icon className="h-5 w-5" />
+              <div className="flex justify-between items-start mb-4">
+                <span className="text-sm font-semibold text-slate-500">{card.title}</span>
+                <div className={`p-2 rounded-xl border ${card.title === 'Low Stock' && metrics.lowStockProducts > 0 ? 'bg-rose-100 text-rose-600 border-rose-200' : 'bg-slate-50 text-indigo-600 border-slate-200'}`}>
+                  <Icon className="h-4 w-4" />
                 </div>
               </div>
-              <div className="mt-4">
-                <span className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+              <div>
+                <span className="text-2xl font-bold text-slate-900 block mb-1">
                   {card.value}
                 </span>
-                <div className="flex items-center gap-1 mt-1">
+                <div className="flex items-center gap-1">
                   {card.isPositive === true && (
-                    <ArrowUpRight className="h-3 w-3 text-emerald-500 shrink-0" />
+                    <ArrowUpRight className="h-4 w-4 text-teal-500" />
                   )}
                   {card.isPositive === false && (
-                    <ArrowDownRight className="h-3 w-3 text-rose-500 shrink-0" />
+                    <ArrowDownRight className="h-4 w-4 text-rose-500" />
                   )}
                   <span
-                    className={`text-xs ${
+                    className={`text-xs font-semibold ${
                       card.isPositive === true
-                        ? 'text-emerald-500 font-medium'
+                        ? 'text-teal-500'
                         : card.isPositive === false
-                        ? 'text-rose-500 font-medium'
-                        : 'text-slate-400'
+                        ? 'text-rose-500'
+                        : 'text-indigo-500'
                     }`}
                   >
                     {card.change}
@@ -265,50 +253,48 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         
         {/* Sales trends lines */}
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <div className="flex items-center justify-between mb-4 border-b border-border pb-4">
+        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+          <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-lg font-bold text-slate-900 dark:text-white">Sales Analysis</h2>
-              <p className="text-xs text-slate-400">Monitor billing trends over time</p>
+              <h2 className="text-lg font-bold text-slate-900">Sales Revenue</h2>
+              <p className="text-sm font-medium text-slate-500">Billing trends over time</p>
             </div>
             
-            {/* Filter buttons */}
-            <div className="flex rounded-lg bg-muted p-0.5">
+            <div className="flex border border-slate-200 rounded-xl p-1 bg-slate-50">
               {(['daily', 'weekly', 'monthly'] as const).map((mode) => (
                 <button
                   key={mode}
                   onClick={() => setSalesFilter(mode)}
-                  className={`rounded-md px-3 py-1 text-xs font-semibold capitalize transition-all ${
+                  className={`px-3 py-1.5 text-sm font-semibold rounded-lg transition-colors ${
                     salesFilter === mode
-                      ? 'bg-slate-600 text-white shadow-sm'
-                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white'
+                      ? 'bg-white text-slate-900 shadow-sm border border-slate-200'
+                      : 'text-slate-500 hover:text-slate-700'
                   }`}
                 >
-                  {mode}
+                  {mode.charAt(0).toUpperCase() + mode.slice(1)}
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="h-80 w-full text-xs">
+          <div className="h-80 w-full text-[10px] font-light">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={salesChartSource} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" opacity={0.15} />
-                <XAxis dataKey="name" stroke="#94a3b8" />
-                <YAxis stroke="#94a3b8" tickFormatter={(v) => `₹${v}`} />
+              <LineChart data={salesChartSource} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+                <XAxis dataKey="name" stroke="#64748b" tick={{fill: '#64748b'}} axisLine={false} tickLine={false} dy={10} />
+                <YAxis stroke="#64748b" tickFormatter={(v) => `₹${v}`} tick={{fill: '#64748b'}} axisLine={false} tickLine={false} dx={-10} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '12px' }}
-                  labelStyle={{ color: '#fff', fontWeight: 'bold' }}
-                  itemStyle={{ color: '#818cf8' }}
+                  contentStyle={{ backgroundColor: '#fff', borderColor: '#e2e8f0', color: '#0f172a', borderRadius: '12px', fontSize: '12px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}
+                  itemStyle={{ color: '#f59e0b' }}
                   formatter={(value) => [`₹${Number(value).toLocaleString()}`, 'Revenue']}
                 />
                 <Line
                   type="monotone"
                   dataKey="revenue"
-                  stroke="#6366f1"
+                  stroke="#fbbf24"
                   strokeWidth={3}
-                  activeDot={{ r: 8 }}
-                  dot={{ r: 4 }}
+                  dot={{ r: 4, fill: '#fbbf24', strokeWidth: 0 }}
+                  activeDot={{ r: 6, fill: '#fbbf24', strokeWidth: 0, stroke: 'rgba(251,191,36,0.3)', strokeWidth: 4 }}
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -316,87 +302,89 @@ export default function DashboardPage() {
         </div>
 
         {/* Customer Growth Area */}
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <div className="mb-4 border-b border-border pb-4">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white">Customer Acquisition</h2>
-            <p className="text-xs text-slate-400">Total client sign-ups trends</p>
+        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+          <div className="mb-6">
+            <h2 className="text-lg font-bold text-slate-900">Customer Growth</h2>
+            <p className="text-sm font-medium text-slate-500">Total sign-ups trends</p>
           </div>
 
-          <div className="h-80 w-full text-xs">
+          <div className="h-80 w-full text-[10px] font-light">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={charts.customerGrowth} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
+              <AreaChart data={charts.customerGrowth} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.2}/>
-                    <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#fce7f3" stopOpacity={0.4}/>
+                    <stop offset="95%" stopColor="#fce7f3" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" opacity={0.15} />
-                <XAxis dataKey="name" stroke="#94a3b8" />
-                <YAxis stroke="#94a3b8" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+                <XAxis dataKey="name" stroke="#64748b" tick={{fill: '#64748b'}} axisLine={false} tickLine={false} dy={10} />
+                <YAxis stroke="#64748b" tick={{fill: '#64748b'}} axisLine={false} tickLine={false} dx={-10} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '12px' }}
-                  labelStyle={{ color: '#fff' }}
-                  itemStyle={{ color: '#10b981' }}
+                  contentStyle={{ backgroundColor: '#fff', borderColor: '#e2e8f0', color: '#0f172a', borderRadius: '12px', fontSize: '12px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}
+                  itemStyle={{ color: '#fbcfe8' }}
                   formatter={(value) => [value, 'Total Customers']}
                 />
-                <Area type="monotone" dataKey="count" stroke="#10b981" fillOpacity={1} fill="url(#colorCount)" strokeWidth={2} />
+                <Area type="monotone" dataKey="count" stroke="#fce7f3" fillOpacity={1} fill="url(#colorCount)" strokeWidth={3} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         {/* Category breakdown pie */}
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <div className="mb-4 border-b border-border pb-4">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white">Category Performance</h2>
-            <p className="text-xs text-slate-400">Revenue contribution per main department</p>
+        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+          <div className="mb-6">
+            <h2 className="text-lg font-bold text-slate-900">Category Split</h2>
+            <p className="text-sm font-medium text-slate-500">Revenue by department</p>
           </div>
 
-          <div className="h-80 w-full flex items-center justify-center text-xs">
+          <div className="h-80 w-full flex items-center justify-center text-[10px] font-bold uppercase tracking-widest text-slate-700">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={charts.category}
                   cx="50%"
                   cy="50%"
-                  innerRadius={60}
-                  outerRadius={90}
-                  paddingAngle={5}
+                  innerRadius={80}
+                  outerRadius={110}
+                  paddingAngle={2}
                   dataKey="value"
-                  label={({ name, percent }: any) => `${name} ${((percent || 0) * 100).toFixed(0)}%`}
+                  stroke="none"
                 >
                   {charts.category.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(value) => `₹${Number(value).toLocaleString()}`} />
-                <Legend layout="horizontal" verticalAlign="bottom" align="center" />
+                <Tooltip 
+                  contentStyle={{ backgroundColor: '#000', borderColor: '#000', color: '#fff', borderRadius: '0', fontSize: '12px' }}
+                  formatter={(value) => `₹${Number(value).toLocaleString()}`} 
+                />
+                <Legend layout="horizontal" verticalAlign="bottom" align="center" iconType="square" />
               </PieChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         {/* Top Products performance bar */}
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm font-sans">
-          <div className="mb-4 border-b border-border pb-4">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white">Top Performing Products</h2>
-            <p className="text-xs text-slate-400">Best products by generated sales volume</p>
+        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+          <div className="mb-6">
+            <h2 className="text-lg font-bold text-slate-900">Top Products</h2>
+            <p className="text-sm font-medium text-slate-500">Volume generated</p>
           </div>
 
-          <div className="h-80 w-full text-xs">
+          <div className="h-80 w-full text-[10px] font-light">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={charts.topProducts} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" opacity={0.15} />
-                <XAxis dataKey="name" stroke="#94a3b8" tickFormatter={(name) => name.length > 15 ? name.substring(0, 15) + '...' : name} />
-                <YAxis stroke="#94a3b8" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+                <XAxis dataKey="name" stroke="#94a3b8" tickFormatter={(name) => name.length > 10 ? name.substring(0, 10) + '...' : name} tick={{fill: '#94a3b8'}} axisLine={false} tickLine={false} dy={10} />
+                <YAxis stroke="#94a3b8" tick={{fill: '#94a3b8'}} axisLine={false} tickLine={false} dx={-10} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '12px' }}
-                  labelStyle={{ color: '#fff' }}
-                  itemStyle={{ color: '#8b5cf6' }}
+                  contentStyle={{ backgroundColor: '#000', borderColor: '#000', color: '#fff', borderRadius: '0', fontSize: '12px' }}
+                  itemStyle={{ color: '#fff' }}
+                  cursor={{fill: '#f8fafc'}}
                   formatter={(value, name) => [name === 'revenue' ? `₹${Number(value).toLocaleString()}` : value, name === 'revenue' ? 'Revenue' : 'Units Sold']}
                 />
-                <Bar dataKey="sales" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="sales" fill="#3b82f6" maxBarSize={40} radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -407,28 +395,30 @@ export default function DashboardPage() {
       {/* Row list of detailed products & inventory alerts */}
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
         {/* Top sales table */}
-        <div className="xl:col-span-2 rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Top Selling Items</h2>
+        <div className="xl:col-span-2 bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+          <div className="p-6 border-b border-slate-200">
+             <h2 className="text-lg font-bold text-slate-900">Top Selling Items</h2>
+          </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm text-slate-500 dark:text-slate-400">
-              <thead className="text-xs uppercase bg-muted font-semibold border-b border-border text-muted-foreground">
+            <table className="w-full text-left">
+              <thead className="bg-slate-50 border-b border-slate-200">
                 <tr>
-                  <th className="px-4 py-3">Product Name</th>
-                  <th className="px-4 py-3 text-center">Units Sold</th>
-                  <th className="px-4 py-3 text-right">Gross revenue</th>
+                  <th className="px-6 py-4 text-xs font-semibold text-slate-500">Product Name</th>
+                  <th className="px-6 py-4 text-xs font-semibold text-slate-500 text-center">Units Sold</th>
+                  <th className="px-6 py-4 text-xs font-semibold text-slate-500 text-right">Revenue</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-border">
+              <tbody className="divide-y divide-slate-100">
                 {charts.topProducts.map((p, index) => (
-                  <tr key={index} className="hover:bg-muted/50 transition-colors">
-                    <td className="px-4 py-3.5 font-medium text-slate-900 dark:text-white">{p.name}</td>
-                    <td className="px-4 py-3.5 text-center font-bold text-slate-500">{p.sales}</td>
-                    <td className="px-4 py-3.5 text-right font-semibold text-emerald-500">₹{p.revenue.toLocaleString('en-IN')}</td>
+                  <tr key={index} className="hover:bg-slate-50 transition-colors">
+                    <td className="px-8 py-5 text-xs font-medium text-slate-900">{p.name}</td>
+                    <td className="px-8 py-5 text-xs font-bold text-indigo-600 text-center">{p.sales}</td>
+                    <td className="px-8 py-5 text-xs font-bold text-teal-600 text-right">₹{p.revenue.toLocaleString('en-IN')}</td>
                   </tr>
                 ))}
                 {charts.topProducts.length === 0 && (
                   <tr>
-                    <td colSpan={3} className="text-center py-6 text-slate-400">No sales transactions logged yet.</td>
+                    <td colSpan={3} className="text-center py-12 text-xs font-light text-slate-500">No sales transactions logged yet.</td>
                   </tr>
                 )}
               </tbody>
@@ -437,38 +427,41 @@ export default function DashboardPage() {
         </div>
 
         {/* Low Stock alerts list box */}
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Inventory Stock Warnings</h2>
+        <div className="glass-panel p-6 rounded-2xl space-y-6 shadow-sm hover:shadow-md transition-shadow">
+          <div className="pb-2">
+             <h2 className="text-lg font-bold text-slate-900">Inventory Alerts</h2>
+          </div>
+          
           <div className="space-y-4">
             {metrics.lowStockProducts > 0 ? (
-              <div className="flex items-center gap-3 p-3 rounded-xl border border-red-500/20 bg-red-500/5 text-red-500 text-xs">
-                <AlertTriangle className="h-5 w-5 shrink-0" />
-                <div>
-                  <span className="font-bold">Attention Required!</span>
-                  <p className="mt-0.5 text-slate-400">You have {metrics.lowStockProducts} products reaching low levels.</p>
+              <div className="flex items-start gap-4 p-4 border border-rose-500/50 bg-rose-500/10 rounded-xl text-rose-400">
+                <AlertTriangle className="h-5 w-5 shrink-0" strokeWidth={1.5} />
+                <div className="space-y-1">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-glow">Attention Required!</span>
+                  <p className="text-xs font-medium text-rose-300">You have {metrics.lowStockProducts} products reaching low levels.</p>
                 </div>
               </div>
             ) : (
-              <div className="flex items-center gap-3 p-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-emerald-500 text-xs">
-                <CheckCircle className="h-5 w-5 shrink-0" />
-                <div>
-                  <span className="font-bold">Inventory Healthy</span>
-                  <p className="mt-0.5 text-slate-400">All products are well stocked.</p>
+              <div className="flex items-start gap-4 p-4 border border-teal-500/30 bg-teal-500/10 rounded-xl text-teal-400">
+                <CheckCircle className="h-5 w-5 shrink-0" strokeWidth={1.5} />
+                <div className="space-y-1">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-glow">Inventory Healthy</span>
+                  <p className="text-xs font-medium text-teal-200/70">All products are well stocked.</p>
                 </div>
               </div>
             )}
 
             {/* Quick action info */}
-            <div className="rounded-xl border border-border bg-muted/40 p-4 text-xs space-y-2">
-              <span className="font-semibold text-slate-400 uppercase tracking-wider block">Logistics Insight:</span>
-              <p className="text-slate-500 dark:text-slate-400 leading-relaxed">
-                Check the Product Management portal to filter and view catalog items marked under Alert quantities, duplicate listings, or bulk update items via spreadsheets.
+            <div className="border border-slate-200 bg-slate-50 rounded-xl p-5 space-y-3">
+              <span className="text-sm font-semibold text-slate-900">Logistics Insight</span>
+              <p className="text-sm text-slate-500">
+                Check the Product Management portal to filter and view catalog items marked under Alert quantities, duplicate listings, or bulk update items.
               </p>
               <button 
                 onClick={() => window.location.href = '/admin/products'}
-                className="mt-2 text-xs font-bold text-slate-500 hover:text-slate-400 hover:underline flex items-center gap-1"
+                className="text-sm font-bold text-indigo-600 hover:text-indigo-700 flex items-center gap-1 transition-colors pt-2"
               >
-                Go to Catalog <ArrowUpRight className="h-3 w-3" />
+                Go to Catalog <ArrowUpRight className="h-4 w-4" />
               </button>
             </div>
 

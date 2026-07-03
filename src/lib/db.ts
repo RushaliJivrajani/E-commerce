@@ -330,7 +330,7 @@ class JSONDatabase {
 
     // Default Seed Data
     const salt = bcrypt.genSaltSync(10);
-    const superAdminPasswordHash = bcrypt.hashSync('Password123', salt);
+    const superAdminPasswordHash = bcrypt.hashSync('Rush@123', salt);
     const adminPasswordHash = bcrypt.hashSync('Admin123', salt);
 
     const defaultData: MockDatabaseSchema = {
@@ -338,102 +338,20 @@ class JSONDatabase {
         {
           id: 'usr_1',
           email: 'admin@rushcloset.com',
-          name: 'Rushali Jivrajani',
+          name: 'Super Admin',
           passwordHash: superAdminPasswordHash,
           role: 'Super Admin',
           permissions: ['all'],
           twoFactorEnabled: false,
           createdAt: new Date().toISOString(),
-        },
-        {
-          id: 'usr_2',
-          email: 'manager@rushcloset.com',
-          name: 'John Doe',
-          passwordHash: adminPasswordHash,
-          role: 'Manager',
-          permissions: ['add_product', 'edit_product', 'view_orders', 'edit_orders'],
-          twoFactorEnabled: false,
-          createdAt: new Date().toISOString(),
         }
       ],
-      categories: [
-        { id: 'cat_1', name: 'Women', slug: 'women', status: 'Active', position: 1 },
-        { id: 'cat_2', name: 'Men', slug: 'men', status: 'Active', position: 2 },
-        { id: 'cat_3', name: 'Kids', slug: 'kids', status: 'Active', position: 3 },
-        { id: 'cat_1_sub1', name: 'Dresses', slug: 'dresses', parentId: 'cat_1', status: 'Active', position: 1 },
-        { id: 'cat_1_sub2', name: 'Tops', slug: 'tops', parentId: 'cat_1', status: 'Active', position: 2 },
-        { id: 'cat_1_sub1_child1', name: 'Party Dress', slug: 'party-dress', parentId: 'cat_1_sub1', status: 'Active', position: 1 }
-      ],
-      products: [
-        {
-          id: 'prod_1',
-          name: 'Elegant Velvet Night Dress',
-          slug: 'elegant-velvet-night-dress',
-          description: 'A luxurious velvet dress perfect for parties and formal evening gatherings. Features a sweetheart neckline and rich premium drape.',
-          shortDescription: 'Luxurious evening dress in deep midnight black velvet.',
-          category: 'cat_1',
-          subcategory: 'cat_1_sub1',
-          childcategory: 'cat_1_sub1_child1',
-          brand: 'Velvet Queen',
-          tags: ['velvet', 'night', 'dress', 'partywear'],
-          images: [
-            'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&auto=format&fit=crop&q=60',
-            'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&auto=format&fit=crop&q=60'
-          ],
-          regularPrice: 2499,
-          sellingPrice: 1999,
-          costPrice: 950,
-          taxRate: 18,
-          stock: 45,
-          lowStockAlert: 10,
-          featured: true,
-          trending: true,
-          bestSeller: true,
-          status: 'Active',
-          attributes: {
-            sizes: ['S', 'M', 'L'],
-            colors: ['Midnight Black', 'Emerald Green'],
-            fabrics: ['Velvet']
-          },
-          variants: [
-            { sku: 'RF-EVD-S-BLK', size: 'S', color: 'Midnight Black', fabric: 'Velvet', stock: 15, price: 1999 },
-            { sku: 'RF-EVD-M-BLK', size: 'M', color: 'Midnight Black', fabric: 'Velvet', stock: 10, price: 1999 },
-            { sku: 'RF-EVD-L-BLK', size: 'L', color: 'Midnight Black', fabric: 'Velvet', stock: 5, price: 2199 },
-            { sku: 'RF-EVD-S-GRN', size: 'S', color: 'Emerald Green', fabric: 'Velvet', stock: 8, price: 1999 },
-            { sku: 'RF-EVD-M-GRN', size: 'M', color: 'Emerald Green', fabric: 'Velvet', stock: 7, price: 1999 }
-          ],
-          createdAt: new Date(Date.now() - 5 * 24 * 3600 * 1000).toISOString()
-        }
-      ],
+      categories: [],
+      products: [],
       orders: [],
       customers: [],
-      banners: [
-        {
-          id: 'ban_1',
-          type: 'Homepage Slider',
-          image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&auto=format&fit=crop&q=80',
-          title: 'Summer Solstice Elegance',
-          buttonText: 'Shop New Arrivals',
-          redirectLink: '/shop',
-          startDate: '2026-06-01',
-          endDate: '2026-08-31',
-          status: 'Active'
-        }
-      ],
-      coupons: [
-        {
-          id: 'coup_1',
-          code: 'RUSH20',
-          type: 'Percentage',
-          value: 20,
-          minAmount: 1499,
-          maxDiscount: 500,
-          usageLimit: 100,
-          usageCount: 0,
-          expiryDate: '2026-12-31',
-          status: 'Active'
-        }
-      ],
+      banners: [],
+      coupons: [],
       activity_logs: [
         {
           id: 'log_1',
@@ -466,20 +384,7 @@ class JSONDatabase {
         ]
       },
       reviews: [],
-      website_content: [
-        {
-          id: 'about-us',
-          title: 'About Rush Closet',
-          content: '<h1>About Us</h1><p>Rush Closet is a premium fashion destination offering contemporary apparel for men, women, and children. Founded in 2024, we aim to merge luxury textures with streetwear styles.</p>',
-          lastUpdated: new Date().toISOString()
-        },
-        {
-          id: 'return-policy',
-          title: 'Return Policy',
-          content: '<h1>Return Policy</h1><p>We offer a hassle-free 7-day return and exchange policy on all unused garments containing tags intact.</p>',
-          lastUpdated: new Date().toISOString()
-        }
-      ],
+      website_content: [],
       return_requests: [],
       notification_templates: [
         {

@@ -89,8 +89,8 @@ function OrderSuccessDetails() {
 
       {/* Success Confirmation Card */}
       <div className="text-center py-10 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-4 print:hidden">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 text-emerald-555 dark:bg-emerald-950/20 dark:text-emerald-400 relative">
-          <span className="absolute inset-0 bg-emerald-500/20 rounded-full animate-ping opacity-75"></span>
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-teal-50 text-teal-555 dark:bg-teal-950/20 dark:text-teal-400 relative">
+          <span className="absolute inset-0 bg-teal-500/20 rounded-full animate-ping opacity-75"></span>
           <CheckCircle className="h-10 w-10 relative z-10" />
         </div>
         
@@ -150,8 +150,8 @@ function OrderSuccessDetails() {
               <span className="text-slate-500">Payment Status:</span>
               <span className={`inline-flex rounded px-1.5 py-0.5 text-[10px] font-bold uppercase ${
                 order.paymentStatus === 'Paid'
-                  ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950/35 dark:text-emerald-400'
-                  : 'bg-amber-50 text-amber-600 dark:bg-amber-950/35 dark:text-amber-400'
+                  ? 'bg-teal-50 text-teal-600 dark:bg-teal-950/35 dark:text-teal-400'
+                  : 'bg-indigo-50 text-indigo-600 dark:bg-indigo-950/35 dark:text-indigo-400'
               }`}>
                 {order.paymentStatus}
               </span>
@@ -207,7 +207,7 @@ function OrderSuccessDetails() {
           <div className="flex justify-between text-slate-500">
             <span>Shipping Fees</span>
             {order.shippingCharges === 0 ? (
-              <span className="text-emerald-500 uppercase text-[10px]">Free</span>
+              <span className="text-teal-500 uppercase text-[10px]">Free</span>
             ) : (
               <span className="text-slate-900 dark:text-white">₹{order.shippingCharges}</span>
             )}

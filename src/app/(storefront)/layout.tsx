@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
   ShoppingBag,
+  ShoppingCart,
   Menu,
   X,
   Mail,
@@ -114,183 +115,136 @@ export default function StorefrontLayout({ children }: { children: React.ReactNo
   const mainCategories = categories.filter(c => !c.parentId);
 
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground transition-colors duration-300">
+    <div className="flex min-h-screen flex-col bg-background text-foreground transition-colors duration-500">
       <Toaster position="top-right" />
 
       {/* --- TOP BANNER/ALERT LINE --- */}
-      <div className="bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800 text-center py-2 px-4 text-xs font-semibold text-white tracking-wide flex justify-center items-center gap-2 shadow-sm">
-        <Sparkles className="h-3.5 w-3.5 animate-pulse text-slate-200" />
-        <span>Use Coupon code <span className="underline font-bold text-amber-200">RUSH20</span> for 20% off on orders above ₹1,499!</span>
-        <ArrowRight className="h-3 w-3" />
+      <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-center py-2.5 px-4 text-xs font-bold text-white tracking-wide flex justify-center items-center gap-2 shadow-md">
+        <Sparkles className="h-4 w-4 text-pink-200" />
+        <span>Use Coupon code <span className="underline font-black text-white decoration-pink-300">RUSH20</span> for 20% off on orders above ₹1,499!</span>
+        <ArrowRight className="h-4 w-4 text-pink-200" />
       </div>
 
-      {/* --- HEADER NAVBAR --- */}
-      <header className="sticky top-0 z-45 w-full border-b border-border bg-card/70 backdrop-blur-xl transition-all duration-300">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      {/* --- PREMIUM MARKETPLACE HEADER --- */}
+      <header className="sticky top-0 z-50 w-full glass-panel border-b-0">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 text-slate-900">
           
-          {/* Logo */}
-          <div className="flex items-center gap-8">
-            <Link href="/" className="flex items-center gap-2 font-bold tracking-wider">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-tr from-slate-500 to-slate-600 shadow-md shadow-slate-500/20 text-white shrink-0">
-                <ShoppingBag className="h-5 w-5" />
-              </div>
-              <span className="text-base font-extrabold text-slate-900 dark:text-white uppercase">
-                RUSH <span className="bg-gradient-to-r from-slate-500 to-slate-500 bg-clip-text text-transparent">FASHION</span>
-              </span>
-            </Link>
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 -ml-2 text-slate-700 hover:text-indigo-500 transition-colors"
+          >
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
 
-            {/* Desktop Navigation Links */}
-            <nav className="hidden md:flex items-center gap-6">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2">
+            <span className="text-2xl font-bold tracking-tight text-slate-900 flex items-center">
+              <span className="text-indigo-500 mr-1">RUSH</span>CLOSET
+            </span>
+          </Link>
+
+          {/* Desktop Navigation Links */}
+          <nav className="hidden md:flex items-center gap-6 absolute left-1/2 -translate-x-1/2">
+            <Link
+              href="/shop"
+              className={`text-sm font-semibold transition-colors ${
+                pathname === '/shop' ? 'text-indigo-500 text-glow' : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Collection
+            </Link>
+            {mainCategories.map((cat) => (
               <Link
-                href="/shop"
-                className={`text-sm font-semibold transition-colors ${
-                  pathname === '/shop' ? 'text-slate-600' : 'text-slate-600 hover:text-slate-500'
-                }`}
+                key={cat.id}
+                href={`/shop?category=${cat.id}`}
+                className="text-sm font-semibold text-slate-600 hover:text-indigo-500 transition-colors"
               >
-                All Shop
+                {cat.name}
               </Link>
-              {mainCategories.map((cat) => (
-                <Link
-                  key={cat.id}
-                  href={`/shop?category=${cat.id}`}
-                  className="text-sm font-semibold text-slate-600 hover:text-slate-500 transition-colors"
-                >
-                  {cat.name}
-                </Link>
-              ))}
-              <Link
-                href="/about"
-                className={`text-sm font-semibold transition-colors ${
-                  pathname === '/about' ? 'text-slate-600' : 'text-slate-600 hover:text-slate-500'
-                }`}
-              >
-                About Us
-              </Link>
-            </nav>
-          </div>
+            ))}
+          </nav>
 
           {/* Right actions */}
-          <div className="flex items-center gap-3">
-
-            {/* Login / My Account */}
+          <div className="flex items-center gap-6">
             {customerSession ? (
-              <div className="hidden md:flex items-center gap-2">
+              <div className="hidden md:flex items-center gap-4">
                 <Link
                   href="/account/orders"
-                  className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-all shadow-sm"
+                  className="text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all flex items-center gap-2"
                 >
-                  <div className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-600 text-white text-[9px] font-black">
-                    {customerSession.name?.charAt(0)?.toUpperCase()}
-                  </div>
-                  <span>{customerSession.name?.split(' ')[0]}</span>
-                  <Package className="h-3.5 w-3.5 text-slate-400" />
+                  <User className="h-4 w-4" /> Account
                 </Link>
                 <button
                   onClick={handleCustomerLogout}
-                  className="rounded-xl border border-slate-200 p-2 text-slate-500 hover:bg-red-50 hover:border-red-200 hover:text-red-500 transition-all"
+                  className="text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all"
                   title="Sign Out"
                 >
-                  <LogOut className="h-4 w-4" />
+                  Sign Out
                 </button>
               </div>
             ) : (
               <Link
                 href="/account/login"
-                className="hidden md:flex items-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 transition-all"
+                className="hidden md:flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all"
               >
-                <User className="h-3.5 w-3.5" />
-                Login
+                <User className="h-4 w-4" /> Sign In
               </Link>
             )}
 
             {/* Cart Icon */}
             <Link
               href="/cart"
-              className="relative rounded-xl p-2 text-slate-600 hover:bg-slate-100 transition-colors"
+              className="relative p-2 -mr-2 text-slate-700 hover:text-indigo-500 transition-colors flex items-center gap-1"
               aria-label="View Shopping Cart"
             >
-              <ShoppingBag className="h-5 w-5" />
+              <ShoppingCart className="h-6 w-6" />
+              <span className="hidden sm:inline text-sm font-bold">Cart</span>
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-slate-600 text-[10px] font-bold text-white shadow-md shadow-slate-600/20">
+                <span className="absolute -top-1 right-0 sm:right-6 flex h-5 w-5 items-center justify-center rounded-full bg-indigo-500 text-xs font-bold text-white border-2 border-white shadow-sm">
                   {cartCount}
                 </span>
               )}
             </Link>
-
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="rounded-xl p-2 text-slate-600 hover:bg-slate-100 md:hidden transition-colors"
-            >
-              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
           </div>
         </div>
       </header>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 flex md:hidden bg-slate-950/80 backdrop-blur-sm">
-          <div className="w-64 bg-white dark:bg-slate-900 p-6 border-r border-slate-200 dark:border-slate-800 flex flex-col h-full">
-            <div className="flex justify-between items-center mb-8">
-              <span className="font-extrabold text-slate-950 dark:text-white uppercase">NAVIGATE</span>
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="rounded-lg p-1 hover:bg-slate-100 dark:hover:bg-slate-800"
-              >
-                <X className="h-5 w-5" />
+        <div className="fixed inset-0 z-[60] flex md:hidden bg-white/95 backdrop-blur-md">
+          <div className="w-full flex flex-col h-full p-6">
+            <div className="flex justify-between items-center mb-12">
+              <span className="text-xl font-bold tracking-tight text-slate-900 flex items-center text-glow">
+                <span className="text-indigo-500 mr-1">RUSH</span>CLOSET
+              </span>
+              <button onClick={() => setMobileMenuOpen(false)} className="p-2 -mr-2 text-slate-700">
+                <X className="h-6 w-6" />
               </button>
             </div>
 
-            <nav className="flex-1 flex flex-col gap-4">
-              <Link
-                href="/shop"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-lg font-bold text-slate-900 hover:text-slate-500"
-              >
-                All Shop
+            <nav className="flex-1 flex flex-col gap-6">
+              <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="text-xl font-semibold text-slate-900">
+                New In
               </Link>
               {mainCategories.map((cat) => (
-                <Link
-                  key={cat.id}
-                  href={`/shop?category=${cat.id}`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-lg font-bold text-slate-700 hover:text-slate-500"
-                >
+                <Link key={cat.id} href={`/shop?category=${cat.id}`} onClick={() => setMobileMenuOpen(false)} className="text-xl font-semibold text-slate-600 hover:text-indigo-500">
                   {cat.name}
                 </Link>
               ))}
-              <Link
-                href="/about"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-lg font-bold text-slate-700 hover:text-slate-500 flex items-center gap-2"
-              >
-                <Info className="h-4 w-4" /> About Us
-              </Link>
-              <div className="h-px bg-slate-200 my-2" />
+              <div className="h-px bg-slate-200 my-4" />
               {customerSession ? (
                 <>
-                  <Link
-                    href="/account/orders"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-lg font-bold text-slate-600 flex items-center gap-2"
-                  >
-                    <Package className="h-4 w-4" /> My Orders
+                  <Link href="/account/orders" onClick={() => setMobileMenuOpen(false)} className="text-lg font-semibold text-slate-600 flex items-center gap-2">
+                    <User className="h-5 w-5 text-indigo-500" /> My Account
                   </Link>
-                  <button
-                    onClick={() => { handleCustomerLogout(); setMobileMenuOpen(false); }}
-                    className="text-left text-lg font-bold text-red-500 flex items-center gap-2"
-                  >
-                    <LogOut className="h-4 w-4" /> Sign Out
+                  <button onClick={() => { handleCustomerLogout(); setMobileMenuOpen(false); }} className="text-left text-lg font-semibold text-rose-500">
+                    Sign Out
                   </button>
                 </>
               ) : (
-                <Link
-                  href="/account/login"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-lg font-bold text-slate-600 flex items-center gap-2"
-                >
-                  <User className="h-4 w-4" /> Login / Register
+                <Link href="/account/login" onClick={() => setMobileMenuOpen(false)} className="text-lg font-semibold text-white bg-indigo-500 px-4 py-3 rounded-lg text-center flex justify-center items-center gap-2 glass-button hover:text-white">
+                  <User className="h-5 w-5" /> Sign In / Register
                 </Link>
               )}
             </nav>
@@ -303,55 +257,30 @@ export default function StorefrontLayout({ children }: { children: React.ReactNo
         {children}
       </main>
 
-      {/* --- PREMIUM FOOTER --- */}
-      <footer className="border-t border-border bg-card/40 backdrop-blur-md text-muted-foreground mt-auto transition-all duration-300">
+      {/* --- MARKETPLACE FOOTER --- */}
+      <footer className="glass-panel mt-auto border-t-0 text-slate-600">
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             
             {/* About Column */}
             <div className="space-y-4">
-              <div className="flex items-center gap-2 font-bold tracking-wider">
-                <div className="flex h-7 w-7 items-center justify-center rounded bg-slate-600 text-white text-xs">
-                  <ShoppingBag className="h-4 w-4" />
-                </div>
-                <span className="text-sm font-extrabold text-slate-900 dark:text-white uppercase">
-                  {settings?.storeName || 'RUSH CLOSET'}
-                </span>
-              </div>
-              <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-                Experience high-end style merged with premium fabrications. Dynamic shopping experience powered by local caching architectures.
+              <span className="text-xl font-bold text-slate-900 flex items-center text-glow">
+                <span className="text-indigo-500 mr-1">RUSH</span>CLOSET
+              </span>
+              <p className="text-xs leading-relaxed text-slate-500">
+                Experience high-end style merged with premium fabrications. Curated global collections designed for the modern individual.
               </p>
-              {/* Social Icons */}
-              <div className="flex items-center gap-3">
-                {settings?.socialLinks?.facebook && (
-                  <a href={settings.socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-slate-500">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-                  </a>
-                )}
-                {settings?.socialLinks?.instagram && (
-                  <a href={settings.socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-slate-500">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.51"/></svg>
-                  </a>
-                )}
-                {settings?.socialLinks?.twitter && (
-                  <a href={settings.socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="hover:text-slate-500">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
-                  </a>
-                )}
-              </div>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h3 className="text-xs font-extrabold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Quick Shop</h3>
-              <ul className="space-y-2 text-xs">
-                <li>
-                  <Link href="/shop" className="hover:text-slate-500 transition-colors">Shop Catalog</Link>
-                </li>
+              <h3 className="text-sm font-bold text-slate-900 mb-4">Shop With Us</h3>
+              <ul className="space-y-3 text-sm">
+                <li><Link href="/shop" className="hover:text-indigo-500 transition-colors">New Arrivals</Link></li>
                 {mainCategories.map((cat) => (
                   <li key={cat.id}>
-                    <Link href={`/shop?category=${cat.id}`} className="hover:text-slate-500 transition-colors">
-                      {cat.name} Collection
+                    <Link href={`/shop?category=${cat.id}`} className="hover:text-indigo-500 transition-colors">
+                      {cat.name}
                     </Link>
                   </li>
                 ))}
@@ -360,47 +289,29 @@ export default function StorefrontLayout({ children }: { children: React.ReactNo
 
             {/* Policies Column */}
             <div>
-              <h3 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider mb-4">Company</h3>
-              <ul className="space-y-2 text-xs">
-                <li>
-                  <Link href="/about" className="hover:text-slate-500 transition-colors">About Us</Link>
-                </li>
-                <li>
-                  <Link href="/account/orders" className="hover:text-slate-500 transition-colors">My Orders</Link>
-                </li>
-                <li>
-                  <Link href="/account/login" className="hover:text-slate-500 transition-colors">Login / Register</Link>
-                </li>
-                <li>
-                  <Link href="/pages/return-policy" className="hover:text-slate-500 transition-colors">Return & Refund Policy</Link>
-                </li>
+              <h3 className="text-sm font-bold text-slate-900 mb-4">Let Us Help You</h3>
+              <ul className="space-y-3 text-sm">
+                <li><Link href="/about" className="hover:text-indigo-500 transition-colors">About Us</Link></li>
+                <li><Link href="/account/orders" className="hover:text-indigo-500 transition-colors">Track Your Order</Link></li>
+                <li><Link href="/pages/return-policy" className="hover:text-indigo-500 transition-colors">Returns & Refunds</Link></li>
               </ul>
             </div>
 
             {/* Contact Info */}
-            <div className="space-y-3 text-xs">
-              <h3 className="text-xs font-extrabold text-slate-900 dark:text-white uppercase tracking-wider mb-2">Get in Touch</h3>
-              <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-slate-500 shrink-0" />
-                <span>{settings?.address || 'Ahmedabad, Gujarat, India'}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-slate-500 shrink-0" />
-                <span>{settings?.contactPhone || '+91 79 4001 0203'}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-slate-500 shrink-0" />
-                <span>{settings?.contactEmail || 'rushfashion@gmail.com'}</span>
+            <div className="space-y-3 text-sm">
+              <h3 className="text-sm font-bold text-slate-900 mb-4">Contact Us</h3>
+              <div className="space-y-2">
+                <p className="flex items-center gap-2"><Mail className="h-4 w-4 text-indigo-500" /> {settings?.contactEmail || 'care@rushcloset.com'}</p>
+                <p className="flex items-center gap-2"><Phone className="h-4 w-4 text-indigo-500" /> {settings?.contactPhone || '+91 79 4001 0203'}</p>
+                <p className="flex gap-2 pt-2"><MapPin className="h-4 w-4 shrink-0 mt-0.5 text-indigo-500" /> {settings?.address || 'Ahmedabad, Gujarat, India'}</p>
               </div>
             </div>
 
           </div>
 
-          <hr className="border-slate-200 dark:border-slate-800 my-8" />
-          
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] text-slate-500 tracking-wide uppercase text-center sm:text-right">
-            <span>© {new Date().getFullYear()} RUSH CLOSET. All rights reserved.</span>
-            <span className="leading-relaxed">A Startup Built & Designed by <span className="text-slate-500 font-bold">Software Engineer Rushali Jivrajani</span><br/>Inspiring Girls in Tech & Fashion · Ahmedabad, Gujarat, India</span>
+          <div className="mt-12 pt-8 border-t border-slate-200/50 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+            <span className="text-slate-500">© {new Date().getFullYear()} RUSH CLOSET. All rights reserved.</span>
+            <span className="text-indigo-600/80 font-medium">Designed for Premium Fashion</span>
           </div>
         </div>
       </footer>
