@@ -1,64 +1,43 @@
 ========================================================================
-RUSH FASHION ADMIN PANEL - RUN INSTRUCTIONS & CREDENTIALS
+RUSH CLOSET ADMIN PANEL & STOREFRONT - INSTRUCTIONS
 ========================================================================
 
-1. HOW TO RUN THE PROJECT:
+1. HOW TO RUN THE PROJECT LOCALLY:
 ------------------------------------------------------------------------
 Open your terminal inside this folder ("rush-fashion") and run:
 
    npm run dev
 
 Once started, open your web browser and go to:
-
    http://localhost:3000
 
-
-2. DEMO LOGIN CREDENTIALS:
+2. LOGIN URLS:
 ------------------------------------------------------------------------
-You can log in with either of the following pre-seeded accounts:
+* ADMIN LOGIN:
+  Go to: http://localhost:3000/login
+  (or /admin which will redirect you to login if you are not logged in)
 
-   * SUPER ADMIN (Full system access)
-     - Email:    admin@rushfashion.com
-     - Password: Password123
+* CUSTOMER LOGIN:
+  Customers can freely browse the website, view products, and add to cart 
+  without logging in. They will only be asked to log in or register when 
+  they proceed to Checkout.
 
-   * MANAGER (Access to products, orders, categories)
-     - Email:    manager@rushfashion.com
-     - Password: Admin123
-
-   * CUSTOMER ACCOUNTS (Storefront Access)
-     - Email:    manav@gmail.com
-     - Password: 123456 (or try resetting password)
-
-     - Email:    rushjivrajani48@gmail.com
-     - Password: (No password set / Social login)
-
-     - Email:    rush@gmail.com
-     - Password: 123456 (or try resetting password)
-
-
-3. SECURITY CODES & RECOVERY:
+3. ADMIN CREDENTIALS:
 ------------------------------------------------------------------------
-* Two-Factor Authentication (2FA) Code:
-  Use "555555" when prompted on the screen.
+* SUPER ADMIN (Full system access, staff management)
+  - Email:    admin@rushcloset.com
+  - Password: Password123
 
-* Forgot Password Reset OTP:
-  Use "123456" as the recovery code when resetting passwords.
-  
-* Forgot Password Option:
-  On the Portal login screen (http://localhost:3000/login), click the 
-  "Forgot?" link next to the Password label to launch the recovery view.
+* CUSTOMER ACCOUNTS (Storefront Access)
+  - Email:    manav@gmail.com
+  - Password: 123456
 
-
-4. LOCAL DATABASE FALLBACK:
+4. LIVE DATABASE (MongoDB Atlas):
 ------------------------------------------------------------------------
-- The system automatically uses a persistent local file-based database
-  named ".mockdb.json" in this directory. 
-- You do NOT need to configure MongoDB to test the panel. 
-- Creating products, editing categories, or changing order statuses 
-  will instantly persist inside the ".mockdb.json" file.
+- The system is now fully connected to your live MongoDB Atlas database.
+- Any changes you make locally (adding products, editing categories, 
+  creating new managers) will be instantly saved to your live database.
+- The dummy data has been KEPT for now so you can test the website. 
+  Once you are done testing, let me know and I will delete all the dummy 
+  products and orders.
 ========================================================================
-
-
-git remote add origin https://github.com/rush4812/rush-fashion.git
-git branch -M main
-git push -u origin main
