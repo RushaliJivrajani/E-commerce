@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 
-const MONGODB_URI = 'mongodb://localhost:27017/rush-fashion';
+require('dotenv').config({ path: '.env' });
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/rush-fashion';
 const MOCK_DB_PATH = path.join(process.cwd(), '.mockdb.json');
 
 async function migrate() {
