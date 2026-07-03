@@ -3,7 +3,7 @@
 import React, { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
-import { Lock, Mail, ShieldAlert, ArrowRight, UserCheck, KeyRound, Loader2, Sparkles } from 'lucide-react';
+import { Lock, Mail, ShieldAlert, ArrowRight, KeyRound, Loader2, Sparkles } from 'lucide-react';
 
 function LoginForm() {
   const router = useRouter();
@@ -19,11 +19,6 @@ function LoginForm() {
   const [password, setPassword] = useState('');
   const [twoFactorCode, setTwoFactorCode] = useState('');
   const [tempUserId, setTempUserId] = useState('');
-  const [loginRole, setLoginRole] = useState<'super' | 'manager' | ''>('');
-
-  const handlePresetSelect = (role: 'super' | 'manager') => {
-    setLoginRole(role);
-  };
 
   // Password Recovery Fields
   const [recoveryOtp, setRecoveryOtp] = useState('');
@@ -33,10 +28,6 @@ function LoginForm() {
   // Handle Standard Login
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!loginRole) {
-      toast.error('Please select your login role (Super Admin or Manager)');
-      return;
-    }
     if (!email || !password) {
       toast.error('Please fill in all fields');
       return;
@@ -63,22 +54,7 @@ function LoginForm() {
         setView('2fa');
         toast.success('Credentials verified. Please enter 2FA OTP.');
       } else {
-        // Verify user role matches selection role
-        if (loginRole === 'super' && data.user.role !== 'Super Admin') {
-          toast.error('Logged-in user is not a Super Admin');
-          setLoading(false);
-          await fetch('/api/auth/logout', { method: 'POST' });
-          return;
-        }
-        if (loginRole === 'manager' && data.user.role !== 'Manager') {
-          toast.error('Logged-in user is not a Manager');
-          setLoading(false);
-          await fetch('/api/auth/logout', { method: 'POST' });
-          return;
-        }
-
         toast.success(`Welcome back, ${data.user.name}!`);
-        // Force fully reloading to make sure proxy cookie state takes effect
         setTimeout(() => {
           window.location.href = callbackUrl;
         }, 800);
@@ -161,7 +137,7 @@ function LoginForm() {
         setRecoveryStep('request');
         setRecoveryOtp('');
         setNewPassword('');
-        setPassword(''); // Reset fields
+        setPassword('');
       }
     } catch (err) {
       toast.error('Error in recovery flow');
@@ -171,75 +147,42 @@ function LoginForm() {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#0A0A0A] px-4 py-12 sm:px-6 lg:px-8">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
       <Toaster position="top-right" reverseOrder={false} />
-      
-      {/* Background Graphic Accents */}
-      <div className="absolute top-[-20%] left-[-20%] h-[600px] w-[600px] rounded-full bg-indigo-500/10 blur-[120px]" />
-      <div className="absolute bottom-[-20%] right-[-20%] h-[600px] w-[600px] rounded-full bg-slate-500/10 blur-[120px]" />
 
       <div className="relative w-full max-w-md space-y-8 z-10">
         
         {/* Header Branding */}
         <div className="flex flex-col items-center text-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-500 to-indigo-300 shadow-[0_0_30px_rgba(251,191,36,0.3)]">
-            <Sparkles className="h-8 w-8 text-slate-900" />
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 shadow-xl shadow-indigo-500/20">
+            <Sparkles className="h-8 w-8 text-white" />
           </div>
-          <h2 className="mt-6 text-3xl font-extrabold tracking-tight text-white sm:text-4xl text-glow">
-            RUSH <span className="bg-gradient-to-r from-indigo-400 to-indigo-200 bg-clip-text text-transparent">CLOSET</span>
+          <h2 className="mt-6 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl text-glow">
+            RUSH <span className="bg-gradient-to-r from-indigo-600 to-pink-500 bg-clip-text text-transparent">CLOSET</span>
           </h2>
-          <p className="mt-2 text-sm font-medium text-indigo-400/80 uppercase tracking-widest">
+          <p className="mt-2 text-sm font-bold text-slate-500 uppercase tracking-widest">
             Enterprise Management Panel
           </p>
         </div>
 
         {/* Form Container */}
-        <div className="glass-panel border border-white/10 rounded-2xl p-8 shadow-2xl backdrop-blur-xl">
+        <div className="glass-panel border-white/40 rounded-3xl p-8 shadow-2xl backdrop-blur-2xl">
           
           {/* LOGIN VIEW */}
           {view === 'login' && (
             <form className="space-y-6" onSubmit={handleLogin}>
               <div>
-                <h3 className="text-xl font-bold text-white">Sign In</h3>
-                <p className="text-xs text-slate-400 mt-1">Access your control panel session</p>
-              </div>
-
-              {/* Demo Login Presets */}
-              <div className="space-y-2 rounded-xl border border-white/10 bg-white/5 p-4">
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-indigo-400">
-                  Select Sandbox Demo Role
-                </label>
-                <div className="flex gap-4 mt-2">
-                  <label className="flex items-center gap-2 text-xs font-semibold text-slate-300 cursor-pointer select-none group">
-                    <input
-                      type="radio"
-                      name="presetRole"
-                      checked={loginRole === 'super'}
-                      onChange={() => handlePresetSelect('super')}
-                      className="accent-indigo-500 h-4 w-4"
-                    />
-                    <span className="group-hover:text-white transition-colors">Super Admin</span>
-                  </label>
-                  <label className="flex items-center gap-2 text-xs font-semibold text-slate-300 cursor-pointer select-none group">
-                    <input
-                      type="radio"
-                      name="presetRole"
-                      checked={loginRole === 'manager'}
-                      onChange={() => handlePresetSelect('manager')}
-                      className="accent-indigo-500 h-4 w-4"
-                    />
-                    <span className="group-hover:text-white transition-colors">Manager</span>
-                  </label>
-                </div>
+                <h3 className="text-xl font-bold text-slate-900">Sign In</h3>
+                <p className="text-xs font-medium text-slate-500 mt-1">Access your secure control panel session</p>
               </div>
 
               <div className="space-y-5">
                 {/* Email Field */}
                 <div>
-                  <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-slate-600">
                     Email Address
                   </label>
-                  <div className="relative mt-1">
+                  <div className="relative mt-2">
                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
                       <Mail className="h-4 w-4 text-slate-400" />
                     </div>
@@ -250,7 +193,7 @@ function LoginForm() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="admin@rushcloset.com"
-                      className="block w-full rounded-xl border border-white/10 bg-white/5 py-3.5 pl-11 pr-4 text-sm text-white placeholder-slate-500 focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-400 transition-colors"
+                      className="block w-full rounded-2xl border border-slate-200 bg-white/70 py-3.5 pl-11 pr-4 text-sm font-medium text-slate-900 placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm"
                     />
                   </div>
                 </div>
@@ -258,7 +201,7 @@ function LoginForm() {
                 {/* Password Field */}
                 <div>
                   <div className="flex items-center justify-between">
-                    <label htmlFor="password" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
+                    <label htmlFor="password" className="block text-xs font-bold uppercase tracking-wider text-slate-600">
                       Password
                     </label>
                     <button
@@ -267,12 +210,12 @@ function LoginForm() {
                         setView('forgot');
                         setRecoveryStep('request');
                       }}
-                      className="text-xs font-bold text-indigo-400 hover:text-indigo-300 hover:underline transition-colors"
+                      className="text-xs font-bold text-indigo-600 hover:text-indigo-500 hover:underline transition-colors"
                     >
                       Forgot?
                     </button>
                   </div>
-                  <div className="relative mt-1">
+                  <div className="relative mt-2">
                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
                       <Lock className="h-4 w-4 text-slate-400" />
                     </div>
@@ -283,7 +226,7 @@ function LoginForm() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="block w-full rounded-xl border border-white/10 bg-white/5 py-3.5 pl-11 pr-4 text-sm text-white placeholder-slate-500 focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-400 transition-colors"
+                      className="block w-full rounded-2xl border border-slate-200 bg-white/70 py-3.5 pl-11 pr-4 text-sm font-medium text-slate-900 placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm"
                     />
                   </div>
                 </div>
@@ -293,13 +236,13 @@ function LoginForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="group relative flex w-full justify-center rounded-xl bg-indigo-400 py-3.5 text-sm font-bold text-slate-900 shadow-[0_0_20px_rgba(251,191,36,0.3)] transition-all hover:bg-indigo-300 focus:outline-none disabled:opacity-50 cursor-pointer overflow-hidden mt-6"
+                className="group relative flex w-full justify-center rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-3.5 text-sm font-black text-white shadow-lg shadow-indigo-500/30 transition-all hover:shadow-indigo-500/50 hover:scale-[1.02] focus:outline-none disabled:opacity-50 cursor-pointer overflow-hidden mt-8 glow-on-hover uppercase tracking-wider"
               >
                 {loading ? (
                   <Loader2 className="h-5 w-5 animate-spin" />
                 ) : (
                   <>
-                    Sign In
+                    Sign In to Dashboard
                     <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </>
                 )}
@@ -311,15 +254,15 @@ function LoginForm() {
           {view === '2fa' && (
             <form className="space-y-6" onSubmit={handle2FAVerify}>
               <div className="text-center">
-                <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-indigo-400/10 text-indigo-400 mb-4 border border-indigo-400/20 shadow-[0_0_15px_rgba(251,191,36,0.15)]">
+                <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-500 mb-4 border border-indigo-100 shadow-md">
                   <ShieldAlert className="h-8 w-8" />
                 </div>
-                <h3 className="text-xl font-bold text-white text-glow">Two-Factor Auth</h3>
-                <p className="text-xs text-slate-400 mt-1">Enter code sent to your device</p>
+                <h3 className="text-xl font-bold text-slate-900">Two-Factor Auth</h3>
+                <p className="text-xs font-medium text-slate-500 mt-1">Enter code sent to your device</p>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 text-center">
+                <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 text-center">
                   Verification Code
                 </label>
                 <input
@@ -329,27 +272,22 @@ function LoginForm() {
                   value={twoFactorCode}
                   onChange={(e) => setTwoFactorCode(e.target.value)}
                   placeholder="555555"
-                  className="block w-full rounded-xl border border-white/10 bg-white/5 py-4 text-center text-2xl font-bold tracking-[0.5em] text-white placeholder-slate-600 focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-400 transition-colors mt-2"
+                  className="block w-full rounded-2xl border border-slate-200 bg-white/70 py-4 text-center text-2xl font-black tracking-[0.5em] text-slate-900 placeholder-slate-300 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm mt-3"
                 />
-              </div>
-
-              {/* Sandbox Code Hint */}
-              <div className="rounded-xl border border-white/10 bg-white/5 p-3 text-xs text-slate-400 text-center">
-                <span className="font-semibold text-slate-300">Sandbox Code:</span> Use <code className="text-indigo-400 font-mono font-bold">555555</code> to verify.
               </div>
 
               <div className="flex flex-col gap-3">
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex w-full justify-center rounded-xl bg-indigo-400 py-3.5 text-sm font-bold text-slate-900 shadow-[0_0_20px_rgba(251,191,36,0.3)] transition-all hover:bg-indigo-300 focus:outline-none cursor-pointer"
+                  className="flex w-full justify-center rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-3.5 text-sm font-black text-white shadow-lg shadow-indigo-500/30 transition-all hover:shadow-indigo-500/50 hover:scale-[1.02] focus:outline-none cursor-pointer glow-on-hover uppercase tracking-wider"
                 >
                   {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : 'Verify and Login'}
                 </button>
                 <button
                   type="button"
                   onClick={() => setView('login')}
-                  className="text-xs font-semibold text-slate-500 hover:text-white mt-1 underline transition-colors"
+                  className="text-xs font-bold text-slate-500 hover:text-slate-900 mt-2 underline transition-colors"
                 >
                   Back to Sign In
                 </button>
@@ -361,8 +299,8 @@ function LoginForm() {
           {view === 'forgot' && (
             <form className="space-y-6" onSubmit={handleRecovery}>
               <div>
-                <h3 className="text-xl font-bold text-white text-glow">Reset Password</h3>
-                <p className="text-xs text-slate-400 mt-1">
+                <h3 className="text-xl font-bold text-slate-900">Reset Password</h3>
+                <p className="text-xs font-medium text-slate-500 mt-1">
                   {recoveryStep === 'request'
                     ? 'Enter email to receive temporary recovery PIN'
                     : 'Provide the OTP and setup your new password'}
@@ -370,12 +308,11 @@ function LoginForm() {
               </div>
 
               <div className="space-y-5">
-                {/* Email Display/Field */}
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-600">
                     Email Address
                   </label>
-                  <div className="relative mt-1">
+                  <div className="relative mt-2">
                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
                       <Mail className="h-4 w-4 text-slate-400" />
                     </div>
@@ -386,19 +323,18 @@ function LoginForm() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="admin@rushcloset.com"
-                      className="block w-full rounded-xl border border-white/10 bg-white/5 py-3.5 pl-11 pr-4 text-sm text-white placeholder-slate-500 focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-400 transition-colors disabled:opacity-50"
+                      className="block w-full rounded-2xl border border-slate-200 bg-white/70 py-3.5 pl-11 pr-4 text-sm font-medium text-slate-900 placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm disabled:opacity-50"
                     />
                   </div>
                 </div>
 
                 {recoveryStep === 'verify' && (
                   <>
-                    {/* OTP Entry */}
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
-                        Recovery OTP (Demo: 123456)
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-600">
+                        Recovery OTP
                       </label>
-                      <div className="relative mt-1">
+                      <div className="relative mt-2">
                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
                           <KeyRound className="h-4 w-4 text-slate-400" />
                         </div>
@@ -408,17 +344,16 @@ function LoginForm() {
                           value={recoveryOtp}
                           onChange={(e) => setRecoveryOtp(e.target.value)}
                           placeholder="123456"
-                          className="block w-full rounded-xl border border-white/10 bg-white/5 py-3.5 pl-11 pr-4 text-sm text-white placeholder-slate-500 focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-400 transition-colors"
+                          className="block w-full rounded-2xl border border-slate-200 bg-white/70 py-3.5 pl-11 pr-4 text-sm font-medium text-slate-900 placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm"
                         />
                       </div>
                     </div>
 
-                    {/* New Password Entry */}
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-600">
                         New Password
                       </label>
-                      <div className="relative mt-1">
+                      <div className="relative mt-2">
                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
                           <Lock className="h-4 w-4 text-slate-400" />
                         </div>
@@ -428,7 +363,7 @@ function LoginForm() {
                           value={newPassword}
                           onChange={(e) => setNewPassword(e.target.value)}
                           placeholder="At least 6 characters"
-                          className="block w-full rounded-xl border border-white/10 bg-white/5 py-3.5 pl-11 pr-4 text-sm text-white placeholder-slate-500 focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-400 transition-colors"
+                          className="block w-full rounded-2xl border border-slate-200 bg-white/70 py-3.5 pl-11 pr-4 text-sm font-medium text-slate-900 placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm"
                         />
                       </div>
                     </div>
@@ -440,7 +375,7 @@ function LoginForm() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex w-full justify-center rounded-xl bg-indigo-400 py-3.5 text-sm font-bold text-slate-900 shadow-[0_0_20px_rgba(251,191,36,0.3)] transition-all hover:bg-indigo-300 focus:outline-none cursor-pointer"
+                  className="flex w-full justify-center rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-3.5 text-sm font-black text-white shadow-lg shadow-indigo-500/30 transition-all hover:shadow-indigo-500/50 hover:scale-[1.02] focus:outline-none cursor-pointer glow-on-hover uppercase tracking-wider mt-4"
                 >
                   {loading ? (
                     <Loader2 className="h-5 w-5 animate-spin" />
@@ -456,7 +391,7 @@ function LoginForm() {
                     setView('login');
                     setRecoveryStep('request');
                   }}
-                  className="text-xs text-slate-500 font-semibold hover:text-white mt-1 underline text-center transition-colors"
+                  className="text-xs text-slate-500 font-bold hover:text-slate-900 mt-2 underline text-center transition-colors"
                 >
                   Cancel and Go Back
                 </button>
@@ -473,8 +408,8 @@ function LoginForm() {
 export default function LoginPage() {
   return (
     <Suspense fallback={
-      <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#0A0A0A] px-4 py-12 text-white font-sans">
-        <Loader2 className="h-8 w-8 animate-spin text-indigo-400" />
+      <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-12 text-slate-900 font-sans">
+        <Loader2 className="h-8 w-8 animate-spin text-indigo-500" />
       </div>
     }>
       <LoginForm />
