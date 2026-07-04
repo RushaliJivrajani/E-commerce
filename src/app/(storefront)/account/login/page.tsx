@@ -196,7 +196,7 @@ function AccountLoginForm() {
 
   const strength = getPasswordStrength(regPassword);
   const strengthText = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong', 'Very Strong'][strength] || '';
-  const strengthColor = ['bg-red-500', 'bg-orange-500', 'bg-yellow-500', 'bg-green-400', 'bg-green-600', 'bg-green-700'][strength] || 'bg-slate-200';
+  const strengthColor = ['bg-red-500', 'bg-orange-500', 'bg-yellow-500', 'bg-green-400', 'bg-green-600', 'bg-green-700'][strength] || 'bg-border';
 
   return (
     <div className="min-h-screen flex bg-background">
@@ -211,7 +211,7 @@ function AccountLoginForm() {
 
         <div className="relative z-10">
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="flex h-10 w-10 items-center justify-center bg-white text-black shrink-0">
+            <div className="flex h-10 w-10 items-center justify-center bg-card text-black shrink-0">
               <ShoppingBag className="h-5 w-5" />
             </div>
             <span className="text-xl font-extrabold tracking-widest uppercase">
@@ -224,9 +224,9 @@ function AccountLoginForm() {
           <div>
             <h1 className="text-4xl font-extrabold leading-tight mb-4 uppercase tracking-wide">
               Unlock <br />
-              <span className="text-slate-400 font-light">Exclusive Access.</span>
+              <span className="text-muted-foreground/80 font-light">Exclusive Access.</span>
             </h1>
-            <p className="text-slate-300 text-sm leading-relaxed max-w-xs font-light tracking-wide">
+            <p className="text-muted-foreground/50 text-sm leading-relaxed max-w-xs font-light tracking-wide">
               Join thousands of fashion connoisseurs globally who curate their wardrobes with Rush Closet.
             </p>
           </div>
@@ -235,19 +235,19 @@ function AccountLoginForm() {
             {BENEFITS.map((b, i) => (
               <div key={i} className="flex items-center gap-3">
                 <CheckCircle2 className="h-4 w-4 text-white" />
-                <span className="text-sm font-light text-slate-200 tracking-wide">{b}</span>
+                <span className="text-sm font-light text-border tracking-wide">{b}</span>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="relative z-10 text-[10px] text-slate-500 tracking-widest uppercase">
+        <div className="relative z-10 text-[10px] text-muted-foreground tracking-widest uppercase">
           © {new Date().getFullYear()} Rush Closet · International Delivery
         </div>
       </div>
 
       {/* Right panel – Form */}
-      <div className="flex-1 flex items-center justify-center p-6 sm:p-10 bg-white">
+      <div className="flex-1 flex items-center justify-center p-6 sm:p-10 bg-card">
         <div className="w-full max-w-md">
 
           {/* Mobile logo */}
@@ -264,13 +264,13 @@ function AccountLoginForm() {
 
           {/* Tab Switcher */}
           {tab !== 'forgot' && (
-            <div className="flex mb-10 border-b border-slate-200">
+            <div className="flex mb-10 border-b border-border">
               <button
                 onClick={() => setTab('login')}
                 className={`flex-1 pb-3 text-sm font-semibold tracking-widest uppercase transition-all ${
                   tab === 'login'
                     ? 'border-b-2 border-black text-black'
-                    : 'text-slate-400 hover:text-black'
+                    : 'text-muted-foreground/80 hover:text-black'
                 }`}
               >
                 Sign In
@@ -280,7 +280,7 @@ function AccountLoginForm() {
                 className={`flex-1 pb-3 text-sm font-semibold tracking-widest uppercase transition-all ${
                   tab === 'register'
                     ? 'border-b-2 border-black text-black'
-                    : 'text-slate-400 hover:text-black'
+                    : 'text-muted-foreground/80 hover:text-black'
                 }`}
               >
                 Register
@@ -300,7 +300,7 @@ function AccountLoginForm() {
                       value={loginEmail}
                       onChange={(e) => setLoginEmail(e.target.value)}
                       placeholder="your@email.com"
-                      className="block w-full border-b border-slate-300 bg-transparent py-3 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                      className="block w-full border-b border-border/80 bg-transparent py-3 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
                       required
                     />
                   </div>
@@ -309,7 +309,7 @@ function AccountLoginForm() {
                 <div>
                   <div className="flex justify-between items-center mb-2">
                     <label className="block text-[10px] font-bold text-black uppercase tracking-widest">Password</label>
-                    <button type="button" onClick={() => setTab('forgot')} className="text-[10px] text-slate-500 hover:text-black uppercase tracking-widest">Forgot?</button>
+                    <button type="button" onClick={() => setTab('forgot')} className="text-[10px] text-muted-foreground hover:text-black uppercase tracking-widest">Forgot?</button>
                   </div>
                   <div className="relative">
                     <input
@@ -317,13 +317,13 @@ function AccountLoginForm() {
                       value={loginPassword}
                       onChange={(e) => setLoginPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="block w-full border-b border-slate-300 bg-transparent py-3 pr-10 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                      className="block w-full border-b border-border/80 bg-transparent py-3 pr-10 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
                       required
                     />
                     <button
                       type="button"
                       onClick={() => setShowPass(!showPass)}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-black"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/80 hover:text-black"
                     >
                       {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
@@ -334,7 +334,7 @@ function AccountLoginForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-black py-4 text-[11px] font-bold text-white uppercase tracking-widest transition-all hover:bg-slate-900 disabled:opacity-50"
+                className="w-full bg-black py-4 text-[11px] font-bold text-white uppercase tracking-widest transition-all hover:bg-foreground text-background disabled:opacity-50"
               >
                 {loading ? <Loader2 className="h-4 w-4 animate-spin mx-auto" /> : 'Sign In'}
               </button>
@@ -352,7 +352,7 @@ function AccountLoginForm() {
                     value={regName}
                     onChange={(e) => setRegName(e.target.value)}
                     placeholder="Jane Doe"
-                    className="block w-full border-b border-slate-300 bg-transparent py-3 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                    className="block w-full border-b border-border/80 bg-transparent py-3 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
                     required
                   />
                 </div>
@@ -364,7 +364,7 @@ function AccountLoginForm() {
                     value={regEmail}
                     onChange={(e) => setRegEmail(e.target.value)}
                     placeholder="your@email.com"
-                    className="block w-full border-b border-slate-300 bg-transparent py-3 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                    className="block w-full border-b border-border/80 bg-transparent py-3 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
                     required
                   />
                 </div>
@@ -376,7 +376,7 @@ function AccountLoginForm() {
                     value={regPhone}
                     onChange={(e) => setRegPhone(e.target.value)}
                     placeholder="+91 9876543210"
-                    className="block w-full border-b border-slate-300 bg-transparent py-3 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                    className="block w-full border-b border-border/80 bg-transparent py-3 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
                   />
                 </div>
 
@@ -388,25 +388,25 @@ function AccountLoginForm() {
                       value={regPassword}
                       onChange={(e) => setRegPassword(e.target.value)}
                       placeholder="Min 6 chars"
-                      className="block w-full border-b border-slate-300 bg-transparent py-3 pr-10 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                      className="block w-full border-b border-border/80 bg-transparent py-3 pr-10 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
                       required
                     />
                     <button
                       type="button"
                       onClick={() => setShowPass(!showPass)}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-black"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/80 hover:text-black"
                     >
                       {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
                   {regPassword.length > 0 && (
                     <div className="mt-2 flex items-center gap-2">
-                      <div className="flex-1 h-1 bg-slate-100 flex gap-1">
+                      <div className="flex-1 h-1 bg-card/80 flex gap-1">
                         {[1,2,3,4].map(level => (
                            <div key={level} className={`h-full flex-1 ${strength >= level ? strengthColor : 'bg-transparent'}`} />
                         ))}
                       </div>
-                      <span className="text-[9px] uppercase tracking-widest text-slate-500">{strengthText}</span>
+                      <span className="text-[9px] uppercase tracking-widest text-muted-foreground">{strengthText}</span>
                     </div>
                   )}
                 </div>
@@ -419,7 +419,7 @@ function AccountLoginForm() {
                       value={regConfirm}
                       onChange={(e) => setRegConfirm(e.target.value)}
                       placeholder="Re-enter password"
-                      className="block w-full border-b border-slate-300 bg-transparent py-3 pr-10 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                      className="block w-full border-b border-border/80 bg-transparent py-3 pr-10 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
                       required
                     />
                   </div>
@@ -429,12 +429,12 @@ function AccountLoginForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-black py-4 text-[11px] font-bold text-white uppercase tracking-widest transition-all hover:bg-slate-900 disabled:opacity-50"
+                className="w-full bg-black py-4 text-[11px] font-bold text-white uppercase tracking-widest transition-all hover:bg-foreground text-background disabled:opacity-50"
               >
                 {loading ? <Loader2 className="h-4 w-4 animate-spin mx-auto" /> : 'Create Account'}
               </button>
 
-              <p className="text-center text-[10px] text-slate-400 tracking-wide leading-loose">
+              <p className="text-center text-[10px] text-muted-foreground/80 tracking-wide leading-loose">
                 By registering, you agree to our{' '}
                 <Link href="/pages/terms-condition" className="text-black hover:underline">Terms</Link>{' '}
                 and{' '}
@@ -447,11 +447,11 @@ function AccountLoginForm() {
           {tab === 'forgot' && (
             <div className="space-y-6">
               <div className="mb-8">
-                <button onClick={() => { setTab('login'); setForgotStep('email'); }} className="text-[10px] text-slate-500 hover:text-black uppercase tracking-widest mb-4 inline-block">
+                <button onClick={() => { setTab('login'); setForgotStep('email'); }} className="text-[10px] text-muted-foreground hover:text-black uppercase tracking-widest mb-4 inline-block">
                   &larr; Back to Sign In
                 </button>
                 <h2 className="text-2xl font-extrabold text-black uppercase tracking-widest">Reset Password</h2>
-                <p className="text-sm text-slate-500 mt-2 font-light">
+                <p className="text-sm text-muted-foreground mt-2 font-light">
                   {forgotStep === 'email' ? 'Enter your email to receive a recovery code.' : 'Enter the recovery code and your new password.'}
                 </p>
               </div>
@@ -465,14 +465,14 @@ function AccountLoginForm() {
                       value={forgotEmail}
                       onChange={(e) => setForgotEmail(e.target.value)}
                       placeholder="your@email.com"
-                      className="block w-full border-b border-slate-300 bg-transparent py-3 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                      className="block w-full border-b border-border/80 bg-transparent py-3 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
                       required
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-black py-4 text-[11px] font-bold text-white uppercase tracking-widest transition-all hover:bg-slate-900 disabled:opacity-50"
+                    className="w-full bg-black py-4 text-[11px] font-bold text-white uppercase tracking-widest transition-all hover:bg-foreground text-background disabled:opacity-50"
                   >
                     {loading ? <Loader2 className="h-4 w-4 animate-spin mx-auto" /> : 'Send Recovery Code'}
                   </button>
@@ -486,7 +486,7 @@ function AccountLoginForm() {
                       value={forgotOtp}
                       onChange={(e) => setForgotOtp(e.target.value)}
                       placeholder="e.g. 123456"
-                      className="block w-full border-b border-slate-300 bg-transparent py-3 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                      className="block w-full border-b border-border/80 bg-transparent py-3 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
                       required
                     />
                   </div>
@@ -498,13 +498,13 @@ function AccountLoginForm() {
                         value={forgotNewPassword}
                         onChange={(e) => setForgotNewPassword(e.target.value)}
                         placeholder="Min 6 chars"
-                        className="block w-full border-b border-slate-300 bg-transparent py-3 pr-10 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                        className="block w-full border-b border-border/80 bg-transparent py-3 pr-10 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
                         required
                       />
                       <button
                         type="button"
                         onClick={() => setShowPass(!showPass)}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-black"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/80 hover:text-black"
                       >
                         {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
@@ -513,7 +513,7 @@ function AccountLoginForm() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-black py-4 text-[11px] font-bold text-white uppercase tracking-widest transition-all hover:bg-slate-900 disabled:opacity-50"
+                    className="w-full bg-black py-4 text-[11px] font-bold text-white uppercase tracking-widest transition-all hover:bg-foreground text-background disabled:opacity-50"
                   >
                     {loading ? <Loader2 className="h-4 w-4 animate-spin mx-auto" /> : 'Reset Password'}
                   </button>
@@ -531,7 +531,7 @@ export default function AccountLoginPage() {
   return (
     <Suspense fallback={
       <div className="flex min-h-screen items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-slate-500" />
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
       </div>
     }>
       <AccountLoginForm />

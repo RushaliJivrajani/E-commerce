@@ -89,10 +89,10 @@ export default function DashboardPage() {
 
   if (loading || !metrics || !charts) {
     return (
-      <div className="flex h-[60vh] items-center justify-center">
-        <div className="flex flex-col items-center gap-3 glass-panel p-8 rounded-2xl">
-          <Loader2 className="h-8 w-8 animate-spin text-indigo-500" />
-          <p className="text-sm font-semibold text-slate-500">Compiling Analytics...</p>
+      <div className="flex h-[60vh] items-center justify-center bg-background text-foreground">
+        <div className="flex flex-col items-center gap-3 bg-card border border-border/40 p-8 rounded-3xl shadow-sm">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Compiling Analytics...</p>
         </div>
       </div>
     );
@@ -106,8 +106,8 @@ export default function DashboardPage() {
       ? charts.weekly
       : charts.monthly;
 
-  // Pie chart accent palettes - more muted/premium
-  const COLORS = ['#f59e0b', '#3b82f6', '#10b981', '#6366f1', '#f43f5e'];
+  // Pie chart accent palettes - tailored premium color scale
+  const COLORS = ['#FF2D2D', '#1A1A1D', '#F5F5F5', '#f59e0b', '#3b82f6'];
 
   // Metric Box Configuration
   const metricCards = [
@@ -184,60 +184,61 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-10 text-foreground">
       
       {/* Upper Dashboard Brief */}
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between pb-2">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between pb-2">
         <div className="space-y-1">
-          <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-3">
-            Dashboard Overview <Sparkles className="h-5 w-5 text-indigo-500" />
+          <h1 className="text-xl sm:text-2xl font-black uppercase tracking-wider text-foreground flex items-center gap-3">
+            Dashboard Overview <Sparkles className="h-5 w-5 text-primary" />
           </h1>
-          <p className="text-sm font-medium text-slate-500">
-            Real-time analytics and store status.
+          <p className="text-xs font-semibold text-muted-foreground tracking-wide uppercase">
+            Real-time analytics and storefront status.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 border border-slate-200 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm">
-          <Calendar className="h-4 w-4 text-indigo-500" />
+        <div className="flex items-center gap-2 border border-border/40 rounded-xl bg-card px-4 py-2 text-xs font-bold uppercase tracking-wider text-foreground shadow-sm">
+          <Calendar className="h-4 w-4 text-primary" />
           <span>Live Sync</span>
         </div>
       </div>
 
       {/* Metrics Card Grid */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
         {metricCards.map((card, idx) => {
           const Icon = card.icon;
+          const isLowStockAlert = card.title === 'Low Stock' && metrics.lowStockProducts > 0;
           return (
             <div
               key={idx}
-              className={`bg-white border border-slate-200 p-5 rounded-2xl flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow ${
-                card.title === 'Low Stock' && metrics.lowStockProducts > 0 ? 'border-rose-200 bg-rose-50' : ''
+              className={`bg-card border p-5 rounded-3xl flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow duration-300 ${
+                isLowStockAlert ? 'border-primary/30 bg-primary/5' : 'border-border/40'
               }`}
             >
               <div className="flex justify-between items-start mb-4">
-                <span className="text-sm font-semibold text-slate-500">{card.title}</span>
-                <div className={`p-2 rounded-xl border ${card.title === 'Low Stock' && metrics.lowStockProducts > 0 ? 'bg-rose-100 text-rose-600 border-rose-200' : 'bg-slate-50 text-indigo-600 border-slate-200'}`}>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{card.title}</span>
+                <div className={`p-2 rounded-xl border ${isLowStockAlert ? 'bg-primary/15 text-primary border-primary/20' : 'bg-muted text-primary border-border/40'}`}>
                   <Icon className="h-4 w-4" />
                 </div>
               </div>
               <div>
-                <span className="text-2xl font-bold text-slate-900 block mb-1">
+                <span className="text-xl font-black text-foreground block mb-1">
                   {card.value}
                 </span>
                 <div className="flex items-center gap-1">
                   {card.isPositive === true && (
-                    <ArrowUpRight className="h-4 w-4 text-teal-500" />
+                    <ArrowUpRight className="h-3.5 w-3.5 text-emerald-500" />
                   )}
                   {card.isPositive === false && (
-                    <ArrowDownRight className="h-4 w-4 text-rose-500" />
+                    <ArrowDownRight className="h-3.5 w-3.5 text-primary" />
                   )}
                   <span
-                    className={`text-xs font-semibold ${
+                    className={`text-[10px] font-bold uppercase tracking-wider ${
                       card.isPositive === true
-                        ? 'text-teal-500'
+                        ? 'text-emerald-500'
                         : card.isPositive === false
-                        ? 'text-rose-500'
-                        : 'text-indigo-500'
+                        ? 'text-primary'
+                        : 'text-primary'
                     }`}
                   >
                     {card.change}
@@ -253,48 +254,47 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         
         {/* Sales trends lines */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+        <div className="bg-card p-6 rounded-3xl border border-border/40 shadow-sm hover:shadow-md transition-shadow duration-300">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-lg font-bold text-slate-900">Sales Revenue</h2>
-              <p className="text-sm font-medium text-slate-500">Billing trends over time</p>
+              <h2 className="text-sm font-bold uppercase tracking-wider text-foreground">Sales Revenue</h2>
+              <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Billing trends over time</p>
             </div>
             
-            <div className="flex border border-slate-200 rounded-xl p-1 bg-slate-50">
+            <div className="flex border border-border/40 rounded-xl p-1 bg-muted">
               {(['daily', 'weekly', 'monthly'] as const).map((mode) => (
                 <button
                   key={mode}
                   onClick={() => setSalesFilter(mode)}
-                  className={`px-3 py-1.5 text-sm font-semibold rounded-lg transition-colors ${
+                  className={`px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer ${
                     salesFilter === mode
-                      ? 'bg-white text-slate-900 shadow-sm border border-slate-200'
-                      : 'text-slate-500 hover:text-slate-700'
+                      ? 'bg-card text-foreground shadow-sm border border-border/30'
+                      : 'text-muted-foreground hover:text-foreground'
                   }`}
                 >
-                  {mode.charAt(0).toUpperCase() + mode.slice(1)}
+                  {mode}
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="h-80 w-full text-[10px] font-light">
+          <div className="h-80 w-full text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={salesChartSource} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
-                <XAxis dataKey="name" stroke="#64748b" tick={{fill: '#64748b'}} axisLine={false} tickLine={false} dy={10} />
-                <YAxis stroke="#64748b" tickFormatter={(v) => `₹${v}`} tick={{fill: '#64748b'}} axisLine={false} tickLine={false} dx={-10} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                <XAxis dataKey="name" stroke="var(--muted-foreground)" tick={{fill: 'currentColor'}} axisLine={false} tickLine={false} dy={10} />
+                <YAxis stroke="var(--muted-foreground)" tickFormatter={(v) => `₹${v}`} tick={{fill: 'currentColor'}} axisLine={false} tickLine={false} dx={-10} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#fff', borderColor: '#e2e8f0', color: '#0f172a', borderRadius: '12px', fontSize: '12px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}
-                  itemStyle={{ color: '#f59e0b' }}
+                  contentStyle={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)', color: 'var(--foreground)', borderRadius: '12px', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em' }}
                   formatter={(value) => [`₹${Number(value).toLocaleString()}`, 'Revenue']}
                 />
                 <Line
                   type="monotone"
                   dataKey="revenue"
-                  stroke="#fbbf24"
+                  stroke="var(--primary)"
                   strokeWidth={3}
-                  dot={{ r: 4, fill: '#fbbf24', strokeWidth: 0 }}
-                  activeDot={{ r: 6, fill: '#fbbf24', stroke: 'rgba(251,191,36,0.3)', strokeWidth: 4 }}
+                  dot={{ r: 4, fill: 'var(--primary)', strokeWidth: 0 }}
+                  activeDot={{ r: 6, fill: 'var(--primary)', stroke: 'rgba(255,45,45,0.3)', strokeWidth: 4 }}
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -302,52 +302,51 @@ export default function DashboardPage() {
         </div>
 
         {/* Customer Growth Area */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+        <div className="bg-card p-6 rounded-3xl border border-border/40 shadow-sm hover:shadow-md transition-shadow duration-300">
           <div className="mb-6">
-            <h2 className="text-lg font-bold text-slate-900">Customer Growth</h2>
-            <p className="text-sm font-medium text-slate-500">Total sign-ups trends</p>
+            <h2 className="text-sm font-bold uppercase tracking-wider text-foreground">Customer Growth</h2>
+            <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Total sign-ups trends</p>
           </div>
 
-          <div className="h-80 w-full text-[10px] font-light">
+          <div className="h-80 w-full text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={charts.customerGrowth} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#fce7f3" stopOpacity={0.4}/>
-                    <stop offset="95%" stopColor="#fce7f3" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.2}/>
+                    <stop offset="95%" stopColor="var(--primary)" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
-                <XAxis dataKey="name" stroke="#64748b" tick={{fill: '#64748b'}} axisLine={false} tickLine={false} dy={10} />
-                <YAxis stroke="#64748b" tick={{fill: '#64748b'}} axisLine={false} tickLine={false} dx={-10} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                <XAxis dataKey="name" stroke="var(--muted-foreground)" tick={{fill: 'currentColor'}} axisLine={false} tickLine={false} dy={10} />
+                <YAxis stroke="var(--muted-foreground)" tick={{fill: 'currentColor'}} axisLine={false} tickLine={false} dx={-10} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#fff', borderColor: '#e2e8f0', color: '#0f172a', borderRadius: '12px', fontSize: '12px', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}
-                  itemStyle={{ color: '#fbcfe8' }}
+                  contentStyle={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)', color: 'var(--foreground)', borderRadius: '12px', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em' }}
                   formatter={(value) => [value, 'Total Customers']}
                 />
-                <Area type="monotone" dataKey="count" stroke="#fce7f3" fillOpacity={1} fill="url(#colorCount)" strokeWidth={3} />
+                <Area type="monotone" dataKey="count" stroke="var(--primary)" fillOpacity={1} fill="url(#colorCount)" strokeWidth={3} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         {/* Category breakdown pie */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+        <div className="bg-card p-6 rounded-3xl border border-border/40 shadow-sm hover:shadow-md transition-shadow duration-300">
           <div className="mb-6">
-            <h2 className="text-lg font-bold text-slate-900">Category Split</h2>
-            <p className="text-sm font-medium text-slate-500">Revenue by department</p>
+            <h2 className="text-sm font-bold uppercase tracking-wider text-foreground">Category Split</h2>
+            <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Revenue by department</p>
           </div>
 
-          <div className="h-80 w-full flex items-center justify-center text-[10px] font-bold uppercase tracking-widest text-slate-700">
+          <div className="h-80 w-full flex items-center justify-center text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={charts.category}
                   cx="50%"
                   cy="50%"
-                  innerRadius={80}
-                  outerRadius={110}
-                  paddingAngle={2}
+                  innerRadius={70}
+                  outerRadius={100}
+                  paddingAngle={3}
                   dataKey="value"
                   stroke="none"
                 >
@@ -356,35 +355,34 @@ export default function DashboardPage() {
                   ))}
                 </Pie>
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#000', borderColor: '#000', color: '#fff', borderRadius: '0', fontSize: '12px' }}
+                  contentStyle={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)', color: 'var(--foreground)', borderRadius: '12px', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em' }}
                   formatter={(value) => `₹${Number(value).toLocaleString()}`} 
                 />
-                <Legend layout="horizontal" verticalAlign="bottom" align="center" iconType="square" />
+                <Legend layout="horizontal" verticalAlign="bottom" align="center" iconType="circle" />
               </PieChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         {/* Top Products performance bar */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+        <div className="bg-card p-6 rounded-3xl border border-border/40 shadow-sm hover:shadow-md transition-shadow duration-300">
           <div className="mb-6">
-            <h2 className="text-lg font-bold text-slate-900">Top Products</h2>
-            <p className="text-sm font-medium text-slate-500">Volume generated</p>
+            <h2 className="text-sm font-bold uppercase tracking-wider text-foreground">Top Products</h2>
+            <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-widest">Volume generated</p>
           </div>
 
-          <div className="h-80 w-full text-[10px] font-light">
+          <div className="h-80 w-full text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={charts.topProducts} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
-                <XAxis dataKey="name" stroke="#94a3b8" tickFormatter={(name) => name.length > 10 ? name.substring(0, 10) + '...' : name} tick={{fill: '#94a3b8'}} axisLine={false} tickLine={false} dy={10} />
-                <YAxis stroke="#94a3b8" tick={{fill: '#94a3b8'}} axisLine={false} tickLine={false} dx={-10} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                <XAxis dataKey="name" stroke="var(--muted-foreground)" tickFormatter={(name) => name.length > 10 ? name.substring(0, 10) + '...' : name} tick={{fill: 'currentColor'}} axisLine={false} tickLine={false} dy={10} />
+                <YAxis stroke="var(--muted-foreground)" tick={{fill: 'currentColor'}} axisLine={false} tickLine={false} dx={-10} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#000', borderColor: '#000', color: '#fff', borderRadius: '0', fontSize: '12px' }}
-                  itemStyle={{ color: '#fff' }}
-                  cursor={{fill: '#f8fafc'}}
+                  contentStyle={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)', color: 'var(--foreground)', borderRadius: '12px', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.05em' }}
+                  cursor={{fill: 'var(--muted)', opacity: 0.2}}
                   formatter={(value, name) => [name === 'revenue' ? `₹${Number(value).toLocaleString()}` : value, name === 'revenue' ? 'Revenue' : 'Units Sold']}
                 />
-                <Bar dataKey="sales" fill="#3b82f6" maxBarSize={40} radius={[4, 4, 0, 0]} />
+                <Bar dataKey="sales" fill="var(--primary)" maxBarSize={32} radius={[6, 6, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -395,30 +393,30 @@ export default function DashboardPage() {
       {/* Row list of detailed products & inventory alerts */}
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
         {/* Top sales table */}
-        <div className="xl:col-span-2 bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-          <div className="p-6 border-b border-slate-200">
-             <h2 className="text-lg font-bold text-slate-900">Top Selling Items</h2>
+        <div className="xl:col-span-2 bg-card border border-border/40 rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-350">
+          <div className="p-6 border-b border-border/40">
+             <h2 className="text-sm font-bold uppercase tracking-wider text-foreground">Top Selling Items</h2>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-muted/50 border-b border-border/40">
                 <tr>
-                  <th className="px-6 py-4 text-xs font-semibold text-slate-500">Product Name</th>
-                  <th className="px-6 py-4 text-xs font-semibold text-slate-500 text-center">Units Sold</th>
-                  <th className="px-6 py-4 text-xs font-semibold text-slate-500 text-right">Revenue</th>
+                  <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Product Name</th>
+                  <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground text-center">Units Sold</th>
+                  <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground text-right">Revenue</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-border/20">
                 {charts.topProducts.map((p, index) => (
-                  <tr key={index} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-8 py-5 text-xs font-medium text-slate-900">{p.name}</td>
-                    <td className="px-8 py-5 text-xs font-bold text-indigo-600 text-center">{p.sales}</td>
-                    <td className="px-8 py-5 text-xs font-bold text-teal-600 text-right">₹{p.revenue.toLocaleString('en-IN')}</td>
+                  <tr key={index} className="hover:bg-muted/30 transition-colors">
+                    <td className="px-6 py-4.5 text-xs font-semibold text-foreground">{p.name}</td>
+                    <td className="px-6 py-4.5 text-xs font-black text-primary text-center">{p.sales}</td>
+                    <td className="px-6 py-4.5 text-xs font-black text-foreground text-right">₹{p.revenue.toLocaleString('en-IN')}</td>
                   </tr>
                 ))}
                 {charts.topProducts.length === 0 && (
                   <tr>
-                    <td colSpan={3} className="text-center py-12 text-xs font-light text-slate-500">No sales transactions logged yet.</td>
+                    <td colSpan={3} className="text-center py-12 text-xs font-light text-muted-foreground">No sales transactions logged yet.</td>
                   </tr>
                 )}
               </tbody>
@@ -427,44 +425,45 @@ export default function DashboardPage() {
         </div>
 
         {/* Low Stock alerts list box */}
-        <div className="glass-panel p-6 rounded-2xl space-y-6 shadow-sm hover:shadow-md transition-shadow">
-          <div className="pb-2">
-             <h2 className="text-lg font-bold text-slate-900">Inventory Alerts</h2>
-          </div>
-          
-          <div className="space-y-4">
-            {metrics.lowStockProducts > 0 ? (
-              <div className="flex items-start gap-4 p-4 border border-rose-500/50 bg-rose-500/10 rounded-xl text-rose-400">
-                <AlertTriangle className="h-5 w-5 shrink-0" strokeWidth={1.5} />
-                <div className="space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-glow">Attention Required!</span>
-                  <p className="text-xs font-medium text-rose-300">You have {metrics.lowStockProducts} products reaching low levels.</p>
-                </div>
-              </div>
-            ) : (
-              <div className="flex items-start gap-4 p-4 border border-teal-500/30 bg-teal-500/10 rounded-xl text-teal-400">
-                <CheckCircle className="h-5 w-5 shrink-0" strokeWidth={1.5} />
-                <div className="space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-glow">Inventory Healthy</span>
-                  <p className="text-xs font-medium text-teal-200/70">All products are well stocked.</p>
-                </div>
-              </div>
-            )}
-
-            {/* Quick action info */}
-            <div className="border border-slate-200 bg-slate-50 rounded-xl p-5 space-y-3">
-              <span className="text-sm font-semibold text-slate-900">Logistics Insight</span>
-              <p className="text-sm text-slate-500">
-                Check the Product Management portal to filter and view catalog items marked under Alert quantities, duplicate listings, or bulk update items.
-              </p>
-              <button 
-                onClick={() => window.location.href = '/admin/products'}
-                className="text-sm font-bold text-indigo-600 hover:text-indigo-700 flex items-center gap-1 transition-colors pt-2"
-              >
-                Go to Catalog <ArrowUpRight className="h-4 w-4" />
-              </button>
+        <div className="bg-card border border-border/40 p-6 rounded-3xl space-y-6 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col justify-between">
+          <div className="space-y-6">
+            <div className="pb-2 border-b border-border/20">
+               <h2 className="text-sm font-bold uppercase tracking-wider text-foreground">Inventory Alerts</h2>
             </div>
+            
+            <div className="space-y-4">
+              {metrics.lowStockProducts > 0 ? (
+                <div className="flex items-start gap-4 p-4 border border-primary/20 bg-primary/5 rounded-2xl text-primary">
+                  <AlertTriangle className="h-5 w-5 shrink-0" strokeWidth={1.5} />
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-black uppercase tracking-widest">Attention Required!</span>
+                    <p className="text-xs font-bold text-foreground">You have {metrics.lowStockProducts} products reaching low levels.</p>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-start gap-4 p-4 border border-emerald-500/20 bg-emerald-500/5 rounded-2xl text-emerald-500">
+                  <CheckCircle className="h-5 w-5 shrink-0" strokeWidth={1.5} />
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-black uppercase tracking-widest">Inventory Healthy</span>
+                    <p className="text-xs font-bold text-foreground">All products are well stocked.</p>
+                  </div>
+                </div>
+              )}
 
+              {/* Quick action info */}
+              <div className="border border-border/40 bg-muted/30 rounded-2xl p-5 space-y-3">
+                <span className="text-xs font-bold uppercase tracking-wider text-foreground">Logistics Insight</span>
+                <p className="text-xs text-muted-foreground leading-relaxed font-light">
+                  Check the Product Management portal to filter and view catalog items marked under Alert quantities, duplicate listings, or bulk update items.
+                </p>
+                <button 
+                  onClick={() => window.location.href = '/admin/products'}
+                  className="text-xs font-black text-primary uppercase tracking-widest hover:underline flex items-center gap-1 transition-colors pt-2 cursor-pointer"
+                >
+                  Go to Catalog <ArrowUpRight className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

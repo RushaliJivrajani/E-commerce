@@ -116,8 +116,8 @@ export default function ReviewsPage() {
     return (
       <div className="flex h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-slate-500" />
-          <p className="text-sm text-slate-400">Loading catalog reviews...</p>
+          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          <p className="text-sm text-muted-foreground/80">Loading catalog reviews...</p>
         </div>
       </div>
     );
@@ -129,10 +129,10 @@ export default function ReviewsPage() {
       {/* Header Panel */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl flex items-center gap-2">
-            Reviews Moderation <MessageSquare className="h-6 w-6 text-slate-500" />
+          <h1 className="text-2xl font-bold tracking-tight text-foreground dark:text-white sm:text-3xl flex items-center gap-2">
+            Reviews Moderation <MessageSquare className="h-6 w-6 text-muted-foreground" />
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-muted-foreground dark:text-muted-foreground/80">
             Moderate product reviews, approve buyer feedback, hide inappropriate content, and reply directly.
           </p>
         </div>
@@ -143,14 +143,14 @@ export default function ReviewsPage() {
         {reviews.map((rev) => (
           <div
             key={rev.id}
-            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/60"
+            className="rounded-2xl border border-border bg-card p-5 shadow-sm dark:border-slate-800 dark:bg-foreground text-background/60"
           >
             {/* Upper row: Name, rating, status */}
-            <div className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-100 dark:border-slate-850 pb-3 mb-3">
+            <div className="flex flex-wrap items-start justify-between gap-3 border-b border-border/30 dark:border-slate-850 pb-3 mb-3">
               <div>
-                <span className="font-bold text-slate-900 dark:text-white">{rev.customerName}</span>
-                <span className="text-xs text-slate-400"> on </span>
-                <span className="text-xs font-bold text-slate-400 font-mono">{rev.productName}</span>
+                <span className="font-bold text-foreground dark:text-white">{rev.customerName}</span>
+                <span className="text-xs text-muted-foreground/80"> on </span>
+                <span className="text-xs font-bold text-muted-foreground/80 font-mono">{rev.productName}</span>
               </div>
 
               {/* Stars rendering */}
@@ -162,45 +162,45 @@ export default function ReviewsPage() {
                       className={`h-4 w-4 ${
                         i < rev.rating
                           ? 'text-indigo-400 fill-indigo-405' // Wait, fill-indigo-405 -> fill-indigo-400
-                          : 'text-slate-350 dark:text-slate-700'
+                          : 'text-slate-350 dark:text-foreground/90'
                       }`}
                     />
                   ))}
                 </div>
                 <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${
                   rev.status === 'Approved'
-                    ? 'bg-teal-500/10 text-teal-500'
+                    ? 'bg-primary/100/10 text-primary'
                     : rev.status === 'Pending'
-                    ? 'bg-indigo-500/10 text-indigo-500'
-                    : 'bg-slate-500/10 text-slate-500'
+                    ? 'bg-primary/10 text-primary'
+                    : 'bg-card/500/10 text-muted-foreground'
                 }`}>{rev.status}</span>
               </div>
             </div>
 
             {/* Comment Body */}
-            <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium">"{rev.comment}"</p>
-            <span className="text-[10px] text-slate-500 font-mono block mt-1.5">
+            <p className="text-sm text-foreground/90 dark:text-muted-foreground/50 leading-relaxed font-medium">"{rev.comment}"</p>
+            <span className="text-[10px] text-muted-foreground font-mono block mt-1.5">
               Logged: {new Date(rev.createdAt).toLocaleString()}
             </span>
 
             {/* Render Reply if exists */}
             {rev.reply && (
               <div className="mt-4 pl-4 border-l-2 border-slate-500 flex items-start gap-2 text-xs">
-                <CornerDownRight className="h-4 w-4 text-slate-400 shrink-0 mt-0.5" />
+                <CornerDownRight className="h-4 w-4 text-muted-foreground/80 shrink-0 mt-0.5" />
                 <div>
-                  <span className="font-bold text-slate-900 dark:text-slate-400">Admin Response:</span>
-                  <p className="text-slate-400 mt-1 font-medium">"{rev.reply}"</p>
+                  <span className="font-bold text-foreground dark:text-muted-foreground/80">Admin Response:</span>
+                  <p className="text-muted-foreground/80 mt-1 font-medium">"{rev.reply}"</p>
                 </div>
               </div>
             )}
 
             {/* Moderation Controls */}
-            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 dark:border-slate-850 pt-3 mt-4">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border/30 dark:border-slate-850 pt-3 mt-4">
               <div className="flex items-center gap-2">
                 {rev.status !== 'Approved' && (
                   <button
                     onClick={() => handleUpdateStatus(rev.id, 'Approved')}
-                    className="flex items-center gap-1 text-[11px] font-bold text-teal-500 hover:bg-teal-500/10 border border-teal-500/20 px-2.5 py-1 rounded-lg"
+                    className="flex items-center gap-1 text-[11px] font-bold text-primary hover:bg-primary/100/10 border border-teal-500/20 px-2.5 py-1 rounded-lg"
                   >
                     <CheckCircle className="h-3.5 w-3.5" /> Approve
                   </button>
@@ -208,7 +208,7 @@ export default function ReviewsPage() {
                 {rev.status !== 'Hidden' && (
                   <button
                     onClick={() => handleUpdateStatus(rev.id, 'Hidden')}
-                    className="flex items-center gap-1 text-[11px] font-bold text-slate-400 hover:bg-slate-500/10 border border-slate-500/15 px-2.5 py-1 rounded-lg"
+                    className="flex items-center gap-1 text-[11px] font-bold text-muted-foreground/80 hover:bg-card/500/10 border border-slate-500/15 px-2.5 py-1 rounded-lg"
                   >
                     <EyeOff className="h-3.5 w-3.5" /> Hide
                   </button>
@@ -216,7 +216,7 @@ export default function ReviewsPage() {
                 {!rev.reply && replyingId !== rev.id && (
                   <button
                     onClick={() => setReplyingId(rev.id)}
-                    className="text-[11px] font-bold text-slate-400 hover:underline px-2"
+                    className="text-[11px] font-bold text-muted-foreground/80 hover:underline px-2"
                   >
                     Reply
                   </button>
@@ -225,7 +225,7 @@ export default function ReviewsPage() {
 
               <button
                 onClick={() => handleDelete(rev.id)}
-                className="p-1 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-500/10"
+                className="p-1 rounded-lg text-muted-foreground/80 hover:text-rose-500 hover:bg-rose-500/10"
               >
                 <Trash2 className="h-4 w-4" />
               </button>
@@ -233,14 +233,14 @@ export default function ReviewsPage() {
 
             {/* Reply Input Form */}
             {replyingId === rev.id && (
-              <form onSubmit={(e) => handleSendReply(e, rev.id)} className="mt-4 border-t border-slate-100 dark:border-slate-800 pt-3 flex gap-2">
+              <form onSubmit={(e) => handleSendReply(e, rev.id)} className="mt-4 border-t border-border/30 dark:border-slate-800 pt-3 flex gap-2">
                 <input
                   type="text"
                   required
                   value={replyText}
                   onChange={(e) => setReplyText(e.target.value)}
                   placeholder="Type administrative reply..."
-                  className="flex-1 text-xs rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 focus:outline-none dark:border-slate-850 dark:bg-slate-950 text-slate-900 dark:text-white"
+                  className="flex-1 text-xs rounded-xl border border-border bg-card/50 px-3 py-2 focus:outline-none dark:border-slate-850 dark:bg-slate-950 text-foreground dark:text-white"
                 />
                 <button
                   type="submit"
@@ -252,7 +252,7 @@ export default function ReviewsPage() {
                 <button
                   type="button"
                   onClick={() => setReplyingId(null)}
-                  className="p-2 text-slate-400 hover:text-slate-200"
+                  className="p-2 text-muted-foreground/80 hover:text-border"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -262,7 +262,7 @@ export default function ReviewsPage() {
           </div>
         ))}
         {reviews.length === 0 && (
-          <p className="text-sm text-slate-400 text-center py-8">No reviews submitted yet.</p>
+          <p className="text-sm text-muted-foreground/80 text-center py-8">No reviews submitted yet.</p>
         )}
       </div>
 

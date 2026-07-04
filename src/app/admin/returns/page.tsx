@@ -109,15 +109,15 @@ export default function ReturnsPage() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'Requested':
-        return 'bg-indigo-500/10 text-indigo-500 border-indigo-500/20';
+        return 'bg-primary/10 text-primary border-primary/20';
       case 'Approved':
         return 'bg-blue-500/10 text-blue-500 border-blue-500/20';
       case 'Refunded':
-        return 'bg-teal-500/10 text-teal-500 border-teal-500/20';
+        return 'bg-primary/100/10 text-primary border-teal-500/20';
       case 'Rejected':
         return 'bg-rose-500/10 text-rose-500 border-rose-500/20';
       default:
-        return 'bg-slate-500/10 text-slate-500 border-slate-500/20';
+        return 'bg-card/500/10 text-muted-foreground border-slate-500/20';
     }
   };
 
@@ -125,8 +125,8 @@ export default function ReturnsPage() {
     return (
       <div className="flex h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-slate-500" />
-          <p className="text-sm text-slate-400">Loading returns...</p>
+          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          <p className="text-sm text-muted-foreground/80">Loading returns...</p>
         </div>
       </div>
     );
@@ -137,30 +137,30 @@ export default function ReturnsPage() {
       
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl flex items-center gap-2">
-            Return Management <RotateCcw className="h-6 w-6 text-slate-500" />
+          <h1 className="text-2xl font-bold tracking-tight text-foreground dark:text-white sm:text-3xl flex items-center gap-2">
+            Return Management <RotateCcw className="h-6 w-6 text-muted-foreground" />
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-muted-foreground dark:text-muted-foreground/80">
             Process customer returns, exchanges, and refunds.
           </p>
         </div>
       </div>
 
-      <div className="flex items-center gap-3 max-w-md bg-white dark:bg-slate-900/60 rounded-xl border border-slate-200 dark:border-slate-800 px-3 py-2 text-sm">
-        <Search className="h-4 w-4 text-slate-400 shrink-0" />
+      <div className="flex items-center gap-3 max-w-md bg-card dark:bg-foreground text-background/60 rounded-xl border border-border dark:border-slate-800 px-3 py-2 text-sm">
+        <Search className="h-4 w-4 text-muted-foreground/80 shrink-0" />
         <input
           type="text"
           placeholder="Search order #, customer name, email..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1 bg-transparent focus:outline-none dark:text-white text-slate-900"
+          className="flex-1 bg-transparent focus:outline-none dark:text-white text-foreground"
         />
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900/60 overflow-hidden">
+      <div className="rounded-2xl border border-border bg-card shadow-sm dark:border-slate-800 dark:bg-foreground text-background/60 overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-slate-500 dark:text-slate-400">
-            <thead className="text-xs uppercase bg-slate-50 dark:bg-slate-950 font-semibold border-b border-slate-200 dark:border-slate-800 text-slate-400">
+          <table className="w-full text-left text-sm text-muted-foreground dark:text-muted-foreground/80">
+            <thead className="text-xs uppercase bg-card/50 dark:bg-slate-950 font-semibold border-b border-border dark:border-slate-800 text-muted-foreground/80">
               <tr>
                 <th className="px-6 py-4">Order Details</th>
                 <th className="px-6 py-4">Customer Info</th>
@@ -172,29 +172,29 @@ export default function ReturnsPage() {
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {filteredReturns.map((r) => (
-                <tr key={r.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-950/20">
+                <tr key={r.id} className="hover:bg-card/50/50 dark:hover:bg-slate-950/20">
                   <td className="px-6 py-4">
-                    <span className="font-bold text-slate-900 dark:text-white block">{r.orderNumber}</span>
+                    <span className="font-bold text-foreground dark:text-white block">{r.orderNumber}</span>
                   </td>
                   <td className="px-6 py-4">
-                    <span className="text-slate-900 dark:text-white font-medium block">{r.customerName}</span>
-                    <span className="text-xs text-slate-400 block">{r.customerEmail}</span>
+                    <span className="text-foreground dark:text-white font-medium block">{r.customerName}</span>
+                    <span className="text-xs text-muted-foreground/80 block">{r.customerEmail}</span>
                   </td>
                   <td className="px-6 py-4">
-                    <span className="text-slate-900 dark:text-slate-300 block text-xs font-semibold">{r.reason}</span>
+                    <span className="text-foreground dark:text-muted-foreground/50 block text-xs font-semibold">{r.reason}</span>
                   </td>
                   <td className="px-6 py-4 text-center">
                     <span className={`inline-block rounded-full border px-2.5 py-0.5 text-xs font-semibold ${getStatusColor(r.status)}`}>
                       {r.status}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-center text-xs text-slate-400">
+                  <td className="px-6 py-4 text-center text-xs text-muted-foreground/80">
                     {new Date(r.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                   </td>
                   <td className="px-6 py-4 text-center">
                     <button
                       onClick={() => handleOpenDetails(r)}
-                      className="inline-flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-slate-400 bg-slate-500/10 px-2.5 py-1.5 rounded-lg"
+                      className="inline-flex items-center gap-1 text-xs font-bold text-muted-foreground hover:text-muted-foreground/80 bg-card/500/10 px-2.5 py-1.5 rounded-lg"
                     >
                       <Eye className="h-3.5 w-3.5" /> Review
                     </button>
@@ -203,7 +203,7 @@ export default function ReturnsPage() {
               ))}
               {filteredReturns.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="text-center py-12 text-slate-400">No return requests found.</td>
+                  <td colSpan={6} className="text-center py-12 text-muted-foreground/80">No return requests found.</td>
                 </tr>
               )}
             </tbody>
@@ -215,39 +215,39 @@ export default function ReturnsPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={() => setModalOpen(false)} />
           
-          <div className="relative w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl dark:border-slate-800 dark:bg-slate-900">
+          <div className="relative w-full max-w-lg rounded-2xl border border-border bg-card p-6 shadow-2xl dark:border-slate-800 dark:bg-foreground text-background">
             <button
               onClick={() => setModalOpen(false)}
-              className="absolute top-4 right-4 rounded-lg p-1 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="absolute top-4 right-4 rounded-lg p-1 text-muted-foreground/80 hover:bg-card/80 dark:hover:bg-slate-800"
             >
               <X className="h-5 w-5" />
             </button>
 
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-6">Review Return Request</h3>
+            <h3 className="text-lg font-bold text-foreground dark:text-white mb-6">Review Return Request</h3>
             
             <div className="space-y-4 mb-6">
               <div>
-                <span className="text-xs text-slate-400 block">Order Number</span>
-                <span className="font-semibold text-slate-900 dark:text-white">{selectedReturn.orderNumber}</span>
+                <span className="text-xs text-muted-foreground/80 block">Order Number</span>
+                <span className="font-semibold text-foreground dark:text-white">{selectedReturn.orderNumber}</span>
               </div>
               <div>
-                <span className="text-xs text-slate-400 block">Customer</span>
-                <span className="font-semibold text-slate-900 dark:text-white">{selectedReturn.customerName} ({selectedReturn.customerEmail})</span>
+                <span className="text-xs text-muted-foreground/80 block">Customer</span>
+                <span className="font-semibold text-foreground dark:text-white">{selectedReturn.customerName} ({selectedReturn.customerEmail})</span>
               </div>
               <div>
-                <span className="text-xs text-slate-400 block">Reason for Return</span>
-                <span className="font-semibold text-slate-900 dark:text-white">{selectedReturn.reason}</span>
-                {selectedReturn.details && <p className="text-xs text-slate-500 mt-1">{selectedReturn.details}</p>}
+                <span className="text-xs text-muted-foreground/80 block">Reason for Return</span>
+                <span className="font-semibold text-foreground dark:text-white">{selectedReturn.reason}</span>
+                {selectedReturn.details && <p className="text-xs text-muted-foreground mt-1">{selectedReturn.details}</p>}
               </div>
             </div>
 
-            <form onSubmit={handleUpdate} className="space-y-4 border-t border-slate-200 dark:border-slate-800 pt-4">
+            <form onSubmit={handleUpdate} className="space-y-4 border-t border-border dark:border-slate-800 pt-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-400 uppercase">Action / Status</label>
+                <label className="block text-xs font-semibold text-muted-foreground/80 uppercase">Action / Status</label>
                 <select
                   value={newStatus}
                   onChange={(e) => setNewStatus(e.target.value)}
-                  className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                  className="mt-1 block w-full rounded-xl border border-border bg-card/50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-foreground dark:text-white"
                 >
                   <option value="Requested">Pending Review</option>
                   <option value="Approved">Approve Return</option>
@@ -257,12 +257,12 @@ export default function ReturnsPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-400 uppercase">Admin Comments (Internal)</label>
+                <label className="block text-xs font-semibold text-muted-foreground/80 uppercase">Admin Comments (Internal)</label>
                 <textarea
                   value={adminComments}
                   onChange={(e) => setAdminComments(e.target.value)}
                   rows={3}
-                  className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                  className="mt-1 block w-full rounded-xl border border-border bg-card/50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-foreground dark:text-white"
                   placeholder="Notes for the team..."
                 />
               </div>
@@ -271,7 +271,7 @@ export default function ReturnsPage() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300"
+                  className="rounded-xl border border-border bg-card px-4 py-2.5 text-xs font-semibold text-foreground/90 hover:bg-card/50 dark:border-slate-800 dark:bg-slate-950 dark:text-muted-foreground/50"
                 >
                   Cancel
                 </button>

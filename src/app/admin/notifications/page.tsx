@@ -134,9 +134,9 @@ export default function NotificationsPage() {
   const getTypeIcon = (type: string) => {
     switch (type) {
       case 'Email': return <Mail className="h-4 w-4 text-blue-500" />;
-      case 'SMS': return <MessageSquare className="h-4 w-4 text-teal-500" />;
+      case 'SMS': return <MessageSquare className="h-4 w-4 text-primary" />;
       case 'WhatsApp': return <MessageSquare className="h-4 w-4 text-green-500" />;
-      default: return <BellRing className="h-4 w-4 text-slate-500" />;
+      default: return <BellRing className="h-4 w-4 text-muted-foreground" />;
     }
   };
 
@@ -144,8 +144,8 @@ export default function NotificationsPage() {
     return (
       <div className="flex h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-slate-500" />
-          <p className="text-sm text-slate-400">Loading templates...</p>
+          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          <p className="text-sm text-muted-foreground/80">Loading templates...</p>
         </div>
       </div>
     );
@@ -156,16 +156,16 @@ export default function NotificationsPage() {
       
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl flex items-center gap-2">
-            Notification Templates <BellRing className="h-6 w-6 text-slate-500" />
+          <h1 className="text-2xl font-bold tracking-tight text-foreground dark:text-white sm:text-3xl flex items-center gap-2">
+            Notification Templates <BellRing className="h-6 w-6 text-muted-foreground" />
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-muted-foreground dark:text-muted-foreground/80">
             Manage Email, SMS, and WhatsApp alerts for orders and returns.
           </p>
         </div>
         <button
           onClick={handleOpenAdd}
-          className="flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-2 text-sm font-bold text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100"
+          className="flex items-center gap-2 rounded-xl bg-foreground text-background px-4 py-2 text-sm font-bold text-white hover:bg-slate-800 dark:bg-card dark:text-foreground dark:hover:bg-card/80"
         >
           <Plus className="h-4 w-4" /> Add Template
         </button>
@@ -173,19 +173,19 @@ export default function NotificationsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {templates.map((t) => (
-          <div key={t.id} className={`rounded-2xl border ${t.isActive ? 'border-slate-200 dark:border-slate-800' : 'border-rose-500/20 opacity-70'} bg-white shadow-sm dark:bg-slate-900/60 p-5 relative`}>
-            <div className="flex justify-between items-start mb-4 border-b border-slate-100 dark:border-slate-800 pb-3">
+          <div key={t.id} className={`rounded-2xl border ${t.isActive ? 'border-border dark:border-slate-800' : 'border-rose-500/20 opacity-70'} bg-card shadow-sm dark:bg-foreground text-background/60 p-5 relative`}>
+            <div className="flex justify-between items-start mb-4 border-b border-border/30 dark:border-slate-800 pb-3">
               <div>
-                <span className="flex items-center gap-1.5 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                <span className="flex items-center gap-1.5 text-xs font-bold text-muted-foreground uppercase tracking-wider">
                   {getTypeIcon(t.type)} {t.type}
                 </span>
-                <h3 className="font-bold text-slate-900 dark:text-white mt-1 text-lg">{t.name}</h3>
+                <h3 className="font-bold text-foreground dark:text-white mt-1 text-lg">{t.name}</h3>
               </div>
               <div className="flex gap-2">
-                <button onClick={() => handleOpenEdit(t)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 p-1">
+                <button onClick={() => handleOpenEdit(t)} className="text-muted-foreground/80 hover:text-foreground/80 dark:hover:text-muted-foreground/50 p-1">
                   <Edit className="h-4 w-4" />
                 </button>
-                <button onClick={() => handleDelete(t.id)} className="text-slate-400 hover:text-rose-500 p-1">
+                <button onClick={() => handleDelete(t.id)} className="text-muted-foreground/80 hover:text-rose-500 p-1">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
@@ -193,20 +193,20 @@ export default function NotificationsPage() {
             
             {t.type === 'Email' && (
               <div className="mb-3 text-sm">
-                <span className="font-semibold text-slate-700 dark:text-slate-300">Subject: </span>
-                <span className="text-slate-500">{t.subject}</span>
+                <span className="font-semibold text-foreground/90 dark:text-muted-foreground/50">Subject: </span>
+                <span className="text-muted-foreground">{t.subject}</span>
               </div>
             )}
             
-            <div className="text-sm text-slate-500 bg-slate-50 dark:bg-slate-950 p-3 rounded-xl max-h-32 overflow-y-auto whitespace-pre-wrap font-mono text-[11px]">
+            <div className="text-sm text-muted-foreground bg-card/50 dark:bg-slate-950 p-3 rounded-xl max-h-32 overflow-y-auto whitespace-pre-wrap font-mono text-[11px]">
               {t.body}
             </div>
 
-            <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs">
-              <span className={t.isActive ? 'text-teal-500 font-bold' : 'text-rose-500 font-bold'}>
+            <div className="mt-4 pt-4 border-t border-border/30 dark:border-slate-800 flex justify-between items-center text-xs">
+              <span className={t.isActive ? 'text-primary font-bold' : 'text-rose-500 font-bold'}>
                 {t.isActive ? 'Active' : 'Inactive'}
               </span>
-              <span className="text-slate-400">
+              <span className="text-muted-foreground/80">
                 Created {new Date(t.createdAt).toLocaleDateString()}
               </span>
             </div>
@@ -214,7 +214,7 @@ export default function NotificationsPage() {
         ))}
 
         {templates.length === 0 && (
-          <div className="col-span-full text-center py-12 text-slate-400 border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl">
+          <div className="col-span-full text-center py-12 text-muted-foreground/80 border border-dashed border-border dark:border-slate-800 rounded-2xl">
             No notification templates defined yet.
           </div>
         )}
@@ -224,37 +224,37 @@ export default function NotificationsPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={() => setModalOpen(false)} />
           
-          <div className="relative w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl dark:border-slate-800 dark:bg-slate-900">
+          <div className="relative w-full max-w-lg rounded-2xl border border-border bg-card p-6 shadow-2xl dark:border-slate-800 dark:bg-foreground text-background">
             <button
               onClick={() => setModalOpen(false)}
-              className="absolute top-4 right-4 rounded-lg p-1 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="absolute top-4 right-4 rounded-lg p-1 text-muted-foreground/80 hover:bg-card/80 dark:hover:bg-slate-800"
             >
               <X className="h-5 w-5" />
             </button>
 
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-6">
+            <h3 className="text-lg font-bold text-foreground dark:text-white mb-6">
               {modalType === 'add' ? 'Create Template' : 'Edit Template'}
             </h3>
             
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-400 uppercase">Template Name / Trigger</label>
+                <label className="block text-xs font-semibold text-muted-foreground/80 uppercase">Template Name / Trigger</label>
                 <input
                   type="text"
                   required
                   value={formName}
                   onChange={(e) => setFormName(e.target.value)}
                   placeholder="e.g. Order Confirmation"
-                  className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                  className="mt-1 block w-full rounded-xl border border-border bg-card/50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-foreground dark:text-white"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-400 uppercase">Channel Type</label>
+                <label className="block text-xs font-semibold text-muted-foreground/80 uppercase">Channel Type</label>
                 <select
                   value={formType}
                   onChange={(e) => setFormType(e.target.value as any)}
-                  className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                  className="mt-1 block w-full rounded-xl border border-border bg-card/50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-foreground dark:text-white"
                 >
                   <option value="Email">Email</option>
                   <option value="SMS">SMS</option>
@@ -264,41 +264,41 @@ export default function NotificationsPage() {
 
               {formType === 'Email' && (
                 <div>
-                  <label className="block text-xs font-semibold text-slate-400 uppercase">Email Subject</label>
+                  <label className="block text-xs font-semibold text-muted-foreground/80 uppercase">Email Subject</label>
                   <input
                     type="text"
                     required
                     value={formSubject}
                     onChange={(e) => setFormSubject(e.target.value)}
                     placeholder="Your Rush Closet Order..."
-                    className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white"
+                    className="mt-1 block w-full rounded-xl border border-border bg-card/50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-foreground dark:text-white"
                   />
                 </div>
               )}
 
               <div>
-                <label className="block text-xs font-semibold text-slate-400 uppercase">Message Body</label>
-                <p className="text-[10px] text-slate-400 mb-1">Use variables like {'{customer_name}'}, {'{order_number}'}</p>
+                <label className="block text-xs font-semibold text-muted-foreground/80 uppercase">Message Body</label>
+                <p className="text-[10px] text-muted-foreground/80 mb-1">Use variables like {'{customer_name}'}, {'{order_number}'}</p>
                 <textarea
                   required
                   value={formBody}
                   onChange={(e) => setFormBody(e.target.value)}
                   rows={6}
-                  className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-slate-900 dark:text-white font-mono text-xs"
+                  className="mt-1 block w-full rounded-xl border border-border bg-card/50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-foreground dark:text-white font-mono text-xs"
                   placeholder="Hi {customer_name}, your order #{order_number} has been confirmed!"
                 />
               </div>
 
-              <div className="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/40">
+              <div className="flex items-center gap-3 p-4 rounded-xl border border-border dark:border-slate-800 bg-card/50 dark:bg-slate-950/40">
                 <input
                   type="checkbox"
                   checked={formIsActive}
                   onChange={(e) => setFormIsActive(e.target.checked)}
-                  className="h-5 w-5 rounded border-slate-300 text-slate-900 focus:ring-slate-900"
+                  className="h-5 w-5 rounded border-border/80 text-foreground focus:ring-slate-900"
                 />
                 <div>
-                  <span className="block text-sm font-bold text-slate-900 dark:text-white">Active Status</span>
-                  <span className="block text-xs text-slate-500">Is this template currently used by the system?</span>
+                  <span className="block text-sm font-bold text-foreground dark:text-white">Active Status</span>
+                  <span className="block text-xs text-muted-foreground">Is this template currently used by the system?</span>
                 </div>
               </div>
 
@@ -306,7 +306,7 @@ export default function NotificationsPage() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300"
+                  className="rounded-xl border border-border bg-card px-4 py-2.5 text-xs font-semibold text-foreground/90 hover:bg-card/50 dark:border-slate-800 dark:bg-slate-950 dark:text-muted-foreground/50"
                 >
                   Cancel
                 </button>

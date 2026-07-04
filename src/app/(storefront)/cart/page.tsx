@@ -190,7 +190,7 @@ export default function CartPage() {
       
       {/* Path Breadcrumbs */}
       <FadeIn direction="up">
-        <div className="flex justify-center items-center gap-2 text-[9px] font-bold uppercase tracking-widest text-slate-400">
+        <div className="flex justify-center items-center gap-2 text-[9px] font-bold uppercase tracking-widest text-muted-foreground/80">
           <Link href="/" className="hover:text-indigo-400 transition-colors">Home</Link>
           <ChevronRight className="h-3 w-3" />
           <span className="text-indigo-400 text-glow">Shopping Bag</span>
@@ -209,11 +209,11 @@ export default function CartPage() {
             <ShoppingBag className="h-12 w-12 mx-auto text-indigo-400 drop-shadow-lg" strokeWidth={1} />
             <div className="space-y-2">
               <h3 className="text-sm font-bold uppercase tracking-[0.1em] text-white">Your Bag is Empty</h3>
-              <p className="text-xs text-slate-400 font-light">Explore our curated collection to add items.</p>
+              <p className="text-xs text-muted-foreground/80 font-light">Explore our curated collection to add items.</p>
             </div>
             <Link
               href="/shop"
-              className="inline-block border border-indigo-400/50 px-8 py-4 text-[10px] font-bold text-slate-900 bg-indigo-400 hover:bg-indigo-300 transition-all uppercase tracking-widest shadow-[0_0_20px_rgba(251,191,36,0.3)] rounded-xl"
+              className="inline-block border border-indigo-400/50 px-8 py-4 text-[10px] font-bold text-foreground bg-indigo-400 hover:bg-indigo-300 transition-all uppercase tracking-widest shadow-[0_0_20px_rgba(251,191,36,0.3)] rounded-xl"
             >
               Discover New Arrivals
             </Link>
@@ -225,7 +225,7 @@ export default function CartPage() {
             
             {/* Left: Items list table */}
             <div className="lg:col-span-8 space-y-8">
-              <div className="hidden sm:grid grid-cols-12 gap-4 pb-4 border-b border-white/10 text-[9px] font-bold uppercase tracking-widest text-slate-500">
+              <div className="hidden sm:grid grid-cols-12 gap-4 pb-4 border-b border-white/10 text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
                 <div className="col-span-6">Product</div>
                 <div className="col-span-3 text-center">Quantity</div>
                 <div className="col-span-2 text-right">Total</div>
@@ -240,7 +240,7 @@ export default function CartPage() {
                   >
                     {/* Product Info */}
                     <div className="w-full sm:col-span-6 flex items-center gap-6">
-                      <div className="h-32 w-24 bg-white/5 shrink-0 rounded-xl overflow-hidden border border-white/5 group-hover:border-indigo-400/30 transition-colors">
+                      <div className="h-32 w-24 bg-card/5 shrink-0 rounded-xl overflow-hidden border border-white/5 group-hover:border-indigo-400/30 transition-colors">
                         <img src={item.image} alt={item.name} className="h-full w-full object-cover mix-blend-screen" />
                       </div>
                       <div className="space-y-2">
@@ -250,25 +250,25 @@ export default function CartPage() {
                         {item.variantInfo && (
                           <p className="text-[10px] text-indigo-400/80 font-bold uppercase tracking-widest">{item.variantInfo}</p>
                         )}
-                        <p className="text-[9px] text-slate-500 font-light uppercase tracking-widest">Ref: {item.sku}</p>
+                        <p className="text-[9px] text-muted-foreground font-light uppercase tracking-widest">Ref: {item.sku}</p>
                         <p className="text-xs font-bold text-white pt-2 hidden sm:block">₹{item.price}</p>
                       </div>
                     </div>
 
                     {/* Quantity control */}
                     <div className="w-full sm:col-span-3 flex justify-between sm:justify-center items-center">
-                      <span className="sm:hidden text-[10px] font-bold uppercase tracking-widest text-slate-500">Quantity</span>
-                      <div className="flex items-center border border-white/20 rounded-lg overflow-hidden bg-white/5">
+                      <span className="sm:hidden text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Quantity</span>
+                      <div className="flex items-center border border-white/20 rounded-lg overflow-hidden bg-card/5">
                         <button
                           onClick={() => handleQuantityChange(item.sku, -1)}
-                          className="px-3 py-2 hover:bg-white/10 transition-colors text-white hover:text-indigo-400"
+                          className="px-3 py-2 hover:bg-card/10 transition-colors text-white hover:text-indigo-400"
                         >
                           <Minus className="h-3 w-3" />
                         </button>
                         <span className="w-8 text-center text-[11px] font-bold text-white">{item.quantity}</span>
                         <button
                           onClick={() => handleQuantityChange(item.sku, 1)}
-                          className="px-3 py-2 hover:bg-white/10 transition-colors text-white hover:text-indigo-400"
+                          className="px-3 py-2 hover:bg-card/10 transition-colors text-white hover:text-indigo-400"
                         >
                           <Plus className="h-3 w-3" />
                         </button>
@@ -277,7 +277,7 @@ export default function CartPage() {
 
                     {/* Price Total */}
                     <div className="w-full sm:col-span-2 flex justify-between sm:justify-end items-center">
-                      <span className="sm:hidden text-[10px] font-bold uppercase tracking-widest text-slate-500">Total</span>
+                      <span className="sm:hidden text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Total</span>
                       <p className="text-sm font-bold text-indigo-400 tracking-wide">₹{item.price * item.quantity}</p>
                     </div>
 
@@ -285,7 +285,7 @@ export default function CartPage() {
                     <div className="w-full sm:col-span-1 flex justify-end">
                       <button
                         onClick={() => handleRemoveItem(item.sku)}
-                        className="text-[9px] font-bold text-slate-500 hover:text-rose-400 transition-colors uppercase tracking-widest underline underline-offset-4"
+                        className="text-[9px] font-bold text-muted-foreground hover:text-rose-400 transition-colors uppercase tracking-widest underline underline-offset-4"
                       >
                         Remove
                       </button>
@@ -301,7 +301,7 @@ export default function CartPage() {
               <div className="glass-panel border border-white/10 rounded-2xl p-8 space-y-8 shadow-xl">
                 <h3 className="text-xs font-extrabold uppercase tracking-[0.2em] text-white text-glow">Order Summary</h3>
                 
-                <div className="space-y-4 text-xs font-light text-slate-300 tracking-wide">
+                <div className="space-y-4 text-xs font-light text-muted-foreground/50 tracking-wide">
                   <div className="flex justify-between items-center">
                     <span>Subtotal</span>
                     <span className="font-bold text-white">₹{subtotal}</span>
@@ -341,7 +341,7 @@ export default function CartPage() {
 
                 <button
                   onClick={() => router.push('/checkout')}
-                  className="w-full py-4 bg-indigo-400 text-slate-900 hover:bg-indigo-300 rounded-xl text-xs font-bold uppercase tracking-[0.15em] shadow-[0_0_20px_rgba(251,191,36,0.3)] transition-all flex items-center justify-center gap-2"
+                  className="w-full py-4 bg-indigo-400 text-foreground hover:bg-indigo-300 rounded-xl text-xs font-bold uppercase tracking-[0.15em] shadow-[0_0_20px_rgba(251,191,36,0.3)] transition-all flex items-center justify-center gap-2"
                 >
                   <span>Proceed to Checkout</span>
                   <ArrowRight className="h-4 w-4" />
@@ -354,7 +354,7 @@ export default function CartPage() {
                 {appliedCoupon ? (
                   <div className="flex justify-between items-center border border-indigo-400/30 bg-indigo-400/10 p-4 rounded-xl text-[10px] font-bold uppercase tracking-widest text-indigo-400">
                     <span>{appliedCoupon.code} (₹{appliedCoupon.discount} OFF)</span>
-                    <button onClick={handleRemoveCoupon} className="text-slate-400 hover:text-white transition-colors underline">Remove</button>
+                    <button onClick={handleRemoveCoupon} className="text-muted-foreground/80 hover:text-white transition-colors underline">Remove</button>
                   </div>
                 ) : (
                   <form onSubmit={handleApplyCoupon} className="flex">
@@ -363,12 +363,12 @@ export default function CartPage() {
                       placeholder="Enter code"
                       value={couponCode}
                       onChange={(e) => setCouponCode(e.target.value)}
-                      className="flex-1 border border-white/20 bg-white/5 border-r-0 px-4 py-3.5 rounded-l-xl text-xs font-light text-white focus:outline-none focus:border-indigo-400 uppercase placeholder-slate-500 transition-colors"
+                      className="flex-1 border border-white/20 bg-card/5 border-r-0 px-4 py-3.5 rounded-l-xl text-xs font-light text-white focus:outline-none focus:border-indigo-400 uppercase placeholder-slate-500 transition-colors"
                     />
                     <button
                       type="submit"
                       disabled={couponLoading}
-                      className="px-6 bg-white/10 border border-white/20 border-l-0 rounded-r-xl text-white text-[10px] font-bold uppercase tracking-widest hover:bg-indigo-400 hover:text-slate-900 hover:border-indigo-400 transition-colors disabled:opacity-50"
+                      className="px-6 bg-card/10 border border-white/20 border-l-0 rounded-r-xl text-white text-[10px] font-bold uppercase tracking-widest hover:bg-indigo-400 hover:text-foreground hover:border-indigo-400 transition-colors disabled:opacity-50"
                     >
                       {couponLoading ? <Loader2 className="h-3 w-3 animate-spin mx-auto" /> : 'Apply'}
                     </button>

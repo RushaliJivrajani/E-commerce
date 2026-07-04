@@ -384,7 +384,59 @@ class JSONDatabase {
         ]
       },
       reviews: [],
-      website_content: [],
+      website_content: [
+        {
+          id: 'about-us',
+          title: 'About VIARO',
+          content: JSON.stringify({
+            story: {
+              title: "Fashion Born in Ahmedabad. Worn Across India.",
+              subtitle: "Modern. Minimal. Made for the now.",
+              description: "VIARO is more than a brand — it's a vision crafted to make premium streetwear and luxury fashion accessible to the modern individual. Own your style."
+            },
+            founders: [
+              {
+                name: "Alvish",
+                role: "Co-Founder & CEO",
+                bio: "Alvish leads VIARO's strategic expansion, establishing our presence in premium streetwear circles.",
+                image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400"
+              },
+              {
+                name: "Bhavin",
+                role: "Co-Founder & COO",
+                bio: "Bhavin oversees product sourcing and retail operations, ensuring premium fabrications and standard of fit.",
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
+              },
+              {
+                name: "Vishwajeet",
+                role: "Co-Founder & Creative Lead",
+                bio: "Vishwajeet drives the visual identity and campaign drops, staying true to our streetwear-meets-luxury theme.",
+                image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400"
+              }
+            ],
+            designCredit: "Designed by Rushali Jivrajani",
+            values: [
+              {
+                title: "Premium Quality",
+                desc: "Every piece is handpicked for exceptional fabric quality, fine stitching, and lasting comfort."
+              },
+              {
+                title: "All India Delivery",
+                desc: "From Kashmir to Kanyakumari — we deliver to every corner of India with care and speed."
+              },
+              {
+                title: "Designed with Passion",
+                desc: "Each collection reflects Alvish, Bhavin, and Vishwajeet's eye for modern design."
+              },
+              {
+                title: "Customer First",
+                desc: "Easy returns, responsive support, and transparent policies — because you deserve the best experience."
+              }
+            ]
+          }, null, 2),
+          lastUpdated: new Date().toISOString()
+        }
+      ],
       return_requests: [],
       notification_templates: [
         {

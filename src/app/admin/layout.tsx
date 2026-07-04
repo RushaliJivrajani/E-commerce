@@ -27,6 +27,7 @@ import {
   Search,
   RotateCcw
 } from 'lucide-react';
+import { LogoMark } from '@/components/BrandAssets';
 
 interface SidebarItem {
   name: string;
@@ -66,12 +67,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     }
     fetchProfile();
   }, [router]);
-
-  // Sync Theme State (Forced Light Theme for Dashboard)
-  useEffect(() => {
-    const root = window.document.documentElement;
-    root.classList.remove('dark');
-  }, []);
 
   // Handle Logout
   const handleLogout = async () => {
@@ -128,55 +123,53 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white text-black">
+      <div className="flex min-h-screen items-center justify-center bg-background text-foreground">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-black" strokeWidth={1} />
-          <p className="text-xs font-bold uppercase tracking-widest text-slate-500">Loading Workspace...</p>
+          <Loader2 className="h-8 w-8 animate-spin text-primary" strokeWidth={1} />
+          <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground animate-pulse">Loading VIARO Admin Workspace...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen bg-slate-50 text-slate-900 font-sans transition-colors duration-500">
+    <div className="flex min-h-screen bg-background text-foreground font-sans transition-colors duration-500">
       <Toaster position="top-right" />
 
       {/* --- SIDEBAR FOR DESKTOP --- */}
       <aside
-        className={`hidden md:flex md:flex-col shrink-0 h-screen sticky top-0 bg-white shadow-lg border-r border-slate-200 border-y-0 border-l-0 text-slate-900 transition-all duration-300 ${
+        className={`hidden md:flex md:flex-col shrink-0 h-screen sticky top-0 bg-card border-r border-border/40 text-foreground transition-all duration-350 ${
           collapsed ? 'w-20' : 'w-72'
         }`}
       >
         {/* Brand Logo */}
-        <div className="flex h-20 items-center justify-between px-6 border-b border-slate-200">
+        <div className="flex h-20 items-center justify-between px-6 border-b border-border/40">
           <Link href="/admin/dashboard" className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center bg-indigo-500 text-white rounded-md shrink-0 shadow-sm">
-              <Sparkles className="h-4 w-4" />
-            </div>
+            <LogoMark className="h-8 w-8 text-primary" />
             {!collapsed && (
-              <span className="text-lg font-bold text-slate-900 tracking-wide">
-                Rush Closet
+              <span className="text-lg font-black text-foreground tracking-widest uppercase font-headings">
+                VIARO <span className="text-primary">Admin</span>
               </span>
             )}
           </Link>
           <button
             onClick={() => setCollapsed(!collapsed)}
-            className="hidden p-2 text-slate-400 hover:text-indigo-600 md:block transition-colors"
+            className="hidden p-2 text-muted-foreground hover:text-primary md:block transition-colors cursor-pointer"
           >
             {collapsed ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
           </button>
         </div>
 
         {/* User Info */}
-        <div className="p-6 border-b border-slate-200">
+        <div className="p-6 border-b border-border/40">
           <div className="flex items-center gap-4">
-            <div className="flex h-10 w-10 items-center justify-center bg-indigo-100 text-indigo-600 rounded-full shrink-0">
+            <div className="flex h-10 w-10 items-center justify-center bg-primary/10 text-primary rounded-full shrink-0 border border-primary/20">
               <User className="h-5 w-5" />
             </div>
             {!collapsed && (
               <div className="overflow-hidden">
-                <p className="text-sm font-bold text-slate-900 truncate">{user?.name}</p>
-                <span className="text-[10px] text-indigo-600 mt-0.5 block font-bold uppercase tracking-widest">
+                <p className="text-sm font-bold text-foreground truncate">{user?.name}</p>
+                <span className="text-[9px] text-primary mt-0.5 block font-black uppercase tracking-widest">
                   {user?.role}
                 </span>
               </div>
@@ -193,14 +186,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <Link
                 key={item.name}
                 href={item.href}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold transition-colors ${
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest transition-all border ${
                   isActive
-                    ? 'bg-indigo-50 text-indigo-700 border border-indigo-200'
-                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 border border-transparent'
+                    ? 'bg-primary/10 text-primary border-primary/25 shadow-sm'
+                    : 'text-muted-foreground hover:bg-muted hover:text-foreground border-transparent'
                 }`}
                 title={collapsed ? item.name : ''}
               >
-                <Icon className="h-5 w-5 shrink-0" />
+                <Icon className="h-4.5 w-4.5 shrink-0" />
                 {!collapsed && <span>{item.name}</span>}
               </Link>
             );
@@ -208,12 +201,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </nav>
 
         {/* Footer Actions */}
-        <div className="border-t border-slate-200 p-4">
+        <div className="border-t border-border/40 p-4">
           <button
             onClick={handleLogout}
-            className="flex w-full items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-bold text-rose-500 hover:bg-rose-50 hover:text-rose-600 transition-colors"
+            className="flex w-full items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest text-primary hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer"
           >
-            <LogOut className="h-5 w-5 shrink-0" />
+            <LogOut className="h-4.5 w-4.5 shrink-0" />
             {!collapsed && <span>Sign Out</span>}
           </button>
         </div>
@@ -221,18 +214,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* --- SIDEBAR FOR MOBILE --- */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 flex md:hidden">
+        <div className="fixed inset-0 z-50 flex md:hidden bg-background/95 backdrop-blur-md">
           <div
-            className="fixed inset-0 bg-black/80"
+            className="fixed inset-0 bg-black/60"
             onClick={() => setMobileOpen(false)}
           />
-          <aside className="relative flex w-72 flex-col bg-white border-r border-slate-200">
-            <div className="flex h-20 items-center px-6 border-b border-slate-200">
+          <aside className="relative flex w-72 flex-col bg-card border-r border-border/40">
+            <div className="flex h-20 items-center px-6 border-b border-border/40">
               <Link href="/admin/dashboard" className="flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center bg-black text-white shrink-0">
-                  <Sparkles className="h-4 w-4" strokeWidth={1.5} />
-                </div>
-                <span className="text-sm font-extrabold uppercase tracking-widest text-black">Rush Closet</span>
+                <LogoMark className="h-8 w-8 text-primary" />
+                <span className="text-sm font-extrabold uppercase tracking-widest text-foreground font-headings">VIARO Admin</span>
               </Link>
             </div>
             
@@ -245,25 +236,25 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     key={item.name}
                     href={item.href}
                     onClick={() => setMobileOpen(false)}
-                    className={`flex items-center gap-4 px-4 py-3 text-[10px] font-bold uppercase tracking-widest transition-colors ${
+                    className={`flex items-center gap-4 px-4 py-3 text-[10px] font-bold uppercase tracking-widest transition-colors rounded-xl border ${
                       isActive
-                        ? 'bg-black text-white'
-                        : 'text-slate-500 hover:bg-slate-100 hover:text-black'
+                        ? 'bg-primary/10 text-primary border-primary/25 shadow-sm'
+                        : 'text-muted-foreground hover:bg-muted hover:text-foreground border-transparent'
                     }`}
                   >
-                    <Icon className="h-4 w-4 shrink-0" strokeWidth={1.5} />
+                    <Icon className="h-4.5 w-4.5 shrink-0" strokeWidth={1.5} />
                     <span>{item.name}</span>
                   </Link>
                 );
               })}
             </nav>
 
-            <div className="border-t border-slate-200 p-4">
+            <div className="border-t border-border/40 p-4">
               <button
                 onClick={handleLogout}
-                className="flex w-full items-center gap-4 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-red-600 hover:bg-red-50 transition-colors"
+                className="flex w-full items-center gap-4 px-4 py-3 text-[10px] font-bold uppercase tracking-widest text-primary hover:bg-primary/10 transition-colors cursor-pointer"
               >
-                <LogOut className="h-4 w-4 shrink-0" strokeWidth={1.5} />
+                <LogOut className="h-4.5 w-4.5 shrink-0" strokeWidth={1.5} />
                 <span>Sign Out</span>
               </button>
             </div>
@@ -275,23 +266,23 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <div className="flex flex-1 flex-col overflow-hidden">
         
         {/* Top Header navbar */}
-        <header className="flex h-20 items-center justify-between border-b border-slate-200 bg-white border-x-0 border-t-0 px-6 md:px-12 z-10 shadow-sm">
+        <header className="flex h-20 items-center justify-between border-b border-border/40 bg-card px-6 md:px-12 z-10 shadow-sm">
           <div className="flex items-center gap-4">
             <button
               onClick={() => setMobileOpen(true)}
-              className="p-2 text-slate-900 md:hidden"
+              className="p-2 text-foreground md:hidden hover:text-primary transition-colors cursor-pointer"
             >
               <Menu className="h-5 w-5" strokeWidth={1.5} />
             </button>
 
             {/* Breadcrumbs */}
-            <div className="hidden items-center gap-2 text-sm font-bold text-slate-500 md:flex">
+            <div className="hidden items-center gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground md:flex">
               {getBreadcrumbs().map((b, i, arr) => (
                 <React.Fragment key={b}>
-                  <span className={i === arr.length - 1 ? 'text-slate-900' : 'hover:text-indigo-600 transition-colors cursor-pointer'}>
+                  <span className={i === arr.length - 1 ? 'text-foreground' : 'hover:text-primary transition-colors cursor-pointer'}>
                     {b}
                   </span>
-                  {i < arr.length - 1 && <span className="text-slate-300">/</span>}
+                  {i < arr.length - 1 && <span className="text-border/60">/</span>}
                 </React.Fragment>
               ))}
             </div>
@@ -300,20 +291,20 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {/* Right utility items */}
           <div className="flex items-center gap-6">
             <div className="relative hidden max-w-xs sm:block">
-              <Search className="absolute top-2.5 left-3 h-4 w-4 text-slate-400" />
+              <Search className="absolute top-2.5 left-3 h-4 w-4 text-muted-foreground" />
               <input
                 type="text"
-                placeholder="Search..."
-                className="w-64 border border-slate-300 bg-slate-50 rounded-xl py-2 pl-9 pr-4 text-sm text-slate-900 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:bg-white outline-none transition-shadow placeholder-slate-400"
+                placeholder="Search command palette..."
+                className="w-64 border border-border/60 bg-muted rounded-xl py-2 pl-9 pr-4 text-xs text-foreground focus:ring-2 focus:ring-primary focus:border-primary focus:bg-background outline-none transition-all placeholder-muted-foreground"
               />
             </div>
 
             <button
               onClick={() => toast.success('All systems operational! No new notifications.')}
-              className="relative p-2 text-slate-600 hover:text-indigo-600 transition-colors"
+              className="relative p-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer"
             >
               <Bell className="h-5 w-5" strokeWidth={1.5} />
-              <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-indigo-500 border border-white shadow-sm"></span>
+              <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-primary border border-background shadow-sm"></span>
             </button>
           </div>
         </header>

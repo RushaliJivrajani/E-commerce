@@ -118,8 +118,8 @@ export default function ReportsPage() {
     return (
       <div className="flex h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-slate-500" />
-          <p className="text-sm text-slate-400">Aggregating report data...</p>
+          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          <p className="text-sm text-muted-foreground/80">Aggregating report data...</p>
         </div>
       </div>
     );
@@ -130,10 +130,10 @@ export default function ReportsPage() {
       
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl flex items-center gap-2">
-            Data Reports & Exports <FileText className="h-6 w-6 text-slate-500" />
+          <h1 className="text-2xl font-bold tracking-tight text-foreground dark:text-white sm:text-3xl flex items-center gap-2">
+            Data Reports & Exports <FileText className="h-6 w-6 text-muted-foreground" />
           </h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-muted-foreground dark:text-muted-foreground/80">
             Generate and download business intelligence reports for analytics.
           </p>
         </div>
@@ -142,25 +142,25 @@ export default function ReportsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         
         {/* Sales Report Card */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/60">
+        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm dark:border-slate-800 dark:bg-foreground text-background/60">
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-teal-500/10 text-teal-500">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/100/10 text-primary">
               <IndianRupee className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="font-bold text-slate-900 dark:text-white text-lg">Sales & Revenue</h3>
-              <p className="text-xs text-slate-500">Export order history and financial data</p>
+              <h3 className="font-bold text-foreground dark:text-white text-lg">Sales & Revenue</h3>
+              <p className="text-xs text-muted-foreground">Export order history and financial data</p>
             </div>
           </div>
           
           <div className="space-y-4 mb-6">
             <div className="flex justify-between items-center text-sm">
-              <span className="text-slate-500">Total Orders Available</span>
-              <span className="font-bold text-slate-900 dark:text-white">{orders.length}</span>
+              <span className="text-muted-foreground">Total Orders Available</span>
+              <span className="font-bold text-foreground dark:text-white">{orders.length}</span>
             </div>
             <div className="flex justify-between items-center text-sm">
-              <span className="text-slate-500">Gross Processed Value</span>
-              <span className="font-bold text-slate-900 dark:text-white">
+              <span className="text-muted-foreground">Gross Processed Value</span>
+              <span className="font-bold text-foreground dark:text-white">
                 ₹{orders.reduce((acc, o) => acc + (o.status !== 'Cancelled' && o.status !== 'Returned' ? o.totalAmount : 0), 0).toLocaleString('en-IN')}
               </span>
             </div>
@@ -168,31 +168,31 @@ export default function ReportsPage() {
 
           <button
             onClick={handleExportOrders}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-bold text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-foreground text-background px-4 py-2.5 text-sm font-bold text-white hover:bg-slate-800 dark:bg-card dark:text-foreground dark:hover:bg-card/80"
           >
             <Download className="h-4 w-4" /> Download CSV
           </button>
         </div>
 
         {/* Inventory Report Card */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/60">
+        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm dark:border-slate-800 dark:bg-foreground text-background/60">
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-500">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
               <ShoppingBag className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="font-bold text-slate-900 dark:text-white text-lg">Inventory Status</h3>
-              <p className="text-xs text-slate-500">Export product catalog and stock levels</p>
+              <h3 className="font-bold text-foreground dark:text-white text-lg">Inventory Status</h3>
+              <p className="text-xs text-muted-foreground">Export product catalog and stock levels</p>
             </div>
           </div>
           
           <div className="space-y-4 mb-6">
             <div className="flex justify-between items-center text-sm">
-              <span className="text-slate-500">Total Products Linked</span>
-              <span className="font-bold text-slate-900 dark:text-white">{products.length}</span>
+              <span className="text-muted-foreground">Total Products Linked</span>
+              <span className="font-bold text-foreground dark:text-white">{products.length}</span>
             </div>
             <div className="flex justify-between items-center text-sm">
-              <span className="text-slate-500">Low Stock Variants</span>
+              <span className="text-muted-foreground">Low Stock Variants</span>
               <span className="font-bold text-rose-500">
                 {products.filter(p => p.stock <= 10).length}
               </span>
@@ -201,7 +201,7 @@ export default function ReportsPage() {
 
           <button
             onClick={handleExportProducts}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-bold text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-foreground text-background px-4 py-2.5 text-sm font-bold text-white hover:bg-slate-800 dark:bg-card dark:text-foreground dark:hover:bg-card/80"
           >
             <Download className="h-4 w-4" /> Download CSV
           </button>

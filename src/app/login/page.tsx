@@ -154,13 +154,13 @@ function LoginForm() {
         
         {/* Header Branding */}
         <div className="flex flex-col items-center text-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 shadow-xl shadow-indigo-500/20">
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 shadow-xl shadow-primary/20">
             <Sparkles className="h-8 w-8 text-white" />
           </div>
-          <h2 className="mt-6 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl text-glow">
+          <h2 className="mt-6 text-3xl font-black tracking-tight text-foreground sm:text-4xl text-glow">
             RUSH <span className="bg-gradient-to-r from-indigo-600 to-pink-500 bg-clip-text text-transparent">CLOSET</span>
           </h2>
-          <p className="mt-2 text-sm font-bold text-slate-500 uppercase tracking-widest">
+          <p className="mt-2 text-sm font-bold text-muted-foreground uppercase tracking-widest">
             Enterprise Management Panel
           </p>
         </div>
@@ -172,19 +172,19 @@ function LoginForm() {
           {view === 'login' && (
             <form className="space-y-6" onSubmit={handleLogin}>
               <div>
-                <h3 className="text-xl font-bold text-slate-900">Sign In</h3>
-                <p className="text-xs font-medium text-slate-500 mt-1">Access your secure control panel session</p>
+                <h3 className="text-xl font-bold text-foreground">Sign In</h3>
+                <p className="text-xs font-medium text-muted-foreground mt-1">Access your secure control panel session</p>
               </div>
 
               <div className="space-y-5">
                 {/* Email Field */}
                 <div>
-                  <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-slate-600">
+                  <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-foreground/80">
                     Email Address
                   </label>
                   <div className="relative mt-2">
                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-                      <Mail className="h-4 w-4 text-slate-400" />
+                      <Mail className="h-4 w-4 text-muted-foreground/80" />
                     </div>
                     <input
                       id="email"
@@ -193,7 +193,8 @@ function LoginForm() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="admin@rushcloset.com"
-                      className="block w-full rounded-2xl border border-slate-200 bg-white/70 py-3.5 pl-11 pr-4 text-sm font-medium text-slate-900 placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm"
+                      suppressHydrationWarning
+                      className="block w-full rounded-2xl border border-border bg-card/70 py-3.5 pl-11 pr-4 text-sm font-medium text-foreground placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm"
                     />
                   </div>
                 </div>
@@ -201,7 +202,7 @@ function LoginForm() {
                 {/* Password Field */}
                 <div>
                   <div className="flex items-center justify-between">
-                    <label htmlFor="password" className="block text-xs font-bold uppercase tracking-wider text-slate-600">
+                    <label htmlFor="password" className="block text-xs font-bold uppercase tracking-wider text-foreground/80">
                       Password
                     </label>
                     <button
@@ -210,14 +211,14 @@ function LoginForm() {
                         setView('forgot');
                         setRecoveryStep('request');
                       }}
-                      className="text-xs font-bold text-indigo-600 hover:text-indigo-500 hover:underline transition-colors"
+                      className="text-xs font-bold text-primary hover:text-primary hover:underline transition-colors"
                     >
                       Forgot?
                     </button>
                   </div>
                   <div className="relative mt-2">
                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-                      <Lock className="h-4 w-4 text-slate-400" />
+                      <Lock className="h-4 w-4 text-muted-foreground/80" />
                     </div>
                     <input
                       id="password"
@@ -226,7 +227,8 @@ function LoginForm() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="block w-full rounded-2xl border border-slate-200 bg-white/70 py-3.5 pl-11 pr-4 text-sm font-medium text-slate-900 placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm"
+                      suppressHydrationWarning
+                      className="block w-full rounded-2xl border border-border bg-card/70 py-3.5 pl-11 pr-4 text-sm font-medium text-foreground placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm"
                     />
                   </div>
                 </div>
@@ -236,7 +238,7 @@ function LoginForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="group relative flex w-full justify-center rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-3.5 text-sm font-black text-white shadow-lg shadow-indigo-500/30 transition-all hover:shadow-indigo-500/50 hover:scale-[1.02] focus:outline-none disabled:opacity-50 cursor-pointer overflow-hidden mt-8 glow-on-hover uppercase tracking-wider"
+                className="group relative flex w-full justify-center rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-3.5 text-sm font-black text-white shadow-lg shadow-primary/30 transition-all hover:shadow-primary/50 hover:scale-[1.02] focus:outline-none disabled:opacity-50 cursor-pointer overflow-hidden mt-8 glow-on-hover uppercase tracking-wider"
               >
                 {loading ? (
                   <Loader2 className="h-5 w-5 animate-spin" />
@@ -254,15 +256,15 @@ function LoginForm() {
           {view === '2fa' && (
             <form className="space-y-6" onSubmit={handle2FAVerify}>
               <div className="text-center">
-                <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-500 mb-4 border border-indigo-100 shadow-md">
+                <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary mb-4 border border-indigo-100 shadow-md">
                   <ShieldAlert className="h-8 w-8" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900">Two-Factor Auth</h3>
-                <p className="text-xs font-medium text-slate-500 mt-1">Enter code sent to your device</p>
+                <h3 className="text-xl font-bold text-foreground">Two-Factor Auth</h3>
+                <p className="text-xs font-medium text-muted-foreground mt-1">Enter code sent to your device</p>
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 text-center">
+                <label className="block text-xs font-bold uppercase tracking-wider text-foreground/80 text-center">
                   Verification Code
                 </label>
                 <input
@@ -272,7 +274,8 @@ function LoginForm() {
                   value={twoFactorCode}
                   onChange={(e) => setTwoFactorCode(e.target.value)}
                   placeholder="555555"
-                  className="block w-full rounded-2xl border border-slate-200 bg-white/70 py-4 text-center text-2xl font-black tracking-[0.5em] text-slate-900 placeholder-slate-300 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm mt-3"
+                  suppressHydrationWarning
+                  className="block w-full rounded-2xl border border-border bg-card/70 py-4 text-center text-2xl font-black tracking-[0.5em] text-foreground placeholder-slate-300 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm mt-3"
                 />
               </div>
 
@@ -280,14 +283,14 @@ function LoginForm() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex w-full justify-center rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-3.5 text-sm font-black text-white shadow-lg shadow-indigo-500/30 transition-all hover:shadow-indigo-500/50 hover:scale-[1.02] focus:outline-none cursor-pointer glow-on-hover uppercase tracking-wider"
+                  className="flex w-full justify-center rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-3.5 text-sm font-black text-white shadow-lg shadow-primary/30 transition-all hover:shadow-primary/50 hover:scale-[1.02] focus:outline-none cursor-pointer glow-on-hover uppercase tracking-wider"
                 >
                   {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : 'Verify and Login'}
                 </button>
                 <button
                   type="button"
                   onClick={() => setView('login')}
-                  className="text-xs font-bold text-slate-500 hover:text-slate-900 mt-2 underline transition-colors"
+                  className="text-xs font-bold text-muted-foreground hover:text-foreground mt-2 underline transition-colors"
                 >
                   Back to Sign In
                 </button>
@@ -299,8 +302,8 @@ function LoginForm() {
           {view === 'forgot' && (
             <form className="space-y-6" onSubmit={handleRecovery}>
               <div>
-                <h3 className="text-xl font-bold text-slate-900">Reset Password</h3>
-                <p className="text-xs font-medium text-slate-500 mt-1">
+                <h3 className="text-xl font-bold text-foreground">Reset Password</h3>
+                <p className="text-xs font-medium text-muted-foreground mt-1">
                   {recoveryStep === 'request'
                     ? 'Enter email to receive temporary recovery PIN'
                     : 'Provide the OTP and setup your new password'}
@@ -309,12 +312,12 @@ function LoginForm() {
 
               <div className="space-y-5">
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-600">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-foreground/80">
                     Email Address
                   </label>
                   <div className="relative mt-2">
                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-                      <Mail className="h-4 w-4 text-slate-400" />
+                      <Mail className="h-4 w-4 text-muted-foreground/80" />
                     </div>
                     <input
                       type="email"
@@ -323,7 +326,8 @@ function LoginForm() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="admin@rushcloset.com"
-                      className="block w-full rounded-2xl border border-slate-200 bg-white/70 py-3.5 pl-11 pr-4 text-sm font-medium text-slate-900 placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm disabled:opacity-50"
+                      suppressHydrationWarning
+                      className="block w-full rounded-2xl border border-border bg-card/70 py-3.5 pl-11 pr-4 text-sm font-medium text-foreground placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm disabled:opacity-50"
                     />
                   </div>
                 </div>
@@ -331,12 +335,12 @@ function LoginForm() {
                 {recoveryStep === 'verify' && (
                   <>
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-600">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-foreground/80">
                         Recovery OTP
                       </label>
                       <div className="relative mt-2">
                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-                          <KeyRound className="h-4 w-4 text-slate-400" />
+                          <KeyRound className="h-4 w-4 text-muted-foreground/80" />
                         </div>
                         <input
                           type="text"
@@ -344,18 +348,19 @@ function LoginForm() {
                           value={recoveryOtp}
                           onChange={(e) => setRecoveryOtp(e.target.value)}
                           placeholder="123456"
-                          className="block w-full rounded-2xl border border-slate-200 bg-white/70 py-3.5 pl-11 pr-4 text-sm font-medium text-slate-900 placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm"
+                          suppressHydrationWarning
+                          className="block w-full rounded-2xl border border-border bg-card/70 py-3.5 pl-11 pr-4 text-sm font-medium text-foreground placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-600">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-foreground/80">
                         New Password
                       </label>
                       <div className="relative mt-2">
                         <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-                          <Lock className="h-4 w-4 text-slate-400" />
+                          <Lock className="h-4 w-4 text-muted-foreground/80" />
                         </div>
                         <input
                           type="password"
@@ -363,7 +368,8 @@ function LoginForm() {
                           value={newPassword}
                           onChange={(e) => setNewPassword(e.target.value)}
                           placeholder="At least 6 characters"
-                          className="block w-full rounded-2xl border border-slate-200 bg-white/70 py-3.5 pl-11 pr-4 text-sm font-medium text-slate-900 placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm"
+                          suppressHydrationWarning
+                          className="block w-full rounded-2xl border border-border bg-card/70 py-3.5 pl-11 pr-4 text-sm font-medium text-foreground placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm"
                         />
                       </div>
                     </div>
@@ -375,7 +381,7 @@ function LoginForm() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex w-full justify-center rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-3.5 text-sm font-black text-white shadow-lg shadow-indigo-500/30 transition-all hover:shadow-indigo-500/50 hover:scale-[1.02] focus:outline-none cursor-pointer glow-on-hover uppercase tracking-wider mt-4"
+                  className="flex w-full justify-center rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-3.5 text-sm font-black text-white shadow-lg shadow-primary/30 transition-all hover:shadow-primary/50 hover:scale-[1.02] focus:outline-none cursor-pointer glow-on-hover uppercase tracking-wider mt-4"
                 >
                   {loading ? (
                     <Loader2 className="h-5 w-5 animate-spin" />
@@ -391,7 +397,7 @@ function LoginForm() {
                     setView('login');
                     setRecoveryStep('request');
                   }}
-                  className="text-xs text-slate-500 font-bold hover:text-slate-900 mt-2 underline text-center transition-colors"
+                  className="text-xs text-muted-foreground font-bold hover:text-foreground mt-2 underline text-center transition-colors"
                 >
                   Cancel and Go Back
                 </button>
@@ -408,8 +414,8 @@ function LoginForm() {
 export default function LoginPage() {
   return (
     <Suspense fallback={
-      <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-12 text-slate-900 font-sans">
-        <Loader2 className="h-8 w-8 animate-spin text-indigo-500" />
+      <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-12 text-foreground font-sans">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
       </div>
     }>
       <LoginForm />

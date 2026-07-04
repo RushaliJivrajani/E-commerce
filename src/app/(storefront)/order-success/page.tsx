@@ -5,15 +5,14 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import {
   CheckCircle,
-  ShoppingBag,
   ArrowRight,
   Printer,
-  ChevronRight,
   Clock,
   MapPin,
   CreditCard,
   Loader2
 } from 'lucide-react';
+import { LogoMark } from '@/components/BrandAssets';
 
 function OrderSuccessDetails() {
   const searchParams = useSearchParams();
@@ -46,10 +45,10 @@ function OrderSuccessDetails() {
 
   if (loading) {
     return (
-      <div className="flex h-[60vh] items-center justify-center">
+      <div className="flex h-[60vh] items-center justify-center bg-background text-foreground">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-slate-500" />
-          <p className="text-sm text-slate-400">Retrieving your order invoice...</p>
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Retrieving your order invoice...</p>
         </div>
       </div>
     );
@@ -57,19 +56,19 @@ function OrderSuccessDetails() {
 
   if (!order) {
     return (
-      <div className="mx-auto max-w-md text-center py-16 px-4 space-y-4">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-rose-50 text-rose-500 dark:bg-rose-950/20">
+      <div className="mx-auto max-w-md text-center py-16 px-4 space-y-4 text-foreground bg-background">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary border border-primary/20">
           <Clock className="h-7 w-7" />
         </div>
         <div className="space-y-1">
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">Receipt Not Found</h3>
-          <p className="text-xs text-slate-500">
+          <h3 className="text-sm font-bold uppercase tracking-wider text-foreground">Receipt Not Found</h3>
+          <p className="text-xs text-muted-foreground font-light">
             We couldn&apos;t load the invoice details for this transaction, but rest assured your order is processing.
           </p>
         </div>
         <Link
           href="/shop"
-          className="inline-flex rounded-xl bg-slate-600 px-5 py-2.5 text-xs font-bold text-white hover:bg-slate-500 transition-all uppercase tracking-wide"
+          className="inline-flex rounded-xl bg-card border border-border/40 px-5 py-2.5 text-xs font-bold text-foreground hover:text-primary transition-all uppercase tracking-widest"
         >
           Return to Catalog
         </Link>
@@ -78,41 +77,41 @@ function OrderSuccessDetails() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8 space-y-8 print:py-0 print:px-0">
+    <div className="mx-auto max-w-3xl px-4 py-8 space-y-8 print:py-0 print:px-0 text-foreground">
       
       {/* Printable Invoice Header - hidden on screen */}
       <div className="hidden print:block text-center space-y-2 mb-8">
-        <h1 className="text-xl font-black uppercase tracking-wider">Rush Closet INVOICE</h1>
-        <p className="text-xs text-slate-500">Order Number: {order.orderNumber} | Date: {new Date(order.createdAt).toLocaleDateString()}</p>
-        <hr className="border-slate-300" />
+        <h1 className="text-xl font-black uppercase tracking-wider">VIARO INVOICE</h1>
+        <p className="text-xs text-muted-foreground">Order Number: {order.orderNumber} | Date: {new Date(order.createdAt).toLocaleDateString()}</p>
+        <hr className="border-border/40" />
       </div>
 
       {/* Success Confirmation Card */}
-      <div className="text-center py-10 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm space-y-4 print:hidden">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-teal-50 text-teal-555 dark:bg-teal-950/20 dark:text-teal-400 relative">
-          <span className="absolute inset-0 bg-teal-500/20 rounded-full animate-ping opacity-75"></span>
+      <div className="text-center py-10 bg-card border border-border/40 rounded-3xl p-6 shadow-sm space-y-4 print:hidden">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 relative">
+          <span className="absolute inset-0 bg-emerald-500/25 rounded-full animate-ping opacity-75"></span>
           <CheckCircle className="h-10 w-10 relative z-10" />
         </div>
         
         <div className="space-y-1">
-          <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-slate-900 dark:text-white">
+          <h2 className="text-xl sm:text-2xl font-black uppercase tracking-wider text-foreground font-headings">
             Order Placed Successfully!
           </h2>
-          <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
-            Thank you for shopping with us! Your order <span className="font-extrabold text-slate-600 dark:text-slate-400">{order.orderNumber}</span> has been confirmed and is being packed.
+          <p className="text-xs text-muted-foreground max-w-md mx-auto leading-relaxed font-light">
+            Thank you for shopping with us! Your order <span className="font-extrabold text-foreground">{order.orderNumber}</span> has been confirmed and is being packed.
           </p>
         </div>
 
         <div className="pt-2 flex flex-wrap justify-center gap-3">
           <button
             onClick={() => window.print()}
-            className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 hover:border-slate-350 dark:border-slate-800 text-xs font-bold text-slate-700 dark:text-white px-4 py-2.5 transition-all cursor-pointer"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-border/40 hover:border-primary text-xs font-bold text-foreground px-4 py-2.5 transition-all cursor-pointer bg-card"
           >
             <Printer className="h-4 w-4" /> Print Invoice
           </button>
           <Link
             href="/shop"
-            className="inline-flex items-center gap-1.5 rounded-xl bg-slate-950 text-white hover:bg-slate-900 dark:bg-slate-600 dark:hover:bg-slate-500 text-xs font-bold px-4 py-2.5 transition-all shadow-md shadow-slate-600/10"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-primary text-white hover:bg-primary/95 text-xs font-bold px-4 py-2.5 transition-all shadow-md shadow-primary/20"
           >
             Continue Shopping <ArrowRight className="h-3.5 w-3.5" />
           </Link>
@@ -123,43 +122,43 @@ function OrderSuccessDetails() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         
         {/* Shipping address info */}
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-3">
-          <h3 className="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-            <MapPin className="h-4 w-4 text-slate-500" /> Delivery Details
+        <div className="bg-card border border-border/40 rounded-3xl p-6 shadow-sm space-y-3">
+          <h3 className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+            <MapPin className="h-4.5 w-4.5 text-primary" /> Delivery Details
           </h3>
-          <div className="text-xs space-y-1 text-slate-700 dark:text-slate-300">
-            <p className="font-bold text-slate-950 dark:text-white">{order.customerName}</p>
+          <div className="text-xs space-y-1 text-foreground leading-relaxed font-light">
+            <p className="font-bold text-foreground">{order.customerName}</p>
             <p>{order.shippingAddress.addressLine}</p>
             <p>{order.shippingAddress.city}, {order.shippingAddress.state} - {order.shippingAddress.zipCode}</p>
             <p>{order.shippingAddress.country}</p>
-            <p className="pt-1 text-[11px] text-slate-500">Contact: {order.shippingAddress.phone}</p>
+            <p className="pt-1 text-[11px] text-muted-foreground font-semibold">Contact: {order.shippingAddress.phone}</p>
           </div>
         </div>
 
         {/* Payment details info */}
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-3">
-          <h3 className="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-            <CreditCard className="h-4 w-4 text-slate-500" /> Billing Records
+        <div className="bg-card border border-border/40 rounded-3xl p-6 shadow-sm space-y-3">
+          <h3 className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+            <CreditCard className="h-4.5 w-4.5 text-primary" /> Billing Records
           </h3>
-          <div className="text-xs space-y-1.5 text-slate-750 dark:text-slate-300">
+          <div className="text-xs space-y-1.5 text-foreground leading-relaxed font-light">
             <div className="flex justify-between">
-              <span className="text-slate-500">Payment Mode:</span>
-              <span className="font-bold">{order.paymentMethod}</span>
+              <span className="text-muted-foreground">Payment Mode:</span>
+              <span className="font-bold uppercase tracking-wider">{order.paymentMethod}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-500">Payment Status:</span>
-              <span className={`inline-flex rounded px-1.5 py-0.5 text-[10px] font-bold uppercase ${
+              <span className="text-muted-foreground">Payment Status:</span>
+              <span className={`inline-flex rounded-md px-2 py-0.5 text-[9px] font-black uppercase tracking-widest ${
                 order.paymentStatus === 'Paid'
-                  ? 'bg-teal-50 text-teal-600 dark:bg-teal-950/35 dark:text-teal-400'
-                  : 'bg-indigo-50 text-indigo-600 dark:bg-indigo-950/35 dark:text-indigo-400'
+                  ? 'bg-emerald-500/15 text-emerald-500 border border-emerald-500/25'
+                  : 'bg-primary/15 text-primary border border-primary/25'
               }`}>
                 {order.paymentStatus}
               </span>
             </div>
             {order.paymentDetails?.transactionId && (
-              <div className="flex justify-between text-[10px] text-slate-450 border-t border-slate-100 dark:border-slate-850 pt-1.5">
+              <div className="flex justify-between text-[10px] text-muted-foreground border-t border-border/20 pt-1.5 mt-1">
                 <span>TXN Reference:</span>
-                <span className="font-mono truncate max-w-[150px]">{order.paymentDetails.transactionId}</span>
+                <span className="font-mono truncate max-w-[150px] font-bold">{order.paymentDetails.transactionId}</span>
               </div>
             )}
           </div>
@@ -168,66 +167,66 @@ function OrderSuccessDetails() {
       </div>
 
       {/* Invoice items table */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-800 rounded-2xl p-6 shadow-sm space-y-4">
-        <h3 className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white">
+      <div className="bg-card border border-border/40 rounded-3xl p-6 shadow-sm space-y-4">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-foreground">
           Itemized Invoice Receipt
         </h3>
         
-        <div className="divide-y divide-slate-150 dark:divide-slate-850 space-y-3.5">
+        <div className="divide-y divide-border/20 space-y-3.5">
           {order.products.map((item: any) => (
             <div key={item.sku} className="flex gap-4 text-xs pt-3.5 first:pt-0">
-              <div className="h-12 w-12 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-950 shrink-0">
+              <div className="h-12 w-12 rounded-lg overflow-hidden bg-muted shrink-0 border border-border/40">
                 <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="font-bold text-slate-900 dark:text-white truncate">{item.name}</h4>
-                <p className="text-[10px] text-slate-500 font-medium">{item.variantInfo || 'Default Combination'}</p>
-                <p className="text-[10px] text-slate-400">SKU: {item.sku}</p>
+                <h4 className="font-bold text-foreground truncate">{item.name}</h4>
+                <p className="text-[10px] text-primary font-bold uppercase tracking-wider">{item.variantInfo || 'Default Combination'}</p>
+                <p className="text-[10px] text-muted-foreground">SKU: {item.sku}</p>
               </div>
               <div className="text-right shrink-0">
-                <span className="font-black text-slate-900 dark:text-white">₹{item.price * item.quantity}</span>
-                <p className="text-[10px] text-slate-400">₹{item.price} x {item.quantity}</p>
+                <span className="font-black text-foreground">₹{(item.price * item.quantity).toLocaleString()}</span>
+                <p className="text-[10px] text-muted-foreground">₹{item.price.toLocaleString()} x {item.quantity}</p>
               </div>
             </div>
           ))}
         </div>
 
-        <hr className="border-slate-200 dark:border-slate-850 my-2" />
+        <hr className="border-border/20 my-2" />
 
         {/* Pricing Summary */}
         <div className="space-y-2 text-xs font-semibold max-w-sm ml-auto">
-          <div className="flex justify-between text-slate-500">
+          <div className="flex justify-between text-muted-foreground">
             <span>Subtotal</span>
-            <span className="text-slate-900 dark:text-white">₹{order.totalAmount + order.discountAmount - order.shippingCharges - order.taxAmount}</span>
+            <span className="text-foreground">₹{(order.totalAmount + order.discountAmount - order.shippingCharges - order.taxAmount).toLocaleString()}</span>
           </div>
-          <div className="flex justify-between text-slate-500">
+          <div className="flex justify-between text-muted-foreground">
             <span>Taxes</span>
-            <span className="text-slate-900 dark:text-white">₹{order.taxAmount}</span>
+            <span className="text-foreground">₹{order.taxAmount.toLocaleString()}</span>
           </div>
-          <div className="flex justify-between text-slate-500">
+          <div className="flex justify-between text-muted-foreground">
             <span>Shipping Fees</span>
             {order.shippingCharges === 0 ? (
-              <span className="text-teal-500 uppercase text-[10px]">Free</span>
+              <span className="text-emerald-500 uppercase text-[9px] font-black tracking-widest">Free</span>
             ) : (
-              <span className="text-slate-900 dark:text-white">₹{order.shippingCharges}</span>
+              <span className="text-foreground">₹{order.shippingCharges.toLocaleString()}</span>
             )}
           </div>
           {order.discountAmount > 0 && (
-            <div className="flex justify-between text-slate-500 font-bold">
+            <div className="flex justify-between text-primary font-bold">
               <span>Applied Discount</span>
-              <span>- ₹{order.discountAmount}</span>
+              <span>- ₹{order.discountAmount.toLocaleString()}</span>
             </div>
           )}
-          <hr className="border-slate-200 dark:border-slate-850 my-1" />
-          <div className="flex justify-between text-sm font-black text-slate-900 dark:text-white pt-1">
+          <hr className="border-border/20 my-1" />
+          <div className="flex justify-between text-sm font-black text-foreground pt-1">
             <span>Total Charged</span>
-            <span className="text-lg text-slate-600 dark:text-slate-400">₹{order.totalAmount}</span>
+            <span className="text-lg text-primary">₹{order.totalAmount.toLocaleString()}</span>
           </div>
         </div>
       </div>
 
-      <div className="text-center text-[10px] text-slate-500 py-4 print:block hidden">
-        Thank you for choosing Rush Closet! Reach rushfashion@gmail.com for returns or help.
+      <div className="text-center text-[10px] text-muted-foreground py-4 border-t border-border/20 print:block hidden uppercase tracking-widest font-bold">
+        Thank you for choosing VIARO! Contact customercare@viaro.com for returns or help.
       </div>
       
     </div>
@@ -237,10 +236,10 @@ function OrderSuccessDetails() {
 export default function OrderSuccessPage() {
   return (
     <Suspense fallback={
-      <div className="flex h-[60vh] items-center justify-center">
+      <div className="flex h-[60vh] items-center justify-center bg-background text-foreground">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-slate-500" />
-          <p className="text-sm text-slate-400">Loading receipt details...</p>
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Loading receipt details...</p>
         </div>
       </div>
     }>

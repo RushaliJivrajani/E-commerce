@@ -217,18 +217,18 @@ export default function CheckoutPage() {
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 space-y-12 min-h-screen">
       
       <FadeIn direction="up">
-        <div className="flex justify-center items-center gap-2 text-[9px] font-bold uppercase tracking-widest text-slate-500">
-          <Link href="/" className="hover:text-indigo-600 transition-colors">Home</Link>
+        <div className="flex justify-center items-center gap-2 text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+          <Link href="/" className="hover:text-primary transition-colors">Home</Link>
           <ChevronRight className="h-3 w-3" />
-          <Link href="/cart" className="hover:text-indigo-600 transition-colors">Bag</Link>
+          <Link href="/cart" className="hover:text-primary transition-colors">Bag</Link>
           <ChevronRight className="h-3 w-3" />
-          <span className="text-slate-900">Checkout</span>
+          <span className="text-foreground">Checkout</span>
         </div>
       </FadeIn>
 
       <FadeIn direction="up" delay={0.1}>
-        <div className="text-center pb-8 border-b border-slate-200/60">
-          <h1 className="text-3xl font-extrabold uppercase tracking-[0.2em] text-slate-900">Checkout</h1>
+        <div className="text-center pb-8 border-b border-border/60">
+          <h1 className="text-3xl font-extrabold uppercase tracking-[0.2em] text-foreground">Checkout</h1>
         </div>
       </FadeIn>
 
@@ -239,14 +239,14 @@ export default function CheckoutPage() {
           <div className="lg:col-span-7 space-y-12">
             
             {/* Shipping Form */}
-            <div className="space-y-8 bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
-              <h2 className="text-sm font-extrabold uppercase tracking-widest text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-4">
-                <Truck className="h-4 w-4 text-indigo-500" strokeWidth={1.5} /> Shipping Address
+            <div className="space-y-8 bg-card border border-border rounded-3xl p-8 shadow-sm">
+              <h2 className="text-sm font-extrabold uppercase tracking-widest text-foreground flex items-center gap-2 border-b border-border/30 pb-4">
+                <Truck className="h-4 w-4 text-primary" strokeWidth={1.5} /> Shipping Address
               </h2>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8 text-xs">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Full Name</label>
+                  <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Full Name</label>
                   <input
                     type="text"
                     name="name"
@@ -254,12 +254,12 @@ export default function CheckoutPage() {
                     placeholder="Aditya Patel"
                     value={shippingAddress.name}
                     onChange={handleInputChange}
-                    className="w-full border-b border-slate-300 bg-transparent py-3 focus:border-indigo-500 focus:outline-none transition-colors rounded-none placeholder-slate-400 text-slate-900"
+                    className="w-full border-b border-border/80 bg-transparent py-3 focus:border-primary focus:outline-none transition-colors rounded-none placeholder-slate-400 text-foreground"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Email Address</label>
+                  <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Email Address</label>
                   <input
                     type="email"
                     name="email"
@@ -267,12 +267,12 @@ export default function CheckoutPage() {
                     placeholder="customer@example.com"
                     value={shippingAddress.email}
                     onChange={handleInputChange}
-                    className="w-full border-b border-slate-300 bg-transparent py-3 focus:border-indigo-500 focus:outline-none transition-colors rounded-none placeholder-slate-400 text-slate-900"
+                    className="w-full border-b border-border/80 bg-transparent py-3 focus:border-primary focus:outline-none transition-colors rounded-none placeholder-slate-400 text-foreground"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Contact Phone</label>
+                  <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Contact Phone</label>
                   <input
                     type="tel"
                     name="phone"
@@ -280,12 +280,12 @@ export default function CheckoutPage() {
                     placeholder="+91 98765 43210"
                     value={shippingAddress.phone}
                     onChange={handleInputChange}
-                    className="w-full border-b border-slate-300 bg-transparent py-3 focus:border-indigo-500 focus:outline-none transition-colors rounded-none placeholder-slate-400 text-slate-900"
+                    className="w-full border-b border-border/80 bg-transparent py-3 focus:border-primary focus:outline-none transition-colors rounded-none placeholder-slate-400 text-foreground"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Address</label>
+                  <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Address</label>
                   <input
                     type="text"
                     name="addressLine"
@@ -293,12 +293,12 @@ export default function CheckoutPage() {
                     placeholder="Street details, apartment"
                     value={shippingAddress.addressLine}
                     onChange={handleInputChange}
-                    className="w-full border-b border-slate-300 bg-transparent py-3 focus:border-indigo-500 focus:outline-none transition-colors rounded-none placeholder-slate-400 text-slate-900"
+                    className="w-full border-b border-border/80 bg-transparent py-3 focus:border-primary focus:outline-none transition-colors rounded-none placeholder-slate-400 text-foreground"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">City</label>
+                  <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">City</label>
                   <input
                     type="text"
                     name="city"
@@ -306,12 +306,12 @@ export default function CheckoutPage() {
                     placeholder="Ahmedabad"
                     value={shippingAddress.city}
                     onChange={handleInputChange}
-                    className="w-full border-b border-slate-300 bg-transparent py-3 focus:border-indigo-500 focus:outline-none transition-colors rounded-none placeholder-slate-400 text-slate-900"
+                    className="w-full border-b border-border/80 bg-transparent py-3 focus:border-primary focus:outline-none transition-colors rounded-none placeholder-slate-400 text-foreground"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">State / Region</label>
+                  <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">State / Region</label>
                   <input
                     type="text"
                     name="state"
@@ -319,12 +319,12 @@ export default function CheckoutPage() {
                     placeholder="Gujarat"
                     value={shippingAddress.state}
                     onChange={handleInputChange}
-                    className="w-full border-b border-slate-300 bg-transparent py-3 focus:border-indigo-500 focus:outline-none transition-colors rounded-none placeholder-slate-400 text-slate-900"
+                    className="w-full border-b border-border/80 bg-transparent py-3 focus:border-primary focus:outline-none transition-colors rounded-none placeholder-slate-400 text-foreground"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">ZIP / Postal Code</label>
+                  <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">ZIP / Postal Code</label>
                   <input
                     type="text"
                     name="zipCode"
@@ -332,27 +332,27 @@ export default function CheckoutPage() {
                     placeholder="380054"
                     value={shippingAddress.zipCode}
                     onChange={handleInputChange}
-                    className="w-full border-b border-slate-300 bg-transparent py-3 focus:border-indigo-500 focus:outline-none transition-colors rounded-none placeholder-slate-400 text-slate-900"
+                    className="w-full border-b border-border/80 bg-transparent py-3 focus:border-primary focus:outline-none transition-colors rounded-none placeholder-slate-400 text-foreground"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Country</label>
+                  <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Country</label>
                   <input
                     type="text"
                     name="country"
                     disabled
                     value={shippingAddress.country}
-                    className="w-full border-b border-slate-200 bg-slate-50 py-3 text-slate-400 cursor-not-allowed rounded-none px-3"
+                    className="w-full border-b border-border bg-card/50 py-3 text-muted-foreground/80 cursor-not-allowed rounded-none px-3"
                   />
                 </div>
               </div>
             </div>
 
             {/* Payment Method */}
-            <div className="space-y-8 bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
-              <h2 className="text-sm font-extrabold uppercase tracking-widest text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-4">
-                <CreditCard className="h-4 w-4 text-indigo-500" strokeWidth={1.5} /> Payment Method
+            <div className="space-y-8 bg-card border border-border rounded-3xl p-8 shadow-sm">
+              <h2 className="text-sm font-extrabold uppercase tracking-widest text-foreground flex items-center gap-2 border-b border-border/30 pb-4">
+                <CreditCard className="h-4 w-4 text-primary" strokeWidth={1.5} /> Payment Method
               </h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -360,8 +360,8 @@ export default function CheckoutPage() {
                 {/* Cash On Delivery */}
                 <label className={`flex flex-col items-center justify-center p-6 border-2 rounded-2xl cursor-pointer transition-all ${
                   paymentMethod === 'COD'
-                    ? 'border-indigo-500 bg-indigo-50 text-indigo-700 shadow-sm'
-                    : 'border-slate-200 bg-slate-50 text-slate-600 hover:border-slate-300'
+                    ? 'border-primary bg-primary/10 text-primary shadow-sm'
+                    : 'border-border bg-card/50 text-foreground/80 hover:border-border/80'
                 }`}>
                   <input
                     type="radio"
@@ -371,15 +371,15 @@ export default function CheckoutPage() {
                     onChange={() => setPaymentMethod('COD')}
                     className="sr-only"
                   />
-                  <DollarSign className={`h-6 w-6 mb-3 ${paymentMethod === 'COD' ? 'text-indigo-500' : 'text-slate-400'}`} strokeWidth={1.5} />
+                  <DollarSign className={`h-6 w-6 mb-3 ${paymentMethod === 'COD' ? 'text-primary' : 'text-muted-foreground/80'}`} strokeWidth={1.5} />
                   <span className="text-[10px] font-bold uppercase tracking-widest">Cash On Delivery</span>
                 </label>
 
                 {/* Razorpay Gateway */}
                 <label className={`flex flex-col items-center justify-center p-6 border-2 rounded-2xl cursor-pointer transition-all ${
                   paymentMethod === 'Razorpay'
-                    ? 'border-indigo-500 bg-indigo-50 text-indigo-700 shadow-sm'
-                    : 'border-slate-200 bg-slate-50 text-slate-600 hover:border-slate-300'
+                    ? 'border-primary bg-primary/10 text-primary shadow-sm'
+                    : 'border-border bg-card/50 text-foreground/80 hover:border-border/80'
                 }`}>
                   <input
                     type="radio"
@@ -389,7 +389,7 @@ export default function CheckoutPage() {
                     onChange={() => setPaymentMethod('Razorpay')}
                     className="sr-only"
                   />
-                  <CreditCard className={`h-6 w-6 mb-3 ${paymentMethod === 'Razorpay' ? 'text-indigo-500' : 'text-slate-400'}`} strokeWidth={1.5} />
+                  <CreditCard className={`h-6 w-6 mb-3 ${paymentMethod === 'Razorpay' ? 'text-primary' : 'text-muted-foreground/80'}`} strokeWidth={1.5} />
                   <span className="text-[10px] font-bold uppercase tracking-widest">Pay Securely Online</span>
                 </label>
 
@@ -400,57 +400,57 @@ export default function CheckoutPage() {
 
           {/* Right: Checkout Sidebar details */}
           <div className="lg:col-span-5 lg:sticky lg:top-24 space-y-8">
-            <div className="bg-white border border-slate-200 p-8 rounded-3xl space-y-8 shadow-sm">
-              <h2 className="text-xs font-extrabold uppercase tracking-[0.2em] text-slate-900">Order Summary</h2>
+            <div className="bg-card border border-border p-8 rounded-3xl space-y-8 shadow-sm">
+              <h2 className="text-xs font-extrabold uppercase tracking-[0.2em] text-foreground">Order Summary</h2>
 
               {/* Cart items listing */}
-              <div className="max-h-64 overflow-y-auto space-y-6 pr-2 border-b border-slate-100 pb-6 hide-scrollbar">
+              <div className="max-h-64 overflow-y-auto space-y-6 pr-2 border-b border-border/30 pb-6 hide-scrollbar">
                 {cart.map((item) => (
                   <div key={item.sku} className="flex gap-4 text-xs items-center group">
-                    <div className="h-20 w-14 bg-slate-50 shrink-0 relative rounded-lg border border-slate-200 overflow-hidden transition-colors">
-                       <span className="absolute -top-1 -right-1 h-4 w-4 bg-indigo-500 text-white text-[9px] font-bold flex items-center justify-center rounded-full z-10 shadow-sm">
+                    <div className="h-20 w-14 bg-card/50 shrink-0 relative rounded-lg border border-border overflow-hidden transition-colors">
+                       <span className="absolute -top-1 -right-1 h-4 w-4 bg-primary text-white text-[9px] font-bold flex items-center justify-center rounded-full z-10 shadow-sm">
                          {item.quantity}
                        </span>
                       <img src={item.image} alt={item.name} className="h-full w-full object-cover mix-blend-multiply" />
                     </div>
                     <div className="flex-1 overflow-hidden space-y-1">
-                      <h4 className="font-semibold text-slate-900 truncate tracking-wide">{item.name}</h4>
-                      <p className="text-[9px] text-slate-500 font-bold uppercase tracking-widest">{item.variantInfo || 'Default'}</p>
+                      <h4 className="font-semibold text-foreground truncate tracking-wide">{item.name}</h4>
+                      <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-widest">{item.variantInfo || 'Default'}</p>
                     </div>
-                    <span className="font-bold text-slate-900 shrink-0 tracking-wide">₹{item.price * item.quantity}</span>
+                    <span className="font-bold text-foreground shrink-0 tracking-wide">₹{item.price * item.quantity}</span>
                   </div>
                 ))}
               </div>
 
               {/* Summary pricing calculations */}
-              <div className="space-y-4 text-xs font-medium text-slate-600 tracking-wide border-b border-slate-100 pb-6">
+              <div className="space-y-4 text-xs font-medium text-foreground/80 tracking-wide border-b border-border/30 pb-6">
                 <div className="flex justify-between items-center">
                   <span>Subtotal</span>
-                  <span className="font-bold text-slate-900">₹{subtotal}</span>
+                  <span className="font-bold text-foreground">₹{subtotal}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span>Taxes ({taxRate}%)</span>
-                  <span className="font-bold text-slate-900">₹{taxAmount}</span>
+                  <span className="font-bold text-foreground">₹{taxAmount}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span>Shipping</span>
                   {shippingCharges === 0 ? (
-                    <span className="font-bold text-teal-600 uppercase tracking-widest text-[10px]">Complimentary</span>
+                    <span className="font-bold text-primary uppercase tracking-widest text-[10px]">Complimentary</span>
                   ) : (
-                    <span className="font-bold text-slate-900">₹{shippingCharges}</span>
+                    <span className="font-bold text-foreground">₹{shippingCharges}</span>
                   )}
                 </div>
                 {coupon && (
-                  <div className="flex justify-between items-center text-teal-600 font-bold bg-teal-50 p-2 rounded-lg border border-teal-100 mt-2">
+                  <div className="flex justify-between items-center text-primary font-bold bg-primary/10 p-2 rounded-lg border border-teal-100 mt-2">
                     <span>Discount ({coupon.code})</span>
                     <span>- ₹{discountAmount}</span>
                   </div>
                 )}
               </div>
 
-              <div className="flex justify-between items-center text-sm font-extrabold text-slate-900 uppercase tracking-widest">
+              <div className="flex justify-between items-center text-sm font-extrabold text-foreground uppercase tracking-widest">
                 <span>Total</span>
-                <span className="text-xl tracking-wide text-indigo-600">₹{totalAmount}</span>
+                <span className="text-xl tracking-wide text-primary">₹{totalAmount}</span>
               </div>
 
               {/* Place Order CTA */}
@@ -458,7 +458,7 @@ export default function CheckoutPage() {
                 <button
                   type="submit"
                   disabled={placingOrder}
-                  className="w-full flex items-center justify-center gap-2 py-4 bg-slate-900 text-white rounded-xl text-xs font-bold uppercase tracking-[0.15em] shadow-md hover:bg-slate-800 transition-all disabled:opacity-50"
+                  className="w-full flex items-center justify-center gap-2 py-4 bg-foreground text-background text-white rounded-xl text-xs font-bold uppercase tracking-[0.15em] shadow-md hover:bg-slate-800 transition-all disabled:opacity-50"
                 >
                   {placingOrder ? (
                     <>
@@ -474,8 +474,8 @@ export default function CheckoutPage() {
                 </button>
               </div>
 
-              <div className="flex items-center justify-center gap-2 text-[9px] font-bold uppercase tracking-widest text-slate-400 pt-2 opacity-80">
-                <ShieldCheck className="h-3.5 w-3.5 text-teal-500" strokeWidth={1.5} />
+              <div className="flex items-center justify-center gap-2 text-[9px] font-bold uppercase tracking-widest text-muted-foreground/80 pt-2 opacity-80">
+                <ShieldCheck className="h-3.5 w-3.5 text-primary" strokeWidth={1.5} />
                 <span>Secure SSL Checkout</span>
               </div>
 
@@ -487,34 +487,34 @@ export default function CheckoutPage() {
 
       {/* --- RAZORPAY GATEWAY SIMULATOR MODAL --- */}
       {razorpayModalOpen && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm px-4">
-          <div className="w-full max-w-md bg-white border border-slate-200 p-8 space-y-8 relative rounded-3xl shadow-2xl">
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-foreground text-background/40 backdrop-blur-sm px-4">
+          <div className="w-full max-w-md bg-card border border-border p-8 space-y-8 relative rounded-3xl shadow-2xl">
             
-            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+            <div className="flex items-center justify-between border-b border-border/30 pb-4">
               <div className="flex items-center gap-3">
-                <div className="h-10 w-10 bg-indigo-500 text-white rounded-xl flex items-center justify-center font-bold text-lg shrink-0 shadow-sm">
+                <div className="h-10 w-10 bg-primary text-white rounded-xl flex items-center justify-center font-bold text-lg shrink-0 shadow-sm">
                   R
                 </div>
                 <div>
-                  <h3 className="text-xs font-extrabold text-slate-900 uppercase tracking-widest">Razorpay Sandbox</h3>
-                  <p className="text-[9px] text-indigo-600 font-bold uppercase tracking-wider">Test Environment</p>
+                  <h3 className="text-xs font-extrabold text-foreground uppercase tracking-widest">Razorpay Sandbox</h3>
+                  <p className="text-[9px] text-primary font-bold uppercase tracking-wider">Test Environment</p>
                 </div>
               </div>
-              <span className="text-sm font-extrabold text-slate-900 tracking-wide">₹{totalAmount}</span>
+              <span className="text-sm font-extrabold text-foreground tracking-wide">₹{totalAmount}</span>
             </div>
 
             {simulatingPayment ? (
               <div className="py-16 flex flex-col items-center justify-center gap-4 text-center">
-                <Loader2 className="h-8 w-8 animate-spin text-indigo-500" strokeWidth={1.5} />
+                <Loader2 className="h-8 w-8 animate-spin text-primary" strokeWidth={1.5} />
                 <div className="space-y-2">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-900">Processing Payment...</p>
-                  <p className="text-[9px] text-slate-500 font-medium">Please do not refresh</p>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-foreground">Processing Payment...</p>
+                  <p className="text-[9px] text-muted-foreground font-medium">Please do not refresh</p>
                 </div>
               </div>
             ) : (
               <div className="space-y-8">
-                <div className="border border-indigo-200 bg-indigo-50 p-4 rounded-xl flex gap-3 text-[10px] text-slate-700 font-medium">
-                  <AlertCircle className="h-4 w-4 shrink-0 text-indigo-600" strokeWidth={1.5} />
+                <div className="border border-primary/30 bg-primary/10 p-4 rounded-xl flex gap-3 text-[10px] text-foreground/90 font-medium">
+                  <AlertCircle className="h-4 w-4 shrink-0 text-primary" strokeWidth={1.5} />
                   <p className="leading-relaxed">
                     This is a sandbox billing overlay. Select an outcome to simulate a payment callback.
                   </p>
@@ -523,13 +523,13 @@ export default function CheckoutPage() {
                 <div className="flex gap-4">
                   <button
                     onClick={() => runRazorpayPaymentSimulation('FAIL')}
-                    className="flex-1 py-4 border-2 border-slate-200 rounded-xl text-[10px] font-bold text-slate-600 uppercase tracking-widest hover:bg-slate-50 transition-all"
+                    className="flex-1 py-4 border-2 border-border rounded-xl text-[10px] font-bold text-foreground/80 uppercase tracking-widest hover:bg-card/50 transition-all"
                   >
                     Decline
                   </button>
                   <button
                     onClick={() => runRazorpayPaymentSimulation('SUCCESS')}
-                    className="flex-1 py-4 bg-slate-900 text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-slate-800 transition-all shadow-md"
+                    className="flex-1 py-4 bg-foreground text-background text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-slate-800 transition-all shadow-md"
                   >
                     Approve
                   </button>

@@ -1,0 +1,84 @@
+{
+  "users": [
+    {
+      "id": "usr_1",
+      "email": "admin@rushcloset.com",
+      "name": "Super Admin",
+      "passwordHash": "$2b$10$WG5RrSaehigumd1uiMDTluJ.ei5SawyfCka4TsgT.fGlApLyUbQSe",
+      "role": "Super Admin",
+      "permissions": [
+        "all"
+      ],
+      "twoFactorEnabled": false,
+      "createdAt": "2026-07-04T10:23:02.812Z"
+    }
+  ],
+  "categories": [],
+  "products": [],
+  "orders": [],
+  "customers": [],
+  "banners": [],
+  "coupons": [],
+  "activity_logs": [
+    {
+      "id": "log_1",
+      "userEmail": "admin@rushcloset.com",
+      "userName": "Rushali Jivrajani",
+      "role": "Super Admin",
+      "action": "DB Initialize",
+      "details": "Initialized mockup database structures",
+      "ipAddress": "127.0.0.1",
+      "timestamp": "2026-07-04T10:23:02.821Z"
+    }
+  ],
+  "settings": {
+    "storeName": "Rush Closet",
+    "logo": "https://placehold.co/150x50/slate/white?text=RUSH+CLOSET",
+    "favicon": "https://placehold.co/32x32/slate/white?text=RF",
+    "contactEmail": "rushcloset@gmail.com",
+    "contactPhone": "+91 79 4001 0203",
+    "address": "501-505, Titanium Square, Thaltej, Ahmedabad, Gujarat, India",
+    "socialLinks": {
+      "facebook": "https://facebook.com/rushcloset",
+      "instagram": "https://instagram.com/rushcloset"
+    },
+    "currency": "INR",
+    "currencySymbol": "₹",
+    "taxRateDefault": 18,
+    "shippingZones": [
+      {
+        "zoneName": "Gujarat Local",
+        "regions": [
+          "Gujarat"
+        ],
+        "charge": 50,
+        "freeShippingMin": 999,
+        "deliveryDays": 2
+      },
+      {
+        "zoneName": "Domestic Standard",
+        "regions": [
+          "All States Except Gujarat",
+          "Other States"
+        ],
+        "charge": 100,
+        "freeShippingMin": 1499,
+        "deliveryDays": 5
+      }
+    ]
+  },
+  "reviews": [],
+  "website_content": [],
+  "return_requests": [],
+  "notification_templates": [
+    {
+      "id": "notif_1",
+      "type": "Email",
+      "event": "Order Placed",
+      "subject": "Order Confirmation - Rush Closet",
+      "body": "Hello {{customerName}}, thank you for placing your order {{orderId}} with us!",
+      "isActive": true,
+      "createdAt": "2026-07-04T10:23:02.821Z"
+    }
+  ]
+}

@@ -230,21 +230,21 @@ export default function OrdersPage() {
       case'Placed':
         return'bg-blue-500/10 text-blue-500 border-blue-500/20';
       case'Confirmed':
-        return'bg-slate-500/10 text-slate-500 border-slate-500/20';
+        return'bg-card/500/10 text-muted-foreground border-slate-500/20';
       case'Packed':
-        return'bg-indigo-500/10 text-indigo-500 border-indigo-500/20';
+        return'bg-primary/10 text-primary border-primary/20';
       case'Shipped':
-        return'bg-slate-500/10 text-slate-500 border-slate-500/20';
+        return'bg-card/500/10 text-muted-foreground border-slate-500/20';
       case'Out For Delivery':
         return'bg-sky-500/10 text-sky-500 border-sky-500/20';
       case'Delivered':
-        return'bg-teal-500/10 text-teal-500 border-teal-500/20';
+        return'bg-primary/100/10 text-primary border-teal-500/20';
       case'Cancelled':
         return'bg-rose-500/10 text-rose-500 border-rose-500/20';
       case'Returned':
-        return'bg-slate-500/10 text-slate-500 border-slate-500/20';
+        return'bg-card/500/10 text-muted-foreground border-slate-500/20';
       default:
-        return'bg-slate-500/10 text-slate-500 border-slate-500/20';
+        return'bg-card/500/10 text-muted-foreground border-slate-500/20';
     }
   };
 
@@ -262,8 +262,8 @@ export default function OrdersPage() {
     return (
       <div className="flex h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-3 glass-panel p-8 rounded-2xl">
-          <Loader2 className="h-8 w-8 animate-spin text-indigo-500" />
-          <p className="text-sm font-semibold text-slate-400">Loading order registers...</p>
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <p className="text-sm font-semibold text-muted-foreground/80">Loading order registers...</p>
         </div>
       </div>
     );
@@ -275,25 +275,25 @@ export default function OrdersPage() {
       {/* Header Panel */}
       <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between pb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-3">
-            Fulfillment Orders <FileSpreadsheet className="h-6 w-6 text-indigo-500" />
+          <h1 className="text-2xl font-bold text-foreground flex items-center gap-3">
+            Fulfillment Orders <FileSpreadsheet className="h-6 w-6 text-primary" />
           </h1>
-          <p className="text-sm font-medium text-slate-500 mt-1">
+          <p className="text-sm font-medium text-muted-foreground mt-1">
             Fulfill orders, edit delivery timelines, issue invoice slips, and track billing.
           </p>
         </div>
       </div>
 
       {/* Tabs list print:hidden */}
-      <div className="flex flex-wrap gap-1 border-b border-slate-200 pb-px print:hidden">
+      <div className="flex flex-wrap gap-1 border-b border-border pb-px print:hidden">
         {tabsList.map((tab) => (
           <button
             key={tab.name}
             onClick={() => setStatusTab(tab.value)}
             className={`px-4 py-2.5 text-sm font-semibold transition-colors ${
               statusTab === tab.value
-                ?'border-b-2 border-indigo-400 text-indigo-500'
-                :'text-slate-400 hover:text-slate-900 border-b-2 border-transparent'
+                ?'border-b-2 border-indigo-400 text-primary'
+                :'text-muted-foreground/80 hover:text-foreground border-b-2 border-transparent'
             }`}
           >
             {tab.name}
@@ -302,22 +302,22 @@ export default function OrdersPage() {
       </div>
 
       {/* Filter panel print:hidden */}
-      <div className="flex items-center gap-3 max-w-md bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 mt-6 focus-within:ring-2 focus-within:ring-indigo-400 focus-within:border-indigo-400 transition-shadow print:hidden">
-        <Search className="h-4 w-4 text-slate-400 shrink-0" />
+      <div className="flex items-center gap-3 max-w-md bg-card/50 border border-border rounded-xl px-3 py-2 mt-6 focus-within:ring-2 focus-within:ring-indigo-400 focus-within:border-indigo-400 transition-shadow print:hidden">
+        <Search className="h-4 w-4 text-muted-foreground/80 shrink-0" />
         <input
           type="text"
           placeholder="Search order #, customer name, email..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1 bg-transparent text-sm font-medium text-slate-900 focus:outline-none placeholder-slate-400"
+          className="flex-1 bg-transparent text-sm font-medium text-foreground focus:outline-none placeholder-slate-400"
         />
       </div>
 
       {/* Orders Table Container print:hidden */}
       <div className="glass-panel rounded-2xl overflow-hidden print:hidden mt-4 hover:shadow-md transition-shadow">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-slate-900">
-            <thead className="text-xs font-semibold bg-slate-50 border-b border-slate-200 text-slate-400">
+          <table className="w-full text-left text-sm text-foreground">
+            <thead className="text-xs font-semibold bg-card/50 border-b border-border text-muted-foreground/80">
               <tr>
                 <th className="px-6 py-4">Order Details</th>
                 <th className="px-6 py-4">Customer Info</th>
@@ -330,22 +330,22 @@ export default function OrdersPage() {
             </thead>
             <tbody className="divide-y divide-white/5">
               {filteredOrders.map((o) => (
-                <tr key={o.id} className="hover:bg-slate-50 transition-colors">
+                <tr key={o.id} className="hover:bg-card/50 transition-colors">
                   
                   <td className="px-6 py-4">
-                    <span className="text-sm font-semibold text-slate-900 block">{o.orderNumber}</span>
-                    <span className="text-xs text-slate-400 block mt-0.5">Count: {o.products.reduce((acc, p) => acc + p.quantity, 0)} items</span>
+                    <span className="text-sm font-semibold text-foreground block">{o.orderNumber}</span>
+                    <span className="text-xs text-muted-foreground/80 block mt-0.5">Count: {o.products.reduce((acc, p) => acc + p.quantity, 0)} items</span>
                   </td>
 
                   <td className="px-6 py-4">
-                    <span className="text-sm font-medium text-slate-900 block truncate tracking-wide">{o.customerName}</span>
-                    <span className="text-xs text-slate-400 block mt-0.5">{o.customerEmail}</span>
+                    <span className="text-sm font-medium text-foreground block truncate tracking-wide">{o.customerName}</span>
+                    <span className="text-xs text-muted-foreground/80 block mt-0.5">{o.customerEmail}</span>
                   </td>
 
                   <td className="px-6 py-4 text-center">
-                    <span className="text-sm font-semibold text-slate-900 block">{o.paymentMethod}</span>
+                    <span className="text-sm font-semibold text-foreground block">{o.paymentMethod}</span>
                     <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-semibold mt-1 border ${
-                      o.paymentStatus ==='Paid' ?'bg-teal-500/10 text-teal-400 border-teal-500/20' :'bg-indigo-500/10 text-indigo-500 border-indigo-500/20'
+                      o.paymentStatus ==='Paid' ?'bg-primary/100/10 text-teal-400 border-teal-500/20' :'bg-primary/10 text-primary border-primary/20'
                     }`}>{o.paymentStatus}</span>
                   </td>
 
@@ -357,18 +357,18 @@ export default function OrdersPage() {
                     </span>
                   </td>
 
-                  <td className="px-6 py-4 text-right text-sm font-bold text-indigo-500 tracking-wide">
+                  <td className="px-6 py-4 text-right text-sm font-bold text-primary tracking-wide">
                     ₹{o.totalAmount.toLocaleString('en-IN')}
                   </td>
 
-                  <td className="px-6 py-4 text-center text-xs font-medium text-slate-400">
+                  <td className="px-6 py-4 text-center text-xs font-medium text-muted-foreground/80">
                     {new Date(o.createdAt).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' })}
                   </td>
 
                   <td className="px-6 py-4 text-center">
                     <button
                       onClick={() => handleOpenDetails(o)}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-300 hover:text-indigo-500 transition-colors border border-white/20 rounded-xl px-3 py-1.5 glass-button"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-muted-foreground/50 hover:text-primary transition-colors border border-white/20 rounded-xl px-3 py-1.5 glass-button"
                     >
                       <Eye className="h-4 w-4" /> View
                     </button>
@@ -378,7 +378,7 @@ export default function OrdersPage() {
               ))}
               {filteredOrders.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="text-center py-16 text-[10px] font-bold uppercase tracking-widest text-slate-500">No orders logged in this bracket.</td>
+                  <td colSpan={7} className="text-center py-16 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">No orders logged in this bracket.</td>
                 </tr>
               )}
             </tbody>
@@ -389,7 +389,7 @@ export default function OrdersPage() {
       {/* --- PRINT AREA FOR INVOICE --- */}
       {/* Hidden by default on screen, visible during window.print() */}
       {selectedOrder && (
-        <div className="hidden print:block bg-white text-black p-8 font-sans min-h-screen text-sm">
+        <div className="hidden print:block bg-card text-black p-8 font-sans min-h-screen text-sm">
           <div className="flex justify-between items-start border-b pb-6">
             <div>
               <h1 className="text-2xl font-bold">RUSH CLOSET</h1>
@@ -459,26 +459,26 @@ export default function OrdersPage() {
       {/* --- ORDER DETAILS DRAWER MODAL --- */}
       {modalOpen && selectedOrder && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto print:hidden">
-          <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setModalOpen(false)} />
+          <div className="fixed inset-0 bg-foreground text-background/40 backdrop-blur-sm" onClick={() => setModalOpen(false)} />
           
-          <div className="relative w-full max-w-4xl rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl   max-h-[90vh] overflow-y-auto">
+          <div className="relative w-full max-w-4xl rounded-2xl border border-border bg-card p-6 shadow-2xl   max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setModalOpen(false)}
-              className="absolute top-4 right-4 rounded-lg p-1 text-slate-400 hover:bg-slate-100"
+              className="absolute top-4 right-4 rounded-lg p-1 text-muted-foreground/80 hover:bg-card/80"
             >
               <X className="h-5 w-5" />
             </button>
 
             {/* Header branding */}
-            <div className="flex flex-wrap items-center justify-between border-b border-slate-100  pb-4 mb-6 gap-3">
+            <div className="flex flex-wrap items-center justify-between border-b border-border/30  pb-4 mb-6 gap-3">
               <div>
-                <span className="inline-block rounded bg-slate-500/10 px-2 py-0.5 text-xs font-bold text-slate-500">{selectedOrder.orderNumber}</span>
-                <h3 className="text-lg font-bold text-slate-900  mt-1">Order Fulfillment Details</h3>
+                <span className="inline-block rounded bg-card/500/10 px-2 py-0.5 text-xs font-bold text-muted-foreground">{selectedOrder.orderNumber}</span>
+                <h3 className="text-lg font-bold text-foreground  mt-1">Order Fulfillment Details</h3>
               </div>
               <div className="flex items-center gap-2">
                 <button
                   onClick={handlePrint}
-                  className="flex items-center gap-1 rounded-xl bg-slate-100 hover:bg-slate-200   px-3 py-2 text-xs font-bold text-slate-700  border border-slate-200"
+                  className="flex items-center gap-1 rounded-xl bg-card/80 hover:bg-border   px-3 py-2 text-xs font-bold text-foreground/90  border border-border"
                 >
                   <Printer className="h-3.5 w-3.5" /> Print Invoice
                 </button>
@@ -493,7 +493,7 @@ export default function OrdersPage() {
                 {selectedOrder.status ==='Returned' && selectedOrder.paymentStatus !=='Refunded' && (
                   <button
                     onClick={() => handleRefundOrder(selectedOrder.id)}
-                    className="flex items-center gap-1 rounded-xl bg-slate-500/10 hover:bg-slate-500/25 px-3 py-2 text-xs font-bold text-slate-500"
+                    className="flex items-center gap-1 rounded-xl bg-card/500/10 hover:bg-card/500/25 px-3 py-2 text-xs font-bold text-muted-foreground"
                   >
                     <RotateCcw className="h-3.5 w-3.5" /> Approve Refund
                   </button>
@@ -501,7 +501,7 @@ export default function OrdersPage() {
                 {selectedOrder.paymentMethod ==='COD' && selectedOrder.paymentStatus ==='Pending' && selectedOrder.status !=='Cancelled' && (
                   <button
                     onClick={() => handleMarkAsPaid(selectedOrder.id)}
-                    className="flex items-center gap-1 rounded-xl bg-teal-500/10 hover:bg-teal-500/25 px-3 py-2 text-xs font-bold text-teal-500"
+                    className="flex items-center gap-1 rounded-xl bg-primary/100/10 hover:bg-primary/100/25 px-3 py-2 text-xs font-bold text-primary"
                   >
                     <CheckCircle className="h-3.5 w-3.5" /> Mark Paid
                   </button>
@@ -515,46 +515,46 @@ export default function OrdersPage() {
               <div className="lg:col-span-2 space-y-6">
                 
                 {/* Customer Address Info */}
-                <div className="rounded-xl border border-slate-200  p-4 space-y-3 bg-slate-50/50">
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block border-b border-slate-100  pb-1">Customer Delivery Details</span>
+                <div className="rounded-xl border border-border  p-4 space-y-3 bg-card/50/50">
+                  <span className="text-xs font-bold text-muted-foreground/80 uppercase tracking-wider block border-b border-border/30  pb-1">Customer Delivery Details</span>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <span className="text-xs text-slate-400 block">Name</span>
+                      <span className="text-xs text-muted-foreground/80 block">Name</span>
                       <span className="font-semibold text-slate-950">{selectedOrder.customerName}</span>
                     </div>
                     <div>
-                      <span className="text-xs text-slate-400 block">Email Address</span>
+                      <span className="text-xs text-muted-foreground/80 block">Email Address</span>
                       <span className="font-semibold text-slate-950">{selectedOrder.customerEmail}</span>
                     </div>
                     <div className="col-span-2">
-                      <span className="text-xs text-slate-400 block">Shipping Address</span>
-                      <span className="font-medium text-slate-900">
+                      <span className="text-xs text-muted-foreground/80 block">Shipping Address</span>
+                      <span className="font-medium text-foreground">
                         {selectedOrder.shippingAddress.addressLine}, {selectedOrder.shippingAddress.city}, {selectedOrder.shippingAddress.state} - {selectedOrder.shippingAddress.zipCode}
                       </span>
                     </div>
                     <div>
-                      <span className="text-xs text-slate-400 block">Contact Mobile</span>
-                      <span className="font-semibold text-slate-900">{selectedOrder.shippingAddress.phone}</span>
+                      <span className="text-xs text-muted-foreground/80 block">Contact Mobile</span>
+                      <span className="font-semibold text-foreground">{selectedOrder.shippingAddress.phone}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Products detail list */}
                 <div className="space-y-3">
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block border-b border-slate-100  pb-1">Product Items list</span>
-                  <div className="border border-slate-200  rounded-xl overflow-hidden">
+                  <span className="text-xs font-bold text-muted-foreground/80 uppercase tracking-wider block border-b border-border/30  pb-1">Product Items list</span>
+                  <div className="border border-border  rounded-xl overflow-hidden">
                     {selectedOrder.products.map((item, idx) => (
-                      <div key={idx} className="flex items-center justify-between p-3 border-b border-slate-100  bg-white  last:border-b-0">
+                      <div key={idx} className="flex items-center justify-between p-3 border-b border-border/30  bg-card  last:border-b-0">
                         <div className="flex items-center gap-3">
-                          <img src={item.image} className="h-10 w-10 object-cover rounded-lg bg-slate-50" />
+                          <img src={item.image} className="h-10 w-10 object-cover rounded-lg bg-card/50" />
                           <div>
-                            <span className="font-semibold text-slate-900  block">{item.name}</span>
-                            <span className="text-xs text-slate-400">{item.variantInfo} | SKU: <code className="font-mono">{item.sku}</code></span>
+                            <span className="font-semibold text-foreground  block">{item.name}</span>
+                            <span className="text-xs text-muted-foreground/80">{item.variantInfo} | SKU: <code className="font-mono">{item.sku}</code></span>
                           </div>
                         </div>
                         <div className="text-right">
                           <span className="font-bold text-slate-955  block">₹{(item.price * item.quantity).toLocaleString()}</span>
-                          <span className="text-xs text-slate-400">₹{item.price.toLocaleString()} x {item.quantity}</span>
+                          <span className="text-xs text-muted-foreground/80">₹{item.price.toLocaleString()} x {item.quantity}</span>
                         </div>
                       </div>
                     ))}
@@ -562,16 +562,16 @@ export default function OrdersPage() {
                 </div>
 
                 {/* Shipping slip label printing mock */}
-                <div className="rounded-xl border border-dashed border-slate-500/20 bg-slate-500/5 p-4 flex justify-between items-center text-xs">
+                <div className="rounded-xl border border-dashed border-slate-500/20 bg-card/500/5 p-4 flex justify-between items-center text-xs">
                   <div>
-                    <span className="font-bold text-slate-400 block">Shipping Slip Label Generator</span>
-                    <p className="text-slate-400 mt-0.5">Print label directly for packing slip integration.</p>
+                    <span className="font-bold text-muted-foreground/80 block">Shipping Slip Label Generator</span>
+                    <p className="text-muted-foreground/80 mt-0.5">Print label directly for packing slip integration.</p>
                   </div>
                   <button
                     onClick={() => {
                       toast.success('Label print instructions sent to warehouse printer!');
                     }}
-                    className="flex items-center gap-1 rounded-lg bg-slate-600 px-3 py-1.5 font-bold text-slate-900 shadow"
+                    className="flex items-center gap-1 rounded-lg bg-slate-600 px-3 py-1.5 font-bold text-foreground shadow"
                   >
                     <Printer className="h-3.5 w-3.5" /> Print Slip
                   </button>
@@ -580,18 +580,18 @@ export default function OrdersPage() {
               </div>
 
               {/* RIGHT: TRACKING TIMELINE & STATUS SWITCHER */}
-              <div className="space-y-6 border-l border-slate-100  pl-0 lg:pl-6">
+              <div className="space-y-6 border-l border-border/30  pl-0 lg:pl-6">
                 
                 {/* Status updater form */}
                 <form onSubmit={handleUpdateStatus} className="space-y-4">
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block border-b border-slate-100  pb-1">Update Status</span>
+                  <span className="text-xs font-bold text-muted-foreground/80 uppercase tracking-wider block border-b border-border/30  pb-1">Update Status</span>
                   
                   <div>
-                    <label className="block text-xs font-semibold text-slate-400 uppercase">Fulfillment Status</label>
+                    <label className="block text-xs font-semibold text-muted-foreground/80 uppercase">Fulfillment Status</label>
                     <select
                       value={newStatus}
                       onChange={(e) => setNewStatus(e.target.value)}
-                      className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none   text-slate-900"
+                      className="mt-1 block w-full rounded-xl border border-border bg-card/50 py-2.5 px-3 focus:outline-none   text-foreground"
                     >
                       <option value="Placed">Order Placed</option>
                       <option value="Confirmed">Confirmed</option>
@@ -605,20 +605,20 @@ export default function OrdersPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-400 uppercase">Tracking remarks</label>
+                    <label className="block text-xs font-semibold text-muted-foreground/80 uppercase">Tracking remarks</label>
                     <input
                       type="text"
                       value={updateDetails}
                       onChange={(e) => setUpdateDetails(e.target.value)}
                       placeholder="e.g. Handed over to BlueDart BD-88"
-                      className="mt-1 block w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 px-3 focus:outline-none   text-slate-900"
+                      className="mt-1 block w-full rounded-xl border border-border bg-card/50 py-2.5 px-3 focus:outline-none   text-foreground"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={updating}
-                    className="flex w-full justify-center items-center gap-2 rounded-xl bg-slate-600 py-2.5 text-xs font-bold text-slate-900"
+                    className="flex w-full justify-center items-center gap-2 rounded-xl bg-slate-600 py-2.5 text-xs font-bold text-foreground"
                   >
                     {updating && <Loader2 className="h-4 w-4 animate-spin" />}
                     Update Status Slip
@@ -627,15 +627,15 @@ export default function OrdersPage() {
 
                 {/* Delivery tracking Timeline */}
                 <div className="space-y-3">
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block border-b border-slate-100  pb-1">Tracking Timeline</span>
-                  <div className="relative pl-4 border-l border-slate-200  space-y-4 text-xs">
+                  <span className="text-xs font-bold text-muted-foreground/80 uppercase tracking-wider block border-b border-border/30  pb-1">Tracking Timeline</span>
+                  <div className="relative pl-4 border-l border-border  space-y-4 text-xs">
                     {selectedOrder.timeline.map((event, idx) => (
                       <div key={idx} className="relative">
                         {/* Timeline Circle Bullet */}
-                        <div className="absolute top-0.5 -left-[21px] flex h-3.5 w-3.5 items-center justify-center rounded-full bg-slate-200 border-2 border-white" />
-                        <span className="font-bold text-slate-900">{event.status}</span>
-                        <p className="text-slate-400 mt-0.5">{event.description}</p>
-                        <span className="text-[10px] text-slate-500 font-mono mt-0.5 block">
+                        <div className="absolute top-0.5 -left-[21px] flex h-3.5 w-3.5 items-center justify-center rounded-full bg-border border-2 border-white" />
+                        <span className="font-bold text-foreground">{event.status}</span>
+                        <p className="text-muted-foreground/80 mt-0.5">{event.description}</p>
+                        <span className="text-[10px] text-muted-foreground font-mono mt-0.5 block">
                           {new Date(event.timestamp).toLocaleString('en-US', { month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' })}
                         </span>
                       </div>

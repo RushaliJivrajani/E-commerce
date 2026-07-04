@@ -1,28 +1,37 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Poppins, Montserrat } from 'next/font/google';
+import { ThemeProvider } from '@/lib/theme-context';
 import './globals.css';
 
-const inter = Inter({
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-poppins',
+  display: 'swap',
+});
+
+const montserrat = Montserrat({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-inter',
+  variable: '--font-montserrat',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: 'Rush Closet | International Premium Fashion',
-  description: 'Discover luxury fashion, premium collections, and exclusive styles at Rush Closet.',
-  keywords: ['fashion', 'luxury', 'clothing', 'Rush Closet', 'premium fashion', 'ecommerce'],
+  title: 'VIARO | Live in Style',
+  description: 'Modern. Minimal. Made for the now. Experience premium streetwear and luxury fashion at VIARO.',
+  keywords: ['VIARO', 'fashion', 'luxury', 'clothing', 'streetwear', 'premium fashion', 'ecommerce'],
   openGraph: {
-    title: 'Rush Closet | International Premium Fashion',
-    description: 'Discover luxury fashion, premium collections, and exclusive styles at Rush Closet.',
-    url: 'https://rushcloset.com',
-    siteName: 'Rush Closet',
+    title: 'VIARO | Live in Style',
+    description: 'Modern. Minimal. Made for the now. Experience premium streetwear and luxury fashion at VIARO.',
+    url: 'https://viaro.in',
+    siteName: 'VIARO',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Rush Closet Premium Fashion',
+        alt: 'VIARO Premium Streetwear',
       },
     ],
     locale: 'en_US',
@@ -39,9 +48,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-background text-foreground font-sans selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black">
-        {children}
+    <html lang="en" className={`${poppins.variable} ${montserrat.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col bg-background text-foreground font-sans selection:bg-viaro-red selection:text-white">
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

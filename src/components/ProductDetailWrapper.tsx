@@ -191,12 +191,12 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
       
       {/* Path Breadcrumbs */}
       <FadeIn direction="up">
-        <div className="flex items-center gap-2 text-sm text-slate-500 mb-6 font-medium">
-          <Link href="/" className="hover:text-indigo-600 hover:underline transition-colors">Home</Link>
-          <ChevronRight className="h-4 w-4 text-slate-400" />
-          <Link href="/shop" className="hover:text-indigo-600 hover:underline transition-colors">Shop</Link>
-          <ChevronRight className="h-4 w-4 text-slate-400" />
-          <span className="text-slate-900 font-bold">{product.name}</span>
+        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6 font-medium">
+          <Link href="/" className="hover:text-primary hover:underline transition-colors">Home</Link>
+          <ChevronRight className="h-4 w-4 text-muted-foreground" />
+          <Link href="/shop" className="hover:text-primary hover:underline transition-colors">Shop</Link>
+          <ChevronRight className="h-4 w-4 text-muted-foreground" />
+          <span className="text-foreground font-bold">{product.name}</span>
         </div>
       </FadeIn>
 
@@ -212,8 +212,8 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
                 <button
                   key={idx}
                   onClick={() => setActiveImage(img)}
-                  className={`relative aspect-[3/4] w-20 bg-slate-100 overflow-hidden focus:outline-none transition-all rounded-xl border ${
-                    activeImage === img ? 'opacity-100 border-indigo-500 ring-2 ring-indigo-500 ring-offset-2' : 'opacity-60 hover:opacity-100 border-slate-200'
+                  className={`relative aspect-[3/4] w-20 bg-card/80 overflow-hidden focus:outline-none transition-all rounded-xl border ${
+                    activeImage === img ? 'opacity-100 border-primary ring-2 ring-primary ring-offset-2' : 'opacity-60 hover:opacity-100 border-border'
                   }`}
                 >
                   <img src={img} alt="Thumbnail view" className="h-full w-full object-cover mix-blend-multiply" />
@@ -221,7 +221,7 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
               ))}
             </div>
           )}
-          <FadeIn direction="left" className="flex-1 w-full bg-slate-50 border border-slate-200 rounded-3xl aspect-[3/4] overflow-hidden relative cursor-crosshair shadow-sm">
+          <FadeIn direction="left" className="flex-1 w-full bg-card/50 border border-border rounded-3xl aspect-[3/4] overflow-hidden relative cursor-crosshair shadow-sm">
             <div
               className="h-full w-full relative"
               onMouseEnter={() => setIsZoomed(true)}
@@ -242,18 +242,18 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
         <div className="lg:col-span-5 space-y-6 lg:pl-4">
           <FadeIn direction="up">
             <div className="space-y-3">
-              <span className="text-sm font-bold text-indigo-600 uppercase tracking-widest flex items-center gap-1.5">
+              <span className="text-sm font-bold text-primary uppercase tracking-widest flex items-center gap-1.5">
                 <Sparkles className="h-4 w-4" /> {product.brand}
               </span>
-              <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight tracking-tight">
+              <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground leading-tight tracking-tight">
                 {product.name}
               </h1>
               
               <div className="flex items-center gap-2 mt-4">
-                <div className="flex text-indigo-500">
-                  {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="h-4 w-4 fill-indigo-500" />)}
+                <div className="flex text-primary">
+                  {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="h-4 w-4 fill-primary" />)}
                 </div>
-                <span className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors cursor-pointer border-b border-dashed border-slate-300">
+                <span className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer border-b border-dashed border-border/80">
                   {clientReviews.length} premium reviews
                 </span>
               </div>
@@ -261,35 +261,35 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
               {/* Pricing box */}
               <div className="flex flex-col pt-6 mt-6">
                 <div className="flex items-baseline gap-4">
-                  <span className="text-4xl font-bold text-slate-900">₹{activePrice.toLocaleString()}</span>
+                  <span className="text-4xl font-bold text-foreground">₹{activePrice.toLocaleString()}</span>
                   {hasDiscount && (
-                    <span className="text-xl font-medium text-slate-400 line-through">₹{product.regularPrice.toLocaleString()}</span>
+                    <span className="text-xl font-medium text-muted-foreground line-through">₹{product.regularPrice.toLocaleString()}</span>
                   )}
                 </div>
                 {hasDiscount && (
-                  <span className="text-sm font-bold text-teal-600 mt-3 bg-teal-50 inline-block w-fit px-3 py-1 rounded-md border border-teal-200">
+                  <span className="text-sm font-bold text-primary mt-3 bg-primary/10 inline-block w-fit px-3 py-1 rounded-md border border-primary/30">
                     Exclusive Saving: ₹{(product.regularPrice - activePrice).toLocaleString()} ({discountPercent}%)
                   </span>
                 )}
-                <span className="text-xs text-slate-500 mt-3 flex items-center gap-1.5 font-medium"><ShieldCheck className="h-4 w-4 text-teal-500" /> Inclusive of all taxes</span>
+                <span className="text-xs text-muted-foreground mt-3 flex items-center gap-1.5 font-medium"><ShieldCheck className="h-4 w-4 text-primary" /> Inclusive of all taxes</span>
               </div>
             </div>
           </FadeIn>
 
           <FadeIn direction="up" delay={0.1}>
-            <p className="text-base leading-relaxed text-slate-600">
+            <p className="text-base leading-relaxed text-foreground/80">
               {product.shortDescription || product.description.split('.')[0] + '.'}
             </p>
           </FadeIn>
 
           <FadeIn direction="up" delay={0.2}>
             {/* --- VARIANT MATRIX SELECTORS --- */}
-            <div className="space-y-6 pt-6 border-t border-slate-200/60">
+            <div className="space-y-6 pt-6 border-t border-border/60">
               {/* Sizes Selector */}
               {product.attributes?.sizes && product.attributes.sizes.length > 0 && (
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm font-bold text-slate-600">Size: <span className="font-bold text-slate-900">{selectedSize}</span></span>
+                    <span className="text-sm font-bold text-foreground/80">Size: <span className="font-bold text-foreground">{selectedSize}</span></span>
                   </div>
                   <div className="flex flex-wrap gap-3">
                     {product.attributes.sizes.map((size: string) => (
@@ -298,8 +298,8 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
                         onClick={() => setSelectedSize(size)}
                         className={`h-12 min-w-[4rem] px-4 text-sm font-bold rounded-xl border-2 transition-all ${
                           selectedSize === size
-                            ? 'border-indigo-500 bg-indigo-50 text-indigo-700 shadow-sm'
-                            : 'border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300'
+                            ? 'border-primary bg-primary/10 text-primary shadow-sm'
+                            : 'border-border text-foreground/80 hover:bg-card/50 hover:border-border/80'
                         }`}
                       >
                         {size}
@@ -312,7 +312,7 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
               {/* Colors Selector */}
               {product.attributes?.colors && product.attributes.colors.length > 0 && (
                 <div className="space-y-3">
-                  <span className="text-sm font-bold text-slate-600 block">Color: <span className="font-bold text-slate-900">{selectedColor}</span></span>
+                  <span className="text-sm font-bold text-foreground/80 block">Color: <span className="font-bold text-foreground">{selectedColor}</span></span>
                   <div className="flex flex-wrap gap-3">
                     {product.attributes.colors.map((color: string) => (
                       <button
@@ -320,8 +320,8 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
                         onClick={() => setSelectedColor(color)}
                         className={`h-12 px-5 text-sm font-bold rounded-xl border-2 transition-all ${
                           selectedColor === color
-                            ? 'border-indigo-500 bg-indigo-50 text-indigo-700 shadow-sm'
-                            : 'border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300'
+                            ? 'border-primary bg-primary/10 text-primary shadow-sm'
+                            : 'border-border text-foreground/80 hover:bg-card/50 hover:border-border/80'
                         }`}
                       >
                         {color}
@@ -334,7 +334,7 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
               {/* Fabrics Selector */}
               {product.attributes?.fabrics && product.attributes.fabrics.length > 0 && (
                 <div className="space-y-3">
-                  <span className="text-sm font-bold text-slate-600 block">Fabric: <span className="font-bold text-slate-900">{selectedFabric}</span></span>
+                  <span className="text-sm font-bold text-foreground/80 block">Fabric: <span className="font-bold text-foreground">{selectedFabric}</span></span>
                   <div className="flex flex-wrap gap-3">
                     {product.attributes.fabrics.map((fab: string) => (
                       <button
@@ -342,8 +342,8 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
                         onClick={() => setSelectedFabric(fab)}
                         className={`h-12 px-5 text-sm font-bold rounded-xl border-2 transition-all ${
                           selectedFabric === fab
-                            ? 'border-indigo-500 bg-indigo-50 text-indigo-700 shadow-sm'
-                            : 'border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300'
+                            ? 'border-primary bg-primary/10 text-primary shadow-sm'
+                            : 'border-border text-foreground/80 hover:bg-card/50 hover:border-border/80'
                         }`}
                       >
                         {fab}
@@ -357,16 +357,16 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
 
           <FadeIn direction="up" delay={0.3}>
             {/* Action Box */}
-            <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-xl mt-10 space-y-6">
+            <div className="p-8 rounded-3xl bg-card border border-border shadow-xl mt-10 space-y-6">
               <div className="flex items-center gap-2 text-lg font-bold">
                 {activeStock > 0 ? (
-                  <span className="text-teal-600 flex items-center gap-2"><ShieldCheck className="h-6 w-6" /> In Stock & Ready to Ship</span>
+                  <span className="text-primary flex items-center gap-2"><ShieldCheck className="h-6 w-6" /> In Stock & Ready to Ship</span>
                 ) : (
-                  <span className="text-rose-500 flex items-center gap-2"><AlertCircle className="h-6 w-6" /> Currently Unavailable</span>
+                  <span className="text-primary flex items-center gap-2"><AlertCircle className="h-6 w-6" /> Currently Unavailable</span>
                 )}
               </div>
-              <p className="text-sm font-medium text-slate-600 flex items-center gap-2 border-b border-slate-100 pb-5">
-                <Truck className="h-5 w-5 text-indigo-500" /> Premium delivery by RushCloset Elite.
+              <p className="text-sm font-medium text-foreground/80 flex items-center gap-2 border-b border-border/30 pb-5">
+                <Truck className="h-5 w-5 text-primary" /> Premium delivery by RushCloset Elite.
               </p>
 
               <div className="pt-2 flex flex-col sm:flex-row gap-4">
@@ -375,8 +375,8 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
                   disabled={activeStock <= 0}
                   className={`flex-1 py-4 px-6 text-sm font-bold rounded-2xl shadow-md transition-all flex items-center justify-center gap-2 ${
                     activeStock > 0
-                      ? 'bg-indigo-500 hover:bg-indigo-600 text-white shadow-indigo-500/20 hover:shadow-indigo-500/40'
-                      : 'bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200'
+                      ? 'bg-primary hover:bg-primary text-white shadow-primary/20 hover:shadow-primary/40'
+                      : 'bg-card/80 text-muted-foreground cursor-not-allowed border border-border'
                   }`}
                 >
                   <ShoppingBag className="h-5 w-5" />
@@ -386,8 +386,8 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
                   disabled={activeStock <= 0}
                   className={`flex-1 py-4 px-6 text-sm font-bold rounded-2xl transition-all flex items-center justify-center gap-2 ${
                     activeStock > 0
-                      ? 'bg-slate-900 text-white hover:bg-slate-800 shadow-md'
-                      : 'bg-slate-50 text-slate-400 cursor-not-allowed border border-slate-200'
+                      ? 'bg-foreground text-background text-white hover:bg-slate-800 shadow-md'
+                      : 'bg-card/50 text-muted-foreground cursor-not-allowed border border-border'
                   }`}
                 >
                   Purchase Now
@@ -395,9 +395,9 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
               </div>
 
               {/* Secure transaction indicator */}
-              <div className="flex items-center justify-center gap-6 text-xs text-slate-500 font-bold pt-4">
-                <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-teal-500" /> Secure payment</span>
-                <span className="flex items-center gap-1.5"><RotateCcw className="h-4 w-4 text-indigo-500" /> 14-day returns</span>
+              <div className="flex items-center justify-center gap-6 text-xs text-muted-foreground font-bold pt-4">
+                <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> Secure payment</span>
+                <span className="flex items-center gap-1.5"><RotateCcw className="h-4 w-4 text-primary" /> 14-day returns</span>
               </div>
             </div>
           </FadeIn>
@@ -407,30 +407,30 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
       {/* Product Long Description */}
       {product.description && (
         <FadeIn direction="up">
-          <section className="border-t border-slate-200/60 pt-16 max-w-4xl mx-auto text-center space-y-8">
-            <h2 className="text-2xl font-extrabold uppercase tracking-[0.2em] text-slate-900 flex items-center justify-center gap-3">
-              <Sparkles className="h-5 w-5 text-indigo-500" /> Details & Craftsmanship <Sparkles className="h-5 w-5 text-indigo-500" />
+          <section className="border-t border-border/60 pt-16 max-w-4xl mx-auto text-center space-y-8">
+            <h2 className="text-2xl font-extrabold uppercase tracking-[0.2em] text-foreground flex items-center justify-center gap-3">
+              <Sparkles className="h-5 w-5 text-primary" /> Details & Craftsmanship <Sparkles className="h-5 w-5 text-primary" />
             </h2>
             <div
-              className="text-base leading-loose text-slate-600 max-w-3xl mx-auto px-4"
+              className="text-base leading-loose text-foreground/80 max-w-3xl mx-auto px-4"
               dangerouslySetInnerHTML={{ __html: product.description }}
             />
           </section>
         </FadeIn>
       )}
 
-      <hr className="border-slate-200/60 my-16" />
+      <hr className="border-border/60 my-16" />
 
       {/* --- REVIEWS SECTION --- */}
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         
         {/* Write a Review */}
         <div className="space-y-6">
-          <h3 className="text-2xl font-bold text-slate-900">Curated Reviews</h3>
-          <p className="text-sm font-medium text-slate-500">Share your experience with the community</p>
-          <form onSubmit={handleReviewSubmit} className="space-y-6 bg-white border border-slate-200 p-8 rounded-3xl shadow-sm">
+          <h3 className="text-2xl font-bold text-foreground">Curated Reviews</h3>
+          <p className="text-sm font-medium text-muted-foreground">Share your experience with the community</p>
+          <form onSubmit={handleReviewSubmit} className="space-y-6 bg-card border border-border p-8 rounded-3xl shadow-sm">
             <div className="space-y-3">
-              <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Quality Rating</label>
+              <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Quality Rating</label>
               <div className="flex gap-2">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <button
@@ -442,8 +442,8 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
                     <Star
                       className={`h-8 w-8 transition-colors ${
                         star <= reviewRating
-                          ? 'text-indigo-500 fill-indigo-500 drop-shadow-sm'
-                          : 'text-slate-200 fill-slate-100'
+                          ? 'text-primary fill-primary drop-shadow-sm'
+                          : 'text-border fill-border'
                       }`}
                     />
                   </button>
@@ -452,20 +452,20 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
             </div>
 
             <div className="space-y-3">
-              <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Your Insights</label>
+              <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Your Insights</label>
               <textarea
                 rows={4}
                 placeholder="Detail the fit, fabric, and overall impression..."
                 value={reviewComment}
                 onChange={(e) => setReviewComment(e.target.value)}
-                className="w-full text-sm border-2 border-slate-200 bg-slate-50 p-4 focus:border-indigo-500 focus:ring-0 focus:bg-white outline-none rounded-xl resize-none text-slate-900 placeholder-slate-400 transition-colors"
+                className="w-full text-sm border-2 border-border bg-card/50 p-4 focus:border-primary focus:ring-0 focus:bg-card outline-none rounded-xl resize-none text-foreground placeholder-slate-400 transition-colors"
               />
             </div>
 
             <button
               type="submit"
               disabled={isSubmittingReview}
-              className="w-full py-4 bg-slate-900 text-white rounded-xl text-sm font-bold shadow-md hover:bg-slate-800 transition-colors uppercase tracking-widest"
+              className="w-full py-4 bg-foreground text-background text-white rounded-xl text-sm font-bold shadow-md hover:bg-slate-800 transition-colors uppercase tracking-widest"
             >
               {isSubmittingReview ? 'Submitting...' : 'Post Review'}
             </button>
@@ -474,24 +474,24 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
 
         {/* Reviews Listing */}
         <div className="lg:col-span-2 space-y-6">
-          <h3 className="text-2xl font-bold text-slate-900">
+          <h3 className="text-2xl font-bold text-foreground">
             Client Voices ({clientReviews.length})
           </h3>
           
           {clientReviews.length === 0 ? (
-            <div className="py-20 border-2 border-dashed border-slate-200 rounded-3xl bg-slate-50 text-center space-y-4">
-              <MessageSquare className="h-12 w-12 mx-auto text-slate-300" strokeWidth={1} />
-              <p className="text-sm font-medium text-slate-500 tracking-wide">No reviews yet. Be the first to share your aesthetic insights!</p>
+            <div className="py-20 border-2 border-dashed border-border rounded-3xl bg-card/50 text-center space-y-4">
+              <MessageSquare className="h-12 w-12 mx-auto text-muted-foreground/50" strokeWidth={1} />
+              <p className="text-sm font-medium text-muted-foreground tracking-wide">No reviews yet. Be the first to share your aesthetic insights!</p>
             </div>
           ) : (
             <div className="space-y-6">
               {clientReviews.map((rev) => (
-                <div key={rev.id} className="border border-slate-200 p-8 rounded-3xl bg-white shadow-sm space-y-4 hover:shadow-md transition-shadow">
-                  <div className="flex justify-between items-center border-b border-slate-100 pb-4">
-                    <span className="text-sm font-bold text-slate-900 uppercase tracking-widest flex items-center gap-2">
-                      <div className="bg-indigo-100 p-1.5 rounded-full"><MessageSquare className="h-4 w-4 text-indigo-600" /></div> {rev.customerName}
+                <div key={rev.id} className="border border-border p-8 rounded-3xl bg-card shadow-sm space-y-4 hover:shadow-md transition-shadow">
+                  <div className="flex justify-between items-center border-b border-border/30 pb-4">
+                    <span className="text-sm font-bold text-foreground uppercase tracking-widest flex items-center gap-2">
+                      <div className="bg-primary/20 p-1.5 rounded-full"><MessageSquare className="h-4 w-4 text-primary" /></div> {rev.customerName}
                     </span>
-                    <span className="text-[10px] font-bold text-slate-400 tracking-widest uppercase">
+                    <span className="text-[10px] font-bold text-muted-foreground tracking-widest uppercase">
                       {new Date(rev.createdAt).toLocaleDateString('en-US', { dateStyle: 'medium' })}
                     </span>
                   </div>
@@ -501,24 +501,24 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
                       <Star
                         key={i}
                         className={`h-5 w-5 ${
-                          i < rev.rating ? 'text-indigo-500 fill-indigo-500' : 'text-slate-200 fill-slate-100'
+                          i < rev.rating ? 'text-primary fill-primary' : 'text-border fill-border'
                         }`}
                       />
                     ))}
                   </div>
 
-                  <p className="text-base text-slate-700 leading-relaxed text-balance">{rev.comment}</p>
+                  <p className="text-base text-foreground/90 leading-relaxed text-balance">{rev.comment}</p>
 
                   {/* Merchant Reply if exists */}
                   {rev.reply && (
-                    <div className="mt-6 bg-slate-50 border-l-4 border-indigo-500 p-5 rounded-r-2xl space-y-2 relative overflow-hidden">
+                    <div className="mt-6 bg-card/50 border-l-4 border-primary p-5 rounded-r-2xl space-y-2 relative overflow-hidden">
                       <div className="absolute top-0 right-0 p-3 opacity-5">
-                        <Sparkles className="h-16 w-16 text-indigo-500" />
+                        <Sparkles className="h-16 w-16 text-primary" />
                       </div>
-                      <div className="flex items-center gap-2 text-xs font-bold text-indigo-600 uppercase tracking-widest relative z-10">
+                      <div className="flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-widest relative z-10">
                         <ShieldCheck className="h-4 w-4" /> Boutique Concierge
                       </div>
-                      <p className="text-sm font-medium text-slate-600 relative z-10 italic">"{rev.reply}"</p>
+                      <p className="text-sm font-medium text-foreground/80 relative z-10 italic">"{rev.reply}"</p>
                     </div>
                   )}
                 </div>
@@ -533,10 +533,10 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
       {similarProducts.length > 0 && (
         <section className="pt-20 space-y-12 mb-10">
           <div className="mb-8 text-center">
-            <h3 className="text-3xl font-extrabold text-slate-900 tracking-tight">
+            <h3 className="text-3xl font-extrabold text-foreground tracking-tight">
               Recommended Additions
             </h3>
-            <p className="text-sm font-medium text-slate-500 mt-3">Curated selections that complement this piece</p>
+            <p className="text-sm font-medium text-muted-foreground mt-3">Curated selections that complement this piece</p>
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
@@ -550,11 +550,11 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
                 <Link
                   key={prod.id}
                   href={`/product/${prod.slug}`}
-                  className="group flex flex-col transition-all duration-500 bg-white p-2 rounded-3xl shadow-sm hover:shadow-xl border border-slate-100"
+                  className="group flex flex-col transition-all duration-500 bg-card p-2 rounded-3xl shadow-sm hover:shadow-xl border border-border/30"
                 >
-                  <div className="relative aspect-[3/4] overflow-hidden bg-slate-50 mb-4 rounded-2xl border border-slate-100">
+                  <div className="relative aspect-[3/4] overflow-hidden bg-card/50 mb-4 rounded-2xl border border-border/30">
                     {matchesPrice && (
-                      <span className="absolute top-3 left-3 z-10 bg-rose-500 px-2 py-1 text-[10px] font-bold text-white rounded uppercase tracking-widest shadow-sm">
+                      <span className="absolute top-3 left-3 z-10 bg-primary px-2 py-1 text-[10px] font-bold text-white rounded uppercase tracking-widest shadow-sm">
                         {matchesPercent}% Off
                       </span>
                     )}
@@ -567,15 +567,15 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
                   </div>
 
                   <div className="flex flex-col space-y-2 text-center pb-3">
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">{prod.brand}</span>
-                    <h4 className="text-sm font-bold text-slate-900 line-clamp-1 tracking-wide group-hover:text-indigo-600 transition-colors">
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{prod.brand}</span>
+                    <h4 className="text-sm font-bold text-foreground line-clamp-1 tracking-wide group-hover:text-primary transition-colors">
                       {prod.name}
                     </h4>
 
                     <div className="flex items-center justify-center gap-3 pt-1">
-                      <span className="text-base font-bold text-slate-900 tracking-wide">₹{prod.sellingPrice}</span>
+                      <span className="text-base font-bold text-foreground tracking-wide">₹{prod.sellingPrice}</span>
                       {matchesPrice && (
-                        <span className="text-xs font-medium text-slate-400 line-through">₹{prod.regularPrice}</span>
+                        <span className="text-xs font-medium text-muted-foreground line-through">₹{prod.regularPrice}</span>
                       )}
                     </div>
                   </div>
