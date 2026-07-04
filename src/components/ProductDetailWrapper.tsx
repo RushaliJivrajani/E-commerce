@@ -239,13 +239,13 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
         </div>
 
         {/* Right: Product details and action panel */}
-        <div className="lg:col-span-5 space-y-6 lg:pl-4">
+        <div className="lg:col-span-5 space-y-8 lg:pl-6 pt-4">
           <FadeIn direction="up">
-            <div className="space-y-3">
-              <span className="text-sm font-bold text-primary uppercase tracking-widest flex items-center gap-1.5">
-                <Sparkles className="h-4 w-4" /> {product.brand}
+            <div className="space-y-4">
+              <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em] flex items-center gap-2">
+                <Sparkles className="h-3.5 w-3.5" /> {product.brand}
               </span>
-              <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground leading-tight tracking-tight">
+              <h1 className="text-4xl md:text-5xl font-black text-foreground uppercase tracking-widest leading-[1.1] font-headings">
                 {product.name}
               </h1>
               
@@ -259,47 +259,48 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
               </div>
 
               {/* Pricing box */}
-              <div className="flex flex-col pt-6 mt-6">
-                <div className="flex items-baseline gap-4">
-                  <span className="text-4xl font-bold text-foreground">₹{activePrice.toLocaleString()}</span>
+              <div className="flex flex-col pt-6 mt-6 border-t border-border/40">
+                <div className="flex items-end gap-4">
+                  <span className="text-3xl md:text-4xl font-black text-foreground tracking-widest">₹{activePrice.toLocaleString()}</span>
                   {hasDiscount && (
-                    <span className="text-xl font-medium text-muted-foreground line-through">₹{product.regularPrice.toLocaleString()}</span>
+                    <span className="text-lg md:text-xl font-bold text-muted-foreground line-through decoration-primary/50 decoration-2">₹{product.regularPrice.toLocaleString()}</span>
                   )}
                 </div>
                 {hasDiscount && (
-                  <span className="text-sm font-bold text-primary mt-3 bg-primary/10 inline-block w-fit px-3 py-1 rounded-md border border-primary/30">
-                    Exclusive Saving: ₹{(product.regularPrice - activePrice).toLocaleString()} ({discountPercent}%)
+                  <span className="text-[10px] font-black uppercase tracking-widest text-white mt-4 bg-primary inline-block w-fit px-3 py-1.5 rounded-full shadow-md shadow-primary/20">
+                    Save ₹{(product.regularPrice - activePrice).toLocaleString()} ({discountPercent}%)
                   </span>
                 )}
-                <span className="text-xs text-muted-foreground mt-3 flex items-center gap-1.5 font-medium"><ShieldCheck className="h-4 w-4 text-primary" /> Inclusive of all taxes</span>
+                <span className="text-[10px] uppercase tracking-widest text-muted-foreground mt-4 flex items-center gap-1.5 font-bold"><ShieldCheck className="h-3.5 w-3.5 text-primary" /> Inclusive of all taxes</span>
               </div>
             </div>
           </FadeIn>
 
           <FadeIn direction="up" delay={0.1}>
-            <p className="text-base leading-relaxed text-foreground/80">
+            <p className="text-sm leading-relaxed text-foreground/70 font-medium max-w-lg">
               {product.shortDescription || product.description.split('.')[0] + '.'}
             </p>
           </FadeIn>
 
           <FadeIn direction="up" delay={0.2}>
             {/* --- VARIANT MATRIX SELECTORS --- */}
-            <div className="space-y-6 pt-6 border-t border-border/60">
+            <div className="space-y-8 pt-8 border-t border-border/40">
               {/* Sizes Selector */}
               {product.attributes?.sizes && product.attributes.sizes.length > 0 && (
-                <div className="space-y-3">
+                <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm font-bold text-foreground/80">Size: <span className="font-bold text-foreground">{selectedSize}</span></span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Select Size</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-foreground underline underline-offset-4 cursor-pointer hover:text-primary transition-colors">Size Guide</span>
                   </div>
                   <div className="flex flex-wrap gap-3">
                     {product.attributes.sizes.map((size: string) => (
                       <button
                         key={size}
                         onClick={() => setSelectedSize(size)}
-                        className={`h-12 min-w-[4rem] px-4 text-sm font-bold rounded-xl border-2 transition-all ${
+                        className={`h-12 min-w-[3.5rem] px-4 text-xs font-black uppercase tracking-wider rounded-xl transition-all ${
                           selectedSize === size
-                            ? 'border-primary bg-primary/10 text-primary shadow-sm'
-                            : 'border-border text-foreground/80 hover:bg-card/50 hover:border-border/80'
+                            ? 'bg-foreground text-background shadow-lg scale-105'
+                            : 'bg-card text-foreground border border-border/60 hover:border-foreground'
                         }`}
                       >
                         {size}
@@ -311,17 +312,17 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
 
               {/* Colors Selector */}
               {product.attributes?.colors && product.attributes.colors.length > 0 && (
-                <div className="space-y-3">
-                  <span className="text-sm font-bold text-foreground/80 block">Color: <span className="font-bold text-foreground">{selectedColor}</span></span>
+                <div className="space-y-4">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground block">Select Color</span>
                   <div className="flex flex-wrap gap-3">
                     {product.attributes.colors.map((color: string) => (
                       <button
                         key={color}
                         onClick={() => setSelectedColor(color)}
-                        className={`h-12 px-5 text-sm font-bold rounded-xl border-2 transition-all ${
+                        className={`h-10 px-5 text-xs font-black uppercase tracking-wider rounded-full transition-all flex items-center gap-2 ${
                           selectedColor === color
-                            ? 'border-primary bg-primary/10 text-primary shadow-sm'
-                            : 'border-border text-foreground/80 hover:bg-card/50 hover:border-border/80'
+                            ? 'bg-foreground text-background shadow-md'
+                            : 'bg-card text-foreground border border-border/60 hover:border-foreground'
                         }`}
                       >
                         {color}
@@ -357,47 +358,34 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
 
           <FadeIn direction="up" delay={0.3}>
             {/* Action Box */}
-            <div className="p-8 rounded-3xl bg-card border border-border shadow-xl mt-10 space-y-6">
-              <div className="flex items-center gap-2 text-lg font-bold">
+            <div className="p-1 mt-10">
+              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest mb-6">
                 {activeStock > 0 ? (
-                  <span className="text-primary flex items-center gap-2"><ShieldCheck className="h-6 w-6" /> In Stock & Ready to Ship</span>
+                  <span className="text-green-500 flex items-center gap-2"><ShieldCheck className="h-4 w-4" /> In Stock & Ready to Ship</span>
                 ) : (
-                  <span className="text-primary flex items-center gap-2"><AlertCircle className="h-6 w-6" /> Currently Unavailable</span>
+                  <span className="text-primary flex items-center gap-2"><AlertCircle className="h-4 w-4" /> Currently Unavailable</span>
                 )}
               </div>
-              <p className="text-sm font-medium text-foreground/80 flex items-center gap-2 border-b border-border/30 pb-5">
-                <Truck className="h-5 w-5 text-primary" /> Premium delivery by RushCloset Elite.
-              </p>
-
-              <div className="pt-2 flex flex-col sm:flex-row gap-4">
+              
+              <div className="pt-2 flex flex-col gap-4">
                 <button
                   onClick={handleAddToCart}
                   disabled={activeStock <= 0}
-                  className={`flex-1 py-4 px-6 text-sm font-bold rounded-2xl shadow-md transition-all flex items-center justify-center gap-2 ${
+                  className={`w-full py-5 px-6 text-sm font-black uppercase tracking-[0.2em] rounded-2xl transition-all flex items-center justify-center gap-3 ${
                     activeStock > 0
-                      ? 'bg-primary hover:bg-primary text-white shadow-primary/20 hover:shadow-primary/40'
-                      : 'bg-card/80 text-muted-foreground cursor-not-allowed border border-border'
+                      ? 'bg-foreground text-background hover:bg-primary hover:text-white shadow-xl shadow-black/10'
+                      : 'bg-muted text-muted-foreground cursor-not-allowed border border-border/40'
                   }`}
                 >
                   <ShoppingBag className="h-5 w-5" />
-                  {activeStock > 0 ? 'Add to Collection' : 'Sold Out'}
-                </button>
-                <button
-                  disabled={activeStock <= 0}
-                  className={`flex-1 py-4 px-6 text-sm font-bold rounded-2xl transition-all flex items-center justify-center gap-2 ${
-                    activeStock > 0
-                      ? 'bg-foreground text-background text-white hover:bg-slate-800 shadow-md'
-                      : 'bg-card/50 text-muted-foreground cursor-not-allowed border border-border'
-                  }`}
-                >
-                  Purchase Now
+                  {activeStock > 0 ? 'Add to Bag' : 'Sold Out'}
                 </button>
               </div>
 
               {/* Secure transaction indicator */}
-              <div className="flex items-center justify-center gap-6 text-xs text-muted-foreground font-bold pt-4">
-                <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" /> Secure payment</span>
-                <span className="flex items-center gap-1.5"><RotateCcw className="h-4 w-4 text-primary" /> 14-day returns</span>
+              <div className="flex items-center justify-start gap-8 text-[10px] text-muted-foreground font-black uppercase tracking-widest pt-8 border-t border-border/40 mt-8">
+                <span className="flex items-center gap-2"><Truck className="h-4 w-4 text-primary" /> Free Express Shipping</span>
+                <span className="flex items-center gap-2"><RotateCcw className="h-4 w-4 text-primary" /> 14-Day Returns</span>
               </div>
             </div>
           </FadeIn>
