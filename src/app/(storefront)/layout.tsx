@@ -151,16 +151,16 @@ function StorefrontLayoutInner({ children }: { children: React.ReactNode }) {
 
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
-            <Link
+            <a
               href="/shop"
               className={`text-xs font-bold uppercase tracking-widest transition-colors hover:text-primary ${
                 pathname === '/shop' && !activeCategory ? 'text-primary' : 'text-foreground/80'
               }`}
             >
               Collection
-            </Link>
+            </a>
             {mainCategories.map((cat) => (
-              <Link
+              <a
                 key={cat.id}
                 href={`/shop?category=${cat.id}`}
                 className={`text-xs font-bold uppercase tracking-widest transition-colors hover:text-primary ${
@@ -168,7 +168,7 @@ function StorefrontLayoutInner({ children }: { children: React.ReactNode }) {
                 }`}
               >
                 {cat.name}
-              </Link>
+              </a>
             ))}
             <Link
               href="/about"
@@ -242,13 +242,13 @@ function StorefrontLayoutInner({ children }: { children: React.ReactNode }) {
             </div>
 
             <nav className="flex-1 flex flex-col gap-6">
-              <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className={`text-lg font-bold uppercase tracking-widest ${pathname === '/shop' && !activeCategory ? 'text-primary' : 'text-foreground'}`}>
+              <a href="/shop" onClick={() => setMobileMenuOpen(false)} className={`text-lg font-bold uppercase tracking-widest ${pathname === '/shop' && !activeCategory ? 'text-primary' : 'text-foreground'}`}>
                 Collection
-              </Link>
+              </a>
               {mainCategories.map((cat) => (
-                <Link key={cat.id} href={`/shop?category=${cat.id}`} onClick={() => setMobileMenuOpen(false)} className={`text-lg font-bold uppercase tracking-widest hover:text-primary ${activeCategory === cat.id ? 'text-primary' : 'text-foreground/85'}`}>
+                <a key={cat.id} href={`/shop?category=${cat.id}`} onClick={() => setMobileMenuOpen(false)} className={`text-lg font-bold uppercase tracking-widest hover:text-primary ${activeCategory === cat.id ? 'text-primary' : 'text-foreground/85'}`}>
                   {cat.name}
-                </Link>
+                </a>
               ))}
               <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold uppercase tracking-widest text-foreground/85 hover:text-primary">
                 About
