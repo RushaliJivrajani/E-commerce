@@ -157,6 +157,14 @@ export default function StorefrontLayout({ children }: { children: React.ReactNo
                 {cat.name}
               </Link>
             ))}
+            <Link
+              href="/about"
+              className={`text-xs font-bold uppercase tracking-widest transition-colors hover:text-primary ${
+                pathname === '/about' ? 'text-primary' : 'text-foreground/80'
+              }`}
+            >
+              About
+            </Link>
           </nav>
 
           {/* Right actions */}
@@ -222,13 +230,16 @@ export default function StorefrontLayout({ children }: { children: React.ReactNo
 
             <nav className="flex-1 flex flex-col gap-6">
               <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold uppercase tracking-widest text-foreground">
-                New In
+                Collection
               </Link>
               {mainCategories.map((cat) => (
                 <Link key={cat.id} href={`/shop?category=${cat.id}`} onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold uppercase tracking-widest text-foreground/85 hover:text-primary">
                   {cat.name}
                 </Link>
               ))}
+              <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold uppercase tracking-widest text-foreground/85 hover:text-primary">
+                About
+              </Link>
               <div className="h-px bg-border/20 my-4" />
               {customerSession ? (
                 <>
