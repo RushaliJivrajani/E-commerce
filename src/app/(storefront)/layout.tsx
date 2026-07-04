@@ -134,7 +134,7 @@ export default function StorefrontLayout({ children }: { children: React.ReactNo
           </button>
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 mr-4">
+          <Link href="/home" className="flex items-center gap-2 mr-4">
             <LogoWordmark className="h-6 sm:h-8 w-auto text-foreground" />
           </Link>
 
@@ -212,7 +212,9 @@ export default function StorefrontLayout({ children }: { children: React.ReactNo
         <div className="fixed inset-0 z-[60] flex md:hidden bg-background/95 backdrop-blur-md">
           <div className="w-full flex flex-col h-full p-6">
             <div className="flex justify-between items-center mb-12">
-              <LogoWordmark className="h-6 w-auto text-foreground" />
+              <Link href="/home">
+                <LogoWordmark className="h-6 w-auto text-foreground" />
+              </Link>
               <button onClick={() => setMobileMenuOpen(false)} className="p-2 -mr-2 text-foreground">
                 <X className="h-6 w-6" />
               </button>

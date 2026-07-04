@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Star, ShoppingBag, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
+import gsap from 'gsap';
 
 interface ProductCardProps {
   product: any;
@@ -96,8 +97,63 @@ export function ProductCard({ product }: ProductCardProps) {
       }
 
       localStorage.setItem('rf_cart', JSON.stringify(cart));
-      window.dispatchEvent(new Event('rf-cart-changed'));
-      toast.success(`${product.name} added to cart!`);
+      
+      // FLY TO CART ANIMATION
+      const buttonEl = e.currentTarget as HTMLElement;
+      const imgRef = buttonEl.closest('.group')?.querySelector('img');
+      const cartIcon = document.querySelector('a[href="/cart"]');
+
+      if (imgRef && cartIcon) {
+        const imgRect = imgRef.getBoundingClientRect();
+        const cartRect = cartIcon.getBoundingClientRect();
+        const clone = imgRef.cloneNode(true) as HTMLImageElement;
+        
+        clone.style.position = 'fixed';
+        clone.style.left = `${imgRect.left}px`;
+        clone.style.top = `${imgRect.top}px`;
+        clone.style.width = `${imgRect.width}px`;
+        clone.style.height = `${imgRect.height}px`;
+        clone.style.zIndex = '9999';
+        clone.style.borderRadius = '16px';
+        clone.style.pointerEvents = 'none';
+        clone.style.objectFit = 'cover';
+        document.body.appendChild(clone);
+
+        // Arc animation: X and Y use different eases to simulate gravity/arc
+        gsap.to(clone, {
+          x: (cartRect.left + cartRect.width / 2) - (imgRect.left + imgRect.width / 2),
+          duration: 0.8,
+          ease: 'power1.out',
+        });
+        
+        gsap.to(clone, {
+          y: (cartRect.top + cartRect.height / 2) - (imgRect.top + imgRect.height / 2),
+          scale: 0.1,
+          opacity: 0.3,
+          duration: 0.8,
+          ease: 'power2.in',
+          onComplete: () => {
+            clone.remove();
+            gsap.fromTo(cartIcon, { scale: 1 }, { scale: 1.4, yoyo: true, repeat: 1, duration: 0.15 });
+            window.dispatchEvent(new Event('rf-cart-changed'));
+          }
+        });
+      } else {
+        window.dispatchEvent(new Event('rf-cart-changed'));
+      }
+      
+      toast.success(`${product.name} added to cart!`, {
+        icon: '🛍️',
+        style: {
+          borderRadius: '10px',
+          background: 'var(--foreground)',
+          color: 'var(--background)',
+          fontSize: '12px',
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em',
+          fontWeight: 'bold'
+        },
+      });
     } catch (err) {
       toast.error('Failed to add item to cart');
     } finally {

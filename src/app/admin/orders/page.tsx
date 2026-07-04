@@ -238,9 +238,9 @@ export default function OrdersPage() {
       case'Out For Delivery':
         return'bg-sky-500/10 text-sky-500 border-sky-500/20';
       case'Delivered':
-        return'bg-primary/100/10 text-primary border-teal-500/20';
+        return'bg-primary/100/10 text-primary border-primary/30/20';
       case'Cancelled':
-        return'bg-rose-500/10 text-rose-500 border-rose-500/20';
+        return'bg-primary/10 text-primary border-primary/20';
       case'Returned':
         return'bg-card/500/10 text-muted-foreground border-slate-500/20';
       default:
@@ -292,7 +292,7 @@ export default function OrdersPage() {
             onClick={() => setStatusTab(tab.value)}
             className={`px-4 py-2.5 text-sm font-semibold transition-colors ${
               statusTab === tab.value
-                ?'border-b-2 border-indigo-400 text-primary'
+                ?'border-b-2 border-primary text-primary'
                 :'text-muted-foreground/80 hover:text-foreground border-b-2 border-transparent'
             }`}
           >
@@ -302,7 +302,7 @@ export default function OrdersPage() {
       </div>
 
       {/* Filter panel print:hidden */}
-      <div className="flex items-center gap-3 max-w-md bg-card/50 border border-border rounded-xl px-3 py-2 mt-6 focus-within:ring-2 focus-within:ring-indigo-400 focus-within:border-indigo-400 transition-shadow print:hidden">
+      <div className="flex items-center gap-3 max-w-md bg-card/50 border border-border rounded-xl px-3 py-2 mt-6 focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition-shadow print:hidden">
         <Search className="h-4 w-4 text-muted-foreground/80 shrink-0" />
         <input
           type="text"
@@ -345,13 +345,13 @@ export default function OrdersPage() {
                   <td className="px-6 py-4 text-center">
                     <span className="text-sm font-semibold text-foreground block">{o.paymentMethod}</span>
                     <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-semibold mt-1 border ${
-                      o.paymentStatus ==='Paid' ?'bg-primary/100/10 text-teal-400 border-teal-500/20' :'bg-primary/10 text-primary border-primary/20'
+                      o.paymentStatus ==='Paid' ?'bg-primary/100/10 text-primary border-primary/30/20' :'bg-primary/10 text-primary border-primary/20'
                     }`}>{o.paymentStatus}</span>
                   </td>
 
                   <td className="px-6 py-4 text-center">
                     <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold border ${
-                      o.status ==='Cancelled' ?'bg-rose-500/10 text-rose-400 border-rose-500/20' :'bg-blue-500/10 text-blue-400 border-blue-500/20'
+                      o.status ==='Cancelled' ?'bg-primary/10 text-primary border-primary/20' :'bg-blue-500/10 text-blue-400 border-blue-500/20'
                     }`}>
                       {o.status}
                     </span>
@@ -449,7 +449,7 @@ export default function OrdersPage() {
               <div className="flex justify-between"><span>Subtotal:</span><span className="font-semibold text-black">₹{(selectedOrder.totalAmount - selectedOrder.taxAmount - selectedOrder.shippingCharges + selectedOrder.discountAmount).toLocaleString()}</span></div>
               <div className="flex justify-between"><span>Shipping Charges:</span><span className="font-semibold text-black">+ ₹{selectedOrder.shippingCharges}</span></div>
               <div className="flex justify-between"><span>Tax (GST):</span><span className="font-semibold text-black">+ ₹{selectedOrder.taxAmount}</span></div>
-              <div className="flex justify-between text-rose-600"><span>Discount Applied:</span><span>- ₹{selectedOrder.discountAmount}</span></div>
+              <div className="flex justify-between text-primary"><span>Discount Applied:</span><span>- ₹{selectedOrder.discountAmount}</span></div>
               <div className="flex justify-between border-t pt-1.5 text-sm font-bold text-black"><span>Total Invoice Amount:</span><span>₹{selectedOrder.totalAmount.toLocaleString()}</span></div>
             </div>
           </div>
@@ -485,7 +485,7 @@ export default function OrdersPage() {
                 {selectedOrder.status !=='Cancelled' && (
                   <button
                     onClick={() => handleCancelOrder(selectedOrder.id)}
-                    className="flex items-center gap-1 rounded-xl bg-rose-500/10 hover:bg-rose-500/25 px-3 py-2 text-xs font-bold text-rose-500"
+                    className="flex items-center gap-1 rounded-xl bg-primary/10 hover:bg-primary/25 px-3 py-2 text-xs font-bold text-primary"
                   >
                     <XCircle className="h-3.5 w-3.5" /> Cancel Order
                   </button>

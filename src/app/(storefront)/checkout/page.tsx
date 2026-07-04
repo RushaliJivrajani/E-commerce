@@ -208,7 +208,7 @@ export default function CheckoutPage() {
   if (loading) {
     return (
       <div className="flex h-[60vh] items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-indigo-400" strokeWidth={1} />
+        <Loader2 className="h-8 w-8 animate-spin text-primary" strokeWidth={1} />
       </div>
     );
   }
@@ -441,7 +441,7 @@ export default function CheckoutPage() {
                   )}
                 </div>
                 {coupon && (
-                  <div className="flex justify-between items-center text-primary font-bold bg-primary/10 p-2 rounded-lg border border-teal-100 mt-2">
+                  <div className="flex justify-between items-center text-primary font-bold bg-primary/10 p-2 rounded-lg border border-primary/30 mt-2">
                     <span>Discount ({coupon.code})</span>
                     <span>- ₹{discountAmount}</span>
                   </div>

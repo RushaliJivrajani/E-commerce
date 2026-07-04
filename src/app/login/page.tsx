@@ -194,7 +194,7 @@ function LoginForm() {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="admin@rushcloset.com"
                       suppressHydrationWarning
-                      className="block w-full rounded-2xl border border-border bg-card/70 py-3.5 pl-11 pr-4 text-sm font-medium text-foreground placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm"
+                      className="block w-full rounded-2xl border border-border bg-card/70 py-3.5 pl-11 pr-4 text-sm font-medium text-foreground placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary transition-all shadow-sm"
                     />
                   </div>
                 </div>
@@ -228,7 +228,7 @@ function LoginForm() {
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"
                       suppressHydrationWarning
-                      className="block w-full rounded-2xl border border-border bg-card/70 py-3.5 pl-11 pr-4 text-sm font-medium text-foreground placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm"
+                      className="block w-full rounded-2xl border border-border bg-card/70 py-3.5 pl-11 pr-4 text-sm font-medium text-foreground placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary transition-all shadow-sm"
                     />
                   </div>
                 </div>
@@ -256,7 +256,7 @@ function LoginForm() {
           {view === '2fa' && (
             <form className="space-y-6" onSubmit={handle2FAVerify}>
               <div className="text-center">
-                <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary mb-4 border border-indigo-100 shadow-md">
+                <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary mb-4 border border-primary shadow-md">
                   <ShieldAlert className="h-8 w-8" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground">Two-Factor Auth</h3>
@@ -275,7 +275,7 @@ function LoginForm() {
                   onChange={(e) => setTwoFactorCode(e.target.value)}
                   placeholder="555555"
                   suppressHydrationWarning
-                  className="block w-full rounded-2xl border border-border bg-card/70 py-4 text-center text-2xl font-black tracking-[0.5em] text-foreground placeholder-slate-300 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm mt-3"
+                  className="block w-full rounded-2xl border border-border bg-card/70 py-4 text-center text-2xl font-black tracking-[0.5em] text-foreground placeholder-slate-300 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary transition-all shadow-sm mt-3"
                 />
               </div>
 
@@ -327,7 +327,7 @@ function LoginForm() {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="admin@rushcloset.com"
                       suppressHydrationWarning
-                      className="block w-full rounded-2xl border border-border bg-card/70 py-3.5 pl-11 pr-4 text-sm font-medium text-foreground placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm disabled:opacity-50"
+                      className="block w-full rounded-2xl border border-border bg-card/70 py-3.5 pl-11 pr-4 text-sm font-medium text-foreground placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary transition-all shadow-sm disabled:opacity-50"
                     />
                   </div>
                 </div>
@@ -349,7 +349,7 @@ function LoginForm() {
                           onChange={(e) => setRecoveryOtp(e.target.value)}
                           placeholder="123456"
                           suppressHydrationWarning
-                          className="block w-full rounded-2xl border border-border bg-card/70 py-3.5 pl-11 pr-4 text-sm font-medium text-foreground placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm"
+                          className="block w-full rounded-2xl border border-border bg-card/70 py-3.5 pl-11 pr-4 text-sm font-medium text-foreground placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary transition-all shadow-sm"
                         />
                       </div>
                     </div>
@@ -369,7 +369,7 @@ function LoginForm() {
                           onChange={(e) => setNewPassword(e.target.value)}
                           placeholder="At least 6 characters"
                           suppressHydrationWarning
-                          className="block w-full rounded-2xl border border-border bg-card/70 py-3.5 pl-11 pr-4 text-sm font-medium text-foreground placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100 transition-all shadow-sm"
+                          className="block w-full rounded-2xl border border-border bg-card/70 py-3.5 pl-11 pr-4 text-sm font-medium text-foreground placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary transition-all shadow-sm"
                         />
                       </div>
                     </div>

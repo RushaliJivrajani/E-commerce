@@ -6,6 +6,7 @@ import BannerSlider from '@/components/BannerSlider';
 import FadeIn from '@/components/FadeIn';
 import { ProductCard } from '@/components/ProductCard';
 import { AnimatedButton } from '@/components/AnimatedButton';
+import VMark3DWrapper from '@/components/VMark3DWrapper';
 
 export default async function StorefrontHome() {
   // Fetch data from database
@@ -29,7 +30,9 @@ export default async function StorefrontHome() {
   ];
 
   return (
-    <div className="space-y-16 pb-20">
+    <div className="space-y-16 pb-20 relative">
+      <VMark3DWrapper />
+      
       {/* Hero Banner Slider */}
       <BannerSlider banners={sliderBanners} />
 

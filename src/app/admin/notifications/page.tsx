@@ -173,7 +173,7 @@ export default function NotificationsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {templates.map((t) => (
-          <div key={t.id} className={`rounded-2xl border ${t.isActive ? 'border-border dark:border-slate-800' : 'border-rose-500/20 opacity-70'} bg-card shadow-sm dark:bg-foreground text-background/60 p-5 relative`}>
+          <div key={t.id} className={`rounded-2xl border ${t.isActive ? 'border-border dark:border-slate-800' : 'border-primary/20 opacity-70'} bg-card shadow-sm dark:bg-foreground text-background/60 p-5 relative`}>
             <div className="flex justify-between items-start mb-4 border-b border-border/30 dark:border-slate-800 pb-3">
               <div>
                 <span className="flex items-center gap-1.5 text-xs font-bold text-muted-foreground uppercase tracking-wider">
@@ -185,7 +185,7 @@ export default function NotificationsPage() {
                 <button onClick={() => handleOpenEdit(t)} className="text-muted-foreground/80 hover:text-foreground/80 dark:hover:text-muted-foreground/50 p-1">
                   <Edit className="h-4 w-4" />
                 </button>
-                <button onClick={() => handleDelete(t.id)} className="text-muted-foreground/80 hover:text-rose-500 p-1">
+                <button onClick={() => handleDelete(t.id)} className="text-muted-foreground/80 hover:text-primary p-1">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
@@ -203,7 +203,7 @@ export default function NotificationsPage() {
             </div>
 
             <div className="mt-4 pt-4 border-t border-border/30 dark:border-slate-800 flex justify-between items-center text-xs">
-              <span className={t.isActive ? 'text-primary font-bold' : 'text-rose-500 font-bold'}>
+              <span className={t.isActive ? 'text-primary font-bold' : 'text-primary font-bold'}>
                 {t.isActive ? 'Active' : 'Inactive'}
               </span>
               <span className="text-muted-foreground/80">

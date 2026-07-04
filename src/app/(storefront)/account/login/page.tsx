@@ -203,15 +203,15 @@ function AccountLoginForm() {
       <Toaster position="top-right" />
 
       {/* Left panel – Premium Brand Focus */}
-      <div className="hidden lg:flex flex-col justify-between w-[42%] bg-black p-12 text-white relative overflow-hidden border-r border-slate-900">
+      <div className="hidden lg:flex flex-col justify-between w-[42%] bg-card p-12 text-foreground relative overflow-hidden border-r border-slate-900">
         <div className="absolute inset-0 opacity-40">
            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&auto=format&fit=crop&q=80" alt="Fashion Background" className="h-full w-full object-cover" />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/20" />
 
         <div className="relative z-10">
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="flex h-10 w-10 items-center justify-center bg-card text-black shrink-0">
+            <div className="flex h-10 w-10 items-center justify-center bg-card text-foreground shrink-0">
               <ShoppingBag className="h-5 w-5" />
             </div>
             <span className="text-xl font-extrabold tracking-widest uppercase">
@@ -234,7 +234,7 @@ function AccountLoginForm() {
           <div className="space-y-4 pt-4">
             {BENEFITS.map((b, i) => (
               <div key={i} className="flex items-center gap-3">
-                <CheckCircle2 className="h-4 w-4 text-white" />
+                <CheckCircle2 className="h-4 w-4 text-foreground" />
                 <span className="text-sm font-light text-border tracking-wide">{b}</span>
               </div>
             ))}
@@ -253,10 +253,10 @@ function AccountLoginForm() {
           {/* Mobile logo */}
           <div className="lg:hidden flex justify-center mb-10">
             <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center bg-black text-white shadow-md">
+              <div className="flex h-10 w-10 items-center justify-center bg-foreground text-foreground shadow-md">
                 <ShoppingBag className="h-5 w-5" />
               </div>
-              <span className="text-xl font-extrabold uppercase tracking-widest text-black">
+              <span className="text-xl font-extrabold uppercase tracking-widest text-foreground">
                 RUSH CLOSET
               </span>
             </Link>
@@ -269,8 +269,8 @@ function AccountLoginForm() {
                 onClick={() => setTab('login')}
                 className={`flex-1 pb-3 text-sm font-semibold tracking-widest uppercase transition-all ${
                   tab === 'login'
-                    ? 'border-b-2 border-black text-black'
-                    : 'text-muted-foreground/80 hover:text-black'
+                    ? 'border-b-2 border-foreground text-foreground'
+                    : 'text-muted-foreground/80 hover:text-foreground'
                 }`}
               >
                 Sign In
@@ -279,8 +279,8 @@ function AccountLoginForm() {
                 onClick={() => setTab('register')}
                 className={`flex-1 pb-3 text-sm font-semibold tracking-widest uppercase transition-all ${
                   tab === 'register'
-                    ? 'border-b-2 border-black text-black'
-                    : 'text-muted-foreground/80 hover:text-black'
+                    ? 'border-b-2 border-foreground text-foreground'
+                    : 'text-muted-foreground/80 hover:text-foreground'
                 }`}
               >
                 Register
@@ -293,14 +293,14 @@ function AccountLoginForm() {
             <form onSubmit={handleLogin} className="space-y-6">
               <div className="space-y-5">
                 <div>
-                  <label className="block text-[10px] font-bold text-black uppercase tracking-widest mb-2">Email Address</label>
+                  <label className="block text-[10px] font-bold text-foreground uppercase tracking-widest mb-2">Email Address</label>
                   <div className="relative">
                     <input
                       type="email"
                       value={loginEmail}
                       onChange={(e) => setLoginEmail(e.target.value)}
                       placeholder="your@email.com"
-                      className="block w-full border-b border-border/80 bg-transparent py-3 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                      className="block w-full border-b border-border/80 bg-transparent py-3 text-sm text-foreground placeholder-slate-400 focus:border-foreground focus:outline-none transition-colors rounded-none"
                       required
                     />
                   </div>
@@ -308,8 +308,8 @@ function AccountLoginForm() {
 
                 <div>
                   <div className="flex justify-between items-center mb-2">
-                    <label className="block text-[10px] font-bold text-black uppercase tracking-widest">Password</label>
-                    <button type="button" onClick={() => setTab('forgot')} className="text-[10px] text-muted-foreground hover:text-black uppercase tracking-widest">Forgot?</button>
+                    <label className="block text-[10px] font-bold text-foreground uppercase tracking-widest">Password</label>
+                    <button type="button" onClick={() => setTab('forgot')} className="text-[10px] text-muted-foreground hover:text-foreground uppercase tracking-widest">Forgot?</button>
                   </div>
                   <div className="relative">
                     <input
@@ -317,13 +317,13 @@ function AccountLoginForm() {
                       value={loginPassword}
                       onChange={(e) => setLoginPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="block w-full border-b border-border/80 bg-transparent py-3 pr-10 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                      className="block w-full border-b border-border/80 bg-transparent py-3 pr-10 text-sm text-foreground placeholder-slate-400 focus:border-foreground focus:outline-none transition-colors rounded-none"
                       required
                     />
                     <button
                       type="button"
                       onClick={() => setShowPass(!showPass)}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/80 hover:text-black"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/80 hover:text-foreground"
                     >
                       {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
@@ -334,7 +334,7 @@ function AccountLoginForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-black py-4 text-[11px] font-bold text-white uppercase tracking-widest transition-all hover:bg-foreground text-background disabled:opacity-50"
+                className="w-full bg-primary py-4 hover:bg-primary/90 text-[11px] font-bold text-foreground uppercase tracking-widest transition-all hover:bg-foreground text-background disabled:opacity-50"
               >
                 {loading ? <Loader2 className="h-4 w-4 animate-spin mx-auto" /> : 'Sign In'}
               </button>
@@ -346,55 +346,55 @@ function AccountLoginForm() {
             <form onSubmit={handleRegister} className="space-y-6">
               <div className="space-y-5">
                 <div>
-                  <label className="block text-[10px] font-bold text-black uppercase tracking-widest mb-2">Full Name *</label>
+                  <label className="block text-[10px] font-bold text-foreground uppercase tracking-widest mb-2">Full Name *</label>
                   <input
                     type="text"
                     value={regName}
                     onChange={(e) => setRegName(e.target.value)}
                     placeholder="Jane Doe"
-                    className="block w-full border-b border-border/80 bg-transparent py-3 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                    className="block w-full border-b border-border/80 bg-transparent py-3 text-sm text-foreground placeholder-slate-400 focus:border-foreground focus:outline-none transition-colors rounded-none"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-bold text-black uppercase tracking-widest mb-2">Email Address *</label>
+                  <label className="block text-[10px] font-bold text-foreground uppercase tracking-widest mb-2">Email Address *</label>
                   <input
                     type="email"
                     value={regEmail}
                     onChange={(e) => setRegEmail(e.target.value)}
                     placeholder="your@email.com"
-                    className="block w-full border-b border-border/80 bg-transparent py-3 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                    className="block w-full border-b border-border/80 bg-transparent py-3 text-sm text-foreground placeholder-slate-400 focus:border-foreground focus:outline-none transition-colors rounded-none"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-bold text-black uppercase tracking-widest mb-2">Phone Number</label>
+                  <label className="block text-[10px] font-bold text-foreground uppercase tracking-widest mb-2">Phone Number</label>
                   <input
                     type="tel"
                     value={regPhone}
                     onChange={(e) => setRegPhone(e.target.value)}
                     placeholder="+91 9876543210"
-                    className="block w-full border-b border-border/80 bg-transparent py-3 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                    className="block w-full border-b border-border/80 bg-transparent py-3 text-sm text-foreground placeholder-slate-400 focus:border-foreground focus:outline-none transition-colors rounded-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-bold text-black uppercase tracking-widest mb-2">Password *</label>
+                  <label className="block text-[10px] font-bold text-foreground uppercase tracking-widest mb-2">Password *</label>
                   <div className="relative">
                     <input
                       type={showPass ? 'text' : 'password'}
                       value={regPassword}
                       onChange={(e) => setRegPassword(e.target.value)}
                       placeholder="Min 6 chars"
-                      className="block w-full border-b border-border/80 bg-transparent py-3 pr-10 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                      className="block w-full border-b border-border/80 bg-transparent py-3 pr-10 text-sm text-foreground placeholder-slate-400 focus:border-foreground focus:outline-none transition-colors rounded-none"
                       required
                     />
                     <button
                       type="button"
                       onClick={() => setShowPass(!showPass)}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/80 hover:text-black"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/80 hover:text-foreground"
                     >
                       {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
@@ -412,14 +412,14 @@ function AccountLoginForm() {
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-bold text-black uppercase tracking-widest mb-2">Confirm Password *</label>
+                  <label className="block text-[10px] font-bold text-foreground uppercase tracking-widest mb-2">Confirm Password *</label>
                   <div className="relative">
                     <input
                       type={showPass ? 'text' : 'password'}
                       value={regConfirm}
                       onChange={(e) => setRegConfirm(e.target.value)}
                       placeholder="Re-enter password"
-                      className="block w-full border-b border-border/80 bg-transparent py-3 pr-10 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                      className="block w-full border-b border-border/80 bg-transparent py-3 pr-10 text-sm text-foreground placeholder-slate-400 focus:border-foreground focus:outline-none transition-colors rounded-none"
                       required
                     />
                   </div>
@@ -429,16 +429,16 @@ function AccountLoginForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-black py-4 text-[11px] font-bold text-white uppercase tracking-widest transition-all hover:bg-foreground text-background disabled:opacity-50"
+                className="w-full bg-primary py-4 hover:bg-primary/90 text-[11px] font-bold text-foreground uppercase tracking-widest transition-all hover:bg-foreground text-background disabled:opacity-50"
               >
                 {loading ? <Loader2 className="h-4 w-4 animate-spin mx-auto" /> : 'Create Account'}
               </button>
 
               <p className="text-center text-[10px] text-muted-foreground/80 tracking-wide leading-loose">
                 By registering, you agree to our{' '}
-                <Link href="/pages/terms-condition" className="text-black hover:underline">Terms</Link>{' '}
+                <Link href="/pages/terms-condition" className="text-foreground hover:underline">Terms</Link>{' '}
                 and{' '}
-                <Link href="/pages/privacy-policy" className="text-black hover:underline">Privacy Policy</Link>.
+                <Link href="/pages/privacy-policy" className="text-foreground hover:underline">Privacy Policy</Link>.
               </p>
             </form>
           )}
@@ -447,10 +447,10 @@ function AccountLoginForm() {
           {tab === 'forgot' && (
             <div className="space-y-6">
               <div className="mb-8">
-                <button onClick={() => { setTab('login'); setForgotStep('email'); }} className="text-[10px] text-muted-foreground hover:text-black uppercase tracking-widest mb-4 inline-block">
+                <button onClick={() => { setTab('login'); setForgotStep('email'); }} className="text-[10px] text-muted-foreground hover:text-foreground uppercase tracking-widest mb-4 inline-block">
                   &larr; Back to Sign In
                 </button>
-                <h2 className="text-2xl font-extrabold text-black uppercase tracking-widest">Reset Password</h2>
+                <h2 className="text-2xl font-extrabold text-foreground uppercase tracking-widest">Reset Password</h2>
                 <p className="text-sm text-muted-foreground mt-2 font-light">
                   {forgotStep === 'email' ? 'Enter your email to receive a recovery code.' : 'Enter the recovery code and your new password.'}
                 </p>
@@ -459,20 +459,20 @@ function AccountLoginForm() {
               {forgotStep === 'email' ? (
                 <form onSubmit={handleForgotRequest} className="space-y-6">
                   <div>
-                    <label className="block text-[10px] font-bold text-black uppercase tracking-widest mb-2">Email Address</label>
+                    <label className="block text-[10px] font-bold text-foreground uppercase tracking-widest mb-2">Email Address</label>
                     <input
                       type="email"
                       value={forgotEmail}
                       onChange={(e) => setForgotEmail(e.target.value)}
                       placeholder="your@email.com"
-                      className="block w-full border-b border-border/80 bg-transparent py-3 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                      className="block w-full border-b border-border/80 bg-transparent py-3 text-sm text-foreground placeholder-slate-400 focus:border-foreground focus:outline-none transition-colors rounded-none"
                       required
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-black py-4 text-[11px] font-bold text-white uppercase tracking-widest transition-all hover:bg-foreground text-background disabled:opacity-50"
+                    className="w-full bg-primary py-4 hover:bg-primary/90 text-[11px] font-bold text-foreground uppercase tracking-widest transition-all hover:bg-foreground text-background disabled:opacity-50"
                   >
                     {loading ? <Loader2 className="h-4 w-4 animate-spin mx-auto" /> : 'Send Recovery Code'}
                   </button>
@@ -480,31 +480,31 @@ function AccountLoginForm() {
               ) : (
                 <form onSubmit={handleForgotReset} className="space-y-6">
                   <div>
-                    <label className="block text-[10px] font-bold text-black uppercase tracking-widest mb-2">Recovery Code</label>
+                    <label className="block text-[10px] font-bold text-foreground uppercase tracking-widest mb-2">Recovery Code</label>
                     <input
                       type="text"
                       value={forgotOtp}
                       onChange={(e) => setForgotOtp(e.target.value)}
                       placeholder="e.g. 123456"
-                      className="block w-full border-b border-border/80 bg-transparent py-3 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                      className="block w-full border-b border-border/80 bg-transparent py-3 text-sm text-foreground placeholder-slate-400 focus:border-foreground focus:outline-none transition-colors rounded-none"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-bold text-black uppercase tracking-widest mb-2">New Password</label>
+                    <label className="block text-[10px] font-bold text-foreground uppercase tracking-widest mb-2">New Password</label>
                     <div className="relative">
                       <input
                         type={showPass ? 'text' : 'password'}
                         value={forgotNewPassword}
                         onChange={(e) => setForgotNewPassword(e.target.value)}
                         placeholder="Min 6 chars"
-                        className="block w-full border-b border-border/80 bg-transparent py-3 pr-10 text-sm text-black placeholder-slate-400 focus:border-black focus:outline-none transition-colors rounded-none"
+                        className="block w-full border-b border-border/80 bg-transparent py-3 pr-10 text-sm text-foreground placeholder-slate-400 focus:border-foreground focus:outline-none transition-colors rounded-none"
                         required
                       />
                       <button
                         type="button"
                         onClick={() => setShowPass(!showPass)}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/80 hover:text-black"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/80 hover:text-foreground"
                       >
                         {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
@@ -513,7 +513,7 @@ function AccountLoginForm() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-black py-4 text-[11px] font-bold text-white uppercase tracking-widest transition-all hover:bg-foreground text-background disabled:opacity-50"
+                    className="w-full bg-primary py-4 hover:bg-primary/90 text-[11px] font-bold text-foreground uppercase tracking-widest transition-all hover:bg-foreground text-background disabled:opacity-50"
                   >
                     {loading ? <Loader2 className="h-4 w-4 animate-spin mx-auto" /> : 'Reset Password'}
                   </button>

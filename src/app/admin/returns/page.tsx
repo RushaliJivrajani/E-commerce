@@ -113,9 +113,9 @@ export default function ReturnsPage() {
       case 'Approved':
         return 'bg-blue-500/10 text-blue-500 border-blue-500/20';
       case 'Refunded':
-        return 'bg-primary/100/10 text-primary border-teal-500/20';
+        return 'bg-primary/100/10 text-primary border-primary/30/20';
       case 'Rejected':
-        return 'bg-rose-500/10 text-rose-500 border-rose-500/20';
+        return 'bg-primary/10 text-primary border-primary/20';
       default:
         return 'bg-card/500/10 text-muted-foreground border-slate-500/20';
     }

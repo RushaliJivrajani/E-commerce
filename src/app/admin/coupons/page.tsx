@@ -277,7 +277,7 @@ export default function CouponsPage() {
                   <td className="px-6 py-4 text-center">
                     <div className="flex items-center justify-center gap-2">
                       <button onClick={() => handleOpenEdit(c)} className="p-1.5 rounded-lg text-muted-foreground/80 hover:text-muted-foreground hover:bg-card/80 dark:hover:bg-slate-850"><Edit className="h-4 w-4" /></button>
-                      <button onClick={() => handleDelete(c.id)} className="p-1.5 rounded-lg text-muted-foreground/80 hover:text-rose-500 hover:bg-rose-500/10"><Trash2 className="h-4 w-4" /></button>
+                      <button onClick={() => handleDelete(c.id)} className="p-1.5 rounded-lg text-muted-foreground/80 hover:text-primary hover:bg-primary/10"><Trash2 className="h-4 w-4" /></button>
                     </div>
                   </td>
 

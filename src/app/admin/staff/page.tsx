@@ -133,7 +133,7 @@ export default function StaffMembersPage() {
                   <td className="whitespace-nowrap px-6 py-4">
                     <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
                       user.role === 'Super Admin' 
-                        ? 'bg-primary/20 text-indigo-800'
+                        ? 'bg-primary/20 text-primary'
                         : 'bg-blue-100 text-blue-800'
                     }`}>
                       {user.role}

@@ -193,7 +193,7 @@ export default function CategoriesPage() {
     return (
       <div className="flex h-[60vh] items-center justify-center">
         <div className="flex flex-col items-center gap-3 glass-panel p-8 rounded-2xl border border-white/10">
-          <Loader2 className="h-8 w-8 animate-spin text-indigo-400" />
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
           <p className="text-sm font-semibold text-muted-foreground/80">Loading dynamic hierarchy tree...</p>
         </div>
       </div>
@@ -207,7 +207,7 @@ export default function CategoriesPage() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl flex items-center gap-2 text-glow">
-            Categories Directory <FolderTree className="h-6 w-6 text-indigo-400" />
+            Categories Directory <FolderTree className="h-6 w-6 text-primary" />
           </h1>
           <p className="text-sm text-muted-foreground/80">
             Build and organize infinite nested levels of Main, Sub, and Child categories.
@@ -216,14 +216,14 @@ export default function CategoriesPage() {
 
         <button
           onClick={() => handleOpenAdd()}
-          className="flex items-center gap-2 rounded-xl bg-indigo-400 px-4 py-2.5 text-sm font-bold text-foreground shadow-[0_0_15px_rgba(251,191,36,0.3)] hover:bg-indigo-300 transition-colors"
+          className="flex items-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-foreground shadow-[0_0_15px_rgba(251,191,36,0.3)] hover:bg-primary transition-colors"
         >
           <Plus className="h-4 w-4" /> Add Root Category
         </button>
       </div>
 
       {/* Directory Filter Bar */}
-      <div className="flex items-center gap-3 max-w-md bg-card/5 rounded-xl border border-white/10 px-3 py-2 text-sm focus-within:ring-2 focus-within:ring-indigo-400 focus-within:border-indigo-400 transition-shadow">
+      <div className="flex items-center gap-3 max-w-md bg-card/5 rounded-xl border border-white/10 px-3 py-2 text-sm focus-within:ring-2 focus-within:ring-primary focus-within:border-primary transition-shadow">
         <Search className="h-4 w-4 text-muted-foreground/80 shrink-0" />
         <input
           type="text"
@@ -244,7 +244,7 @@ export default function CategoriesPage() {
             {filtered.map(cat => (
               <div key={cat.id} className="flex items-center justify-between p-3 rounded-xl bg-card/5 border border-white/10 hover:bg-card/10 transition-colors">
                 <div className="flex items-center gap-3">
-                  <Tag className="h-4 w-4 text-indigo-400" />
+                  <Tag className="h-4 w-4 text-primary" />
                   <div>
                     <span className="font-semibold text-sm text-white">{cat.name}</span>
                     <p className="text-xs text-muted-foreground/80 font-mono mt-0.5">slug: {cat.slug}</p>
@@ -252,7 +252,7 @@ export default function CategoriesPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <button onClick={() => handleOpenEdit(cat)} className="p-1.5 rounded-lg text-muted-foreground/80 hover:text-white hover:bg-card/10 transition-colors"><Edit className="h-4 w-4" /></button>
-                  <button onClick={() => handleDelete(cat.id)} className="p-1.5 rounded-lg text-muted-foreground/80 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"><Trash2 className="h-4 w-4" /></button>
+                  <button onClick={() => handleDelete(cat.id)} className="p-1.5 rounded-lg text-muted-foreground/80 hover:text-primary hover:bg-primary/10 transition-colors"><Trash2 className="h-4 w-4" /></button>
                 </div>
               </div>
             ))}
@@ -278,22 +278,22 @@ export default function CategoriesPage() {
                           <div className="w-4" />
                         )}
                       </button>
-                      {mainExpanded && subs.length > 0 ? <FolderOpen className="h-5 w-5 text-indigo-400" /> : <Folder className="h-5 w-5 text-indigo-400/80" />}
+                      {mainExpanded && subs.length > 0 ? <FolderOpen className="h-5 w-5 text-primary" /> : <Folder className="h-5 w-5 text-primary/80" />}
                       <span className="font-bold text-white text-base">{mainCat.name}</span>
                       <span className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground/80 ml-2">Root Position {mainCat.position}</span>
-                      {mainCat.status === 'Inactive' && <span className="rounded border border-rose-500/20 bg-rose-500/10 px-1.5 py-0.5 text-[9px] font-bold text-rose-400 ml-2">Inactive</span>}
+                      {mainCat.status === 'Inactive' && <span className="rounded border border-primary/20 bg-primary/10 px-1.5 py-0.5 text-[9px] font-bold text-primary ml-2">Inactive</span>}
                     </div>
 
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => handleOpenAdd(mainCat.id)}
-                        className="flex items-center gap-1 text-[11px] font-bold text-muted-foreground/50 hover:text-indigo-400 bg-card/5 border border-white/10 px-2 py-1 rounded-lg transition-colors"
+                        className="flex items-center gap-1 text-[11px] font-bold text-muted-foreground/50 hover:text-primary bg-card/5 border border-white/10 px-2 py-1 rounded-lg transition-colors"
                         title="Add Subcategory"
                       >
                         <Plus className="h-3.5 w-3.5" /> Sub
                       </button>
                       <button onClick={() => handleOpenEdit(mainCat)} className="p-1 text-muted-foreground/80 hover:text-white transition-colors"><Edit className="h-4 w-4" /></button>
-                      <button onClick={() => handleDelete(mainCat.id)} className="p-1 text-muted-foreground/80 hover:text-rose-400 transition-colors"><Trash2 className="h-4 w-4" /></button>
+                      <button onClick={() => handleDelete(mainCat.id)} className="p-1 text-muted-foreground/80 hover:text-primary transition-colors"><Trash2 className="h-4 w-4" /></button>
                     </div>
                   </div>
 
@@ -315,21 +315,21 @@ export default function CategoriesPage() {
                                     <div className="w-4" />
                                   )}
                                 </button>
-                                {subExpanded && childs.length > 0 ? <FolderOpen className="h-4 w-4 text-indigo-400/80" /> : <Folder className="h-4 w-4 text-indigo-400/60" />}
+                                {subExpanded && childs.length > 0 ? <FolderOpen className="h-4 w-4 text-primary/80" /> : <Folder className="h-4 w-4 text-primary/60" />}
                                 <span className="font-semibold text-sm text-white">{subCat.name}</span>
-                                {subCat.status === 'Inactive' && <span className="rounded border border-rose-500/20 bg-rose-500/10 px-1 py-0.5 text-[8px] font-bold text-rose-400 ml-2">Inactive</span>}
+                                {subCat.status === 'Inactive' && <span className="rounded border border-primary/20 bg-primary/10 px-1 py-0.5 text-[8px] font-bold text-primary ml-2">Inactive</span>}
                               </div>
 
                               <div className="flex items-center gap-2">
                                 <button
                                   onClick={() => handleOpenAdd(subCat.id)}
-                                  className="flex items-center gap-1 text-[10px] font-bold text-muted-foreground/50 hover:text-indigo-400 bg-card/5 border border-white/10 px-1.5 py-0.5 rounded transition-colors"
+                                  className="flex items-center gap-1 text-[10px] font-bold text-muted-foreground/50 hover:text-primary bg-card/5 border border-white/10 px-1.5 py-0.5 rounded transition-colors"
                                   title="Add Child Category"
                                 >
                                   <Plus className="h-3 w-3" /> Child
                                 </button>
                                 <button onClick={() => handleOpenEdit(subCat)} className="p-1 text-muted-foreground/80 hover:text-white transition-colors"><Edit className="h-3.5 w-3.5" /></button>
-                                <button onClick={() => handleDelete(subCat.id)} className="p-1 text-muted-foreground/80 hover:text-rose-400 transition-colors"><Trash2 className="h-3.5 w-3.5" /></button>
+                                <button onClick={() => handleDelete(subCat.id)} className="p-1 text-muted-foreground/80 hover:text-primary transition-colors"><Trash2 className="h-3.5 w-3.5" /></button>
                               </div>
                             </div>
 
@@ -339,13 +339,13 @@ export default function CategoriesPage() {
                                 {childs.map((childCat) => (
                                   <div key={childCat.id} className="flex items-center justify-between py-1 px-2 rounded-lg bg-card/5 border border-white/5">
                                     <div className="flex items-center gap-2">
-                                      <Tag className="h-3.5 w-3.5 text-indigo-400/60" />
+                                      <Tag className="h-3.5 w-3.5 text-primary/60" />
                                       <span className="text-xs text-white font-medium">{childCat.name}</span>
-                                      {childCat.status === 'Inactive' && <span className="rounded border border-rose-500/20 bg-rose-500/10 px-1 py-0.5 text-[8px] font-bold text-rose-400">Inactive</span>}
+                                      {childCat.status === 'Inactive' && <span className="rounded border border-primary/20 bg-primary/10 px-1 py-0.5 text-[8px] font-bold text-primary">Inactive</span>}
                                     </div>
                                     <div className="flex items-center gap-1">
                                       <button onClick={() => handleOpenEdit(childCat)} className="p-1 text-muted-foreground/80 hover:text-white transition-colors"><Edit className="h-3.5 w-3.5" /></button>
-                                      <button onClick={() => handleDelete(childCat.id)} className="p-1 text-muted-foreground/80 hover:text-rose-400 transition-colors"><Trash2 className="h-3.5 w-3.5" /></button>
+                                      <button onClick={() => handleDelete(childCat.id)} className="p-1 text-muted-foreground/80 hover:text-primary transition-colors"><Trash2 className="h-3.5 w-3.5" /></button>
                                     </div>
                                   </div>
                                 ))}

@@ -230,7 +230,7 @@ export default function CustomersPage() {
                       className={`inline-block rounded-full px-2 py-0.5 text-xs font-semibold border ${
                         c.status === 'Active'
                           ? 'border-primary/30 bg-primary/10 text-primary'
-                          : 'border-rose-200 bg-rose-50 text-rose-600'
+                          : 'border-primary bg-primary text-primary'
                       }`}
                     >
                       {c.status}
@@ -249,8 +249,8 @@ export default function CustomersPage() {
                         onClick={() => handleToggleBlock(c)}
                         className={`p-1.5 rounded-lg border transition-all ${
                           c.status === 'Blocked'
-                            ? 'border-primary/30 bg-primary/10 text-primary hover:bg-teal-100'
-                            : 'border-rose-200 bg-rose-50 text-rose-600 hover:bg-rose-100'
+                            ? 'border-primary/30 bg-primary/10 text-primary hover:bg-primary/10'
+                            : 'border-primary bg-primary text-primary hover:bg-primary'
                         }`}
                         title={c.status === 'Blocked' ? 'Unblock Customer' : 'Block Customer'}
                       >
@@ -293,8 +293,8 @@ export default function CustomersPage() {
                 onClick={() => handleToggleBlock(selectedCustomer)}
                 className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold border transition-colors ${
                   selectedCustomer.status === 'Blocked'
-                    ? 'border-primary/30 bg-primary/10 text-primary hover:bg-teal-100'
-                    : 'border-rose-200 bg-rose-50 text-rose-600 hover:bg-rose-100'
+                    ? 'border-primary/30 bg-primary/10 text-primary hover:bg-primary/10'
+                    : 'border-primary bg-primary text-primary hover:bg-primary'
                 }`}
               >
                 {selectedCustomer.status === 'Blocked' ? (

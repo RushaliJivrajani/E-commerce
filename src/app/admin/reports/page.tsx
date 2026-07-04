@@ -193,7 +193,7 @@ export default function ReportsPage() {
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-muted-foreground">Low Stock Variants</span>
-              <span className="font-bold text-rose-500">
+              <span className="font-bold text-primary">
                 {products.filter(p => p.stock <= 10).length}
               </span>
             </div>

@@ -688,7 +688,7 @@ export default function ProductsPage() {
                     </td>
 
                     <td className="px-6 py-4 text-center">
-                      <span className={`inline-flex items-center gap-1.5 text-xs font-bold ${isLow ?'text-rose-600' :'text-primary'}`}>
+                      <span className={`inline-flex items-center gap-1.5 text-xs font-bold ${isLow ?'text-primary' :'text-primary'}`}>
                         {isLow && <AlertTriangle className="h-3 w-3" strokeWidth={2} />}
                         {totalStock}
                       </span>
@@ -710,7 +710,7 @@ export default function ProductsPage() {
                       <div className="flex items-center justify-center gap-1.5 flex-wrap">
                         {p.featured && <span className="bg-primary/20 text-primary border border-primary/30 text-[10px] font-bold px-2 py-0.5 rounded-lg">Feat</span>}
                         {p.trending && <span className="bg-blue-100 text-blue-700 border border-blue-200 text-[10px] font-bold px-2 py-0.5 rounded-lg">Trend</span>}
-                        {p.bestSeller && <span className="bg-rose-100 text-rose-700 border border-rose-200 text-[10px] font-bold px-2 py-0.5 rounded-lg">Best</span>}
+                        {p.bestSeller && <span className="bg-primary text-primary border border-primary text-[10px] font-bold px-2 py-0.5 rounded-lg">Best</span>}
                       </div>
                     </td>
 
@@ -732,7 +732,7 @@ export default function ProductsPage() {
                         </button>
                         <button
                           onClick={() => handleDelete(p.id)}
-                          className="text-muted-foreground/80 hover:text-rose-600 transition-colors"
+                          className="text-muted-foreground/80 hover:text-primary transition-colors"
                           title="Delete Product"
                         >
                           <Trash2 className="h-4 w-4" strokeWidth={1.5} />
@@ -912,7 +912,7 @@ export default function ProductsPage() {
                           <div className="flex items-center gap-1">
                             <button type="button" onClick={() => moveImage(idx,'up')} disabled={idx === 0} className="p-1 rounded hover:bg-card/80  disabled:opacity-30 text-foreground"><MoveUp className="h-3.5 w-3.5" /></button>
                             <button type="button" onClick={() => moveImage(idx,'down')} disabled={idx === formImages.length - 1} className="p-1 rounded hover:bg-card/80  disabled:opacity-30 text-foreground"><MoveDown className="h-3.5 w-3.5" /></button>
-                            <button type="button" onClick={() => removeImage(idx)} className="p-1 rounded text-rose-500 hover:bg-rose-500/10"><X className="h-3.5 w-3.5" /></button>
+                            <button type="button" onClick={() => removeImage(idx)} className="p-1 rounded text-primary hover:bg-primary/10"><X className="h-3.5 w-3.5" /></button>
                           </div>
                         </div>
                       ))}
@@ -998,8 +998,8 @@ export default function ProductsPage() {
                     <span className="font-bold">Live Profit Estimation:</span>
                   </div>
                   <div className="flex gap-4">
-                    <div className="text-foreground">Net Profit: <span className={`font-bold ${profitInfo.profit >= 0 ?'text-teal-400' :'text-rose-400'}`}>₹{profitInfo.profit}</span></div>
-                    <div className="text-foreground">Margin: <span className={`font-bold ${profitInfo.profit >= 0 ?'text-teal-400' :'text-rose-400'}`}>{profitInfo.margin.toFixed(1)}%</span></div>
+                    <div className="text-foreground">Net Profit: <span className={`font-bold ${profitInfo.profit >= 0 ?'text-primary' :'text-primary'}`}>₹{profitInfo.profit}</span></div>
+                    <div className="text-foreground">Margin: <span className={`font-bold ${profitInfo.profit >= 0 ?'text-primary' :'text-primary'}`}>{profitInfo.margin.toFixed(1)}%</span></div>
                   </div>
                 </div>
 
@@ -1103,7 +1103,7 @@ export default function ProductsPage() {
                     <div className="flex gap-1.5 flex-wrap mt-2">
                       {selectedSizes.map((s) => (
                         <span key={s} className="bg-card/500/10 text-muted-foreground/80 rounded-full px-2 py-0.5 text-[10px] font-bold flex items-center gap-1">
-                          {s} <X className="h-3 w-3 cursor-pointer text-rose-500" onClick={() => setSelectedSizes(selectedSizes.filter(sz => sz !== s))} />
+                          {s} <X className="h-3 w-3 cursor-pointer text-primary" onClick={() => setSelectedSizes(selectedSizes.filter(sz => sz !== s))} />
                         </span>
                       ))}
                     </div>
@@ -1131,7 +1131,7 @@ export default function ProductsPage() {
                     <div className="flex gap-1.5 flex-wrap mt-2">
                       {selectedColors.map((c) => (
                         <span key={c} className="bg-card/500/10 text-muted-foreground/80 rounded-full px-2 py-0.5 text-[10px] font-bold flex items-center gap-1">
-                          {c} <X className="h-3 w-3 cursor-pointer text-rose-500" onClick={() => setSelectedColors(selectedColors.filter(cr => cr !== c))} />
+                          {c} <X className="h-3 w-3 cursor-pointer text-primary" onClick={() => setSelectedColors(selectedColors.filter(cr => cr !== c))} />
                         </span>
                       ))}
                     </div>
@@ -1159,7 +1159,7 @@ export default function ProductsPage() {
                     <div className="flex gap-1.5 flex-wrap mt-2">
                       {selectedFabrics.map((f) => (
                         <span key={f} className="bg-pink-500/10 text-pink-400 rounded-full px-2 py-0.5 text-[10px] font-bold flex items-center gap-1">
-                          {f} <X className="h-3 w-3 cursor-pointer text-rose-500" onClick={() => setSelectedFabrics(selectedFabrics.filter(fb => fb !== f))} />
+                          {f} <X className="h-3 w-3 cursor-pointer text-primary" onClick={() => setSelectedFabrics(selectedFabrics.filter(fb => fb !== f))} />
                         </span>
                       ))}
                     </div>
@@ -1316,7 +1316,7 @@ export default function ProductsPage() {
             </h3>
             <p className="text-xs text-muted-foreground/80 mb-4 leading-relaxed">
               Paste your spreadsheet rows below (tab-delimited, standard copy-paste from Excel or Google Sheets). Columns must be: <br/>
-              <code className="text-teal-400 font-semibold font-mono">Product Name &emsp; Category &emsp; Regular Price &emsp; Selling Price &emsp; Stock &emsp; SKU</code>
+              <code className="text-primary font-semibold font-mono">Product Name &emsp; Category &emsp; Regular Price &emsp; Selling Price &emsp; Stock &emsp; SKU</code>
             </p>
 
             <textarea

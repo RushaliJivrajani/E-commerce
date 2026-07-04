@@ -161,7 +161,7 @@ export default function ReviewsPage() {
                       key={i}
                       className={`h-4 w-4 ${
                         i < rev.rating
-                          ? 'text-indigo-400 fill-indigo-405' // Wait, fill-indigo-405 -> fill-indigo-400
+                          ? 'text-primary fill-primary' // Wait, fill-primary -> fill-primary
                           : 'text-slate-350 dark:text-foreground/90'
                       }`}
                     />
@@ -200,7 +200,7 @@ export default function ReviewsPage() {
                 {rev.status !== 'Approved' && (
                   <button
                     onClick={() => handleUpdateStatus(rev.id, 'Approved')}
-                    className="flex items-center gap-1 text-[11px] font-bold text-primary hover:bg-primary/100/10 border border-teal-500/20 px-2.5 py-1 rounded-lg"
+                    className="flex items-center gap-1 text-[11px] font-bold text-primary hover:bg-primary/100/10 border border-primary/30/20 px-2.5 py-1 rounded-lg"
                   >
                     <CheckCircle className="h-3.5 w-3.5" /> Approve
                   </button>
@@ -225,7 +225,7 @@ export default function ReviewsPage() {
 
               <button
                 onClick={() => handleDelete(rev.id)}
-                className="p-1 rounded-lg text-muted-foreground/80 hover:text-rose-500 hover:bg-rose-500/10"
+                className="p-1 rounded-lg text-muted-foreground/80 hover:text-primary hover:bg-primary/10"
               >
                 <Trash2 className="h-4 w-4" />
               </button>
