@@ -5,17 +5,108 @@ import { getSessionUser, hasPermission } from '@/lib/auth';
 // Fetch all products with search & category filtering
 export async function GET(req: NextRequest) {
   try {
-    const user = await getSessionUser(req);
-    if (!user) {
-      return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 }) as Response;
-    }
-
     const { searchParams } = req.nextUrl;
     const search = searchParams.get('search') || '';
     const category = searchParams.get('category') || '';
     const status = searchParams.get('status') || '';
 
     let products = await db.find('products');
+
+    // DUMMY DATA INJECTION FOR VIARO DEMO (If DB is empty)
+    if (!products || products.length === 0) {
+      products = [
+        {
+          id: 'prod_dummy_1',
+          name: 'VIARO Onyx Silk Shirt',
+          slug: 'viaro-onyx-silk-shirt',
+          description: 'A premium oversized silk shirt crafted for modern minimalism.',
+          category: 'cat_2', // Men
+          brand: 'VIARO',
+          regularPrice: 4500,
+          sellingPrice: 3800,
+          stock: 50,
+          featured: true,
+          status: 'Active',
+          createdAt: new Date().toISOString(),
+          images: ['https://images.unsplash.com/photo-1596755094514-f87e32f85e2c?w=800&auto=format&fit=crop&q=80']
+        },
+        {
+          id: 'prod_dummy_2',
+          name: 'Midnight Cargo Pants',
+          slug: 'midnight-cargo-pants',
+          description: 'Utilitarian design meets high-end tailoring.',
+          category: 'cat_2', // Men
+          brand: 'VIARO',
+          regularPrice: 5500,
+          sellingPrice: 4999,
+          stock: 30,
+          featured: true,
+          status: 'Active',
+          createdAt: new Date().toISOString(),
+          images: ['https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&auto=format&fit=crop&q=80']
+        },
+        {
+          id: 'prod_dummy_3',
+          name: 'Crimson Velvet Blazer',
+          slug: 'crimson-velvet-blazer',
+          description: 'Bold, structured, and unapologetic. The statement piece.',
+          category: 'cat_1', // Women
+          brand: 'VIARO',
+          regularPrice: 12000,
+          sellingPrice: 8500,
+          stock: 15,
+          featured: true,
+          status: 'Active',
+          createdAt: new Date().toISOString(),
+          images: ['https://images.unsplash.com/photo-1548624149-f9b1859aa7d0?w=800&auto=format&fit=crop&q=80']
+        },
+        {
+          id: 'prod_dummy_4',
+          name: 'Eclipse Seamless Top',
+          slug: 'eclipse-seamless-top',
+          description: 'Second-skin feel with an architectural silhouette.',
+          category: 'cat_1', // Women
+          brand: 'VIARO',
+          regularPrice: 2800,
+          sellingPrice: 2200,
+          stock: 100,
+          featured: false,
+          status: 'Active',
+          createdAt: new Date().toISOString(),
+          images: ['https://images.unsplash.com/photo-1503342394128-c104d54dba01?w=800&auto=format&fit=crop&q=80']
+        },
+        {
+          id: 'prod_dummy_5',
+          name: 'Mini Signature Hoodie',
+          slug: 'mini-signature-hoodie',
+          description: 'The VIARO experience, downsized. Maximum comfort.',
+          category: 'cat_3', // Kids
+          brand: 'VIARO',
+          regularPrice: 3500,
+          sellingPrice: 2800,
+          stock: 45,
+          featured: true,
+          status: 'Active',
+          createdAt: new Date().toISOString(),
+          images: ['https://images.unsplash.com/photo-1519238263530-99abad67b86b?w=800&auto=format&fit=crop&q=80']
+        },
+        {
+          id: 'prod_dummy_6',
+          name: 'Monochrome Sneakers',
+          slug: 'monochrome-sneakers',
+          description: 'Minimalist leather sneakers for every step.',
+          category: 'cat_2', // Men
+          brand: 'VIARO',
+          regularPrice: 7500,
+          sellingPrice: 6200,
+          stock: 25,
+          featured: false,
+          status: 'Active',
+          createdAt: new Date().toISOString(),
+          images: ['https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=800&auto=format&fit=crop&q=80']
+        }
+      ];
+    }
 
     // Filter by name, brand, SKU or slug
     if (search) {

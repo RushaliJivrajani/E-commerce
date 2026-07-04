@@ -177,7 +177,14 @@ function ShopCatalog() {
               ? `${categories.find(c => c.id === selectedCategories[0])?.name || 'Shop'} Collection`
               : 'Shop Collection'}
           </h1>
-          <p className="text-xs text-primary mt-1.5 font-bold uppercase tracking-widest">Showing {sortedProducts.length} Premium Items</p>
+          {/* Dynamic Category Subtitle */}
+          <p className="text-sm text-muted-foreground mt-2 font-medium tracking-wide">
+            {selectedCategories.length === 1 && selectedCategories[0] === 'cat_1' && "Elegant, minimal, and unapologetically bold womenswear."}
+            {selectedCategories.length === 1 && selectedCategories[0] === 'cat_2' && "Discover the latest in modern men's tailoring and streetwear."}
+            {selectedCategories.length === 1 && selectedCategories[0] === 'cat_3' && "The VIARO experience, tailored for the next generation."}
+            {(selectedCategories.length !== 1 || !['cat_1', 'cat_2', 'cat_3'].includes(selectedCategories[0])) && "Explore the full VIARO collection. Modern. Minimal. Made for the now."}
+          </p>
+          <p className="text-xs text-primary mt-4 font-bold uppercase tracking-widest">Showing {sortedProducts.length} Premium Items</p>
         </div>
       </FadeIn>
 
