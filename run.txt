@@ -25,8 +25,8 @@ Once started, open your web browser and go to:
 3. ADMIN CREDENTIALS:
 ------------------------------------------------------------------------
 * SUPER ADMIN (Full system access, staff management)
-  - Email:    admin@rushcloset.com
-  - Password: Rush@123
+    - Email:    admin@rushcloset.com
+    - Password: Rush@123
 
 * CUSTOMER ACCOUNTS (Storefront Access)
   - You can create a new customer account directly from the website checkout.

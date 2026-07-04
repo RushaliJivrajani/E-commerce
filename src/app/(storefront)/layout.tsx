@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import {
   ShoppingBag,
   ShoppingCart,
@@ -24,7 +25,17 @@ import { LogoWordmark, LogoMark } from '@/components/BrandAssets';
 import { ThemeToggle } from '@/components/ThemeToggle';
 
 export default function StorefrontLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-background" />}>
+      <StorefrontLayoutInner>{children}</StorefrontLayoutInner>
+    </Suspense>
+  );
+}
+
+function StorefrontLayoutInner({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const activeCategory = searchParams.get('category');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [customerSession, setCustomerSession] = useState<any>(null);
@@ -143,7 +154,7 @@ export default function StorefrontLayout({ children }: { children: React.ReactNo
             <Link
               href="/shop"
               className={`text-xs font-bold uppercase tracking-widest transition-colors hover:text-primary ${
-                pathname === '/shop' ? 'text-primary' : 'text-foreground/80'
+                pathname === '/shop' && !activeCategory ? 'text-primary' : 'text-foreground/80'
               }`}
             >
               Collection
@@ -152,7 +163,9 @@ export default function StorefrontLayout({ children }: { children: React.ReactNo
               <Link
                 key={cat.id}
                 href={`/shop?category=${cat.id}`}
-                className="text-xs font-bold uppercase tracking-widest text-foreground/80 hover:text-primary transition-colors"
+                className={`text-xs font-bold uppercase tracking-widest transition-colors hover:text-primary ${
+                  activeCategory === cat.id ? 'text-primary' : 'text-foreground/80'
+                }`}
               >
                 {cat.name}
               </Link>
@@ -229,11 +242,11 @@ export default function StorefrontLayout({ children }: { children: React.ReactNo
             </div>
 
             <nav className="flex-1 flex flex-col gap-6">
-              <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold uppercase tracking-widest text-foreground">
+              <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className={`text-lg font-bold uppercase tracking-widest ${pathname === '/shop' && !activeCategory ? 'text-primary' : 'text-foreground'}`}>
                 Collection
               </Link>
               {mainCategories.map((cat) => (
-                <Link key={cat.id} href={`/shop?category=${cat.id}`} onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold uppercase tracking-widest text-foreground/85 hover:text-primary">
+                <Link key={cat.id} href={`/shop?category=${cat.id}`} onClick={() => setMobileMenuOpen(false)} className={`text-lg font-bold uppercase tracking-widest hover:text-primary ${activeCategory === cat.id ? 'text-primary' : 'text-foreground/85'}`}>
                   {cat.name}
                 </Link>
               ))}

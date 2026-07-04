@@ -172,7 +172,11 @@ function ShopCatalog() {
       <FadeIn direction="up">
         {/* Top Breadcrumb & Heading */}
         <div className="flex flex-col items-start justify-start border-b border-border/40 pb-6 mb-6">
-          <h1 className="text-3xl font-black uppercase tracking-wider text-foreground font-headings">Shop Collection</h1>
+          <h1 className="text-3xl font-black uppercase tracking-wider text-foreground font-headings">
+            {selectedCategories.length === 1 && categories.length > 0 
+              ? `${categories.find(c => c.id === selectedCategories[0])?.name || 'Shop'} Collection`
+              : 'Shop Collection'}
+          </h1>
           <p className="text-xs text-primary mt-1.5 font-bold uppercase tracking-widest">Showing {sortedProducts.length} Premium Items</p>
         </div>
       </FadeIn>
