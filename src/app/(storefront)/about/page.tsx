@@ -1,4 +1,5 @@
 import React from 'react';
+export const dynamic = 'force-dynamic';
 import { Metadata } from 'next';
 import { db } from '@/lib/db';
 import AboutClient from '@/components/AboutClient';

@@ -1,4 +1,5 @@
 import React from 'react';
+export const dynamic = 'force-dynamic';
 import Link from 'next/link';
 import { ArrowRight, Sparkles, Star, Tag, ShoppingBag, ShieldCheck, Truck, RefreshCw } from 'lucide-react';
 import { db } from '@/lib/db';
