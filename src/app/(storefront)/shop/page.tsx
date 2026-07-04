@@ -91,6 +91,8 @@ function ShopCatalog() {
   useEffect(() => {
     if (initialCategory) {
       setSelectedCategories([initialCategory]);
+    } else {
+      setSelectedCategories([]);
     }
   }, [initialCategory]);
 

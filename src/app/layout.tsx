@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Poppins, Montserrat } from 'next/font/google';
 import { ThemeProvider } from '@/lib/theme-context';
+import NextTopLoader from 'nextjs-toploader';
 import './globals.css';
 
 const poppins = Poppins({
@@ -50,6 +51,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${poppins.variable} ${montserrat.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans selection:bg-viaro-red selection:text-white">
+        <NextTopLoader color="#FF2D2D" showSpinner={false} height={3} shadow="0 0 10px #FF2D2D,0 0 5px #FF2D2D" />
         <ThemeProvider>
           {children}
         </ThemeProvider>
