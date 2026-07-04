@@ -61,8 +61,8 @@ function ShopCatalog() {
     async function initCatalog() {
       try {
         const [prodRes, catRes] = await Promise.all([
-          fetch('/api/products'),
-          fetch('/api/categories')
+          fetch('/api/products', { cache: 'no-store' }),
+          fetch('/api/categories', { cache: 'no-store' })
         ]);
         if (prodRes.ok && catRes.ok) {
           const prodData = await prodRes.json();
