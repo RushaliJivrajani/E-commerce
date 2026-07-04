@@ -6,11 +6,6 @@ import { getSessionUser, hasPermission } from '@/lib/auth';
 // Fetch all categories
 export async function GET(req: NextRequest) {
   try {
-    const user = await getSessionUser(req);
-    if (!user) {
-      return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 }) as Response;
-    }
-
     const categories = await db.find('categories');
     // Sort by position
     const sorted = categories.sort((a, b) => a.position - b.position);
