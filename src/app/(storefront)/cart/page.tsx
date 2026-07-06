@@ -79,6 +79,13 @@ export default function CartPage() {
       if (item.sku === sku) {
         const updatedQty = item.quantity + diff;
         if (updatedQty < 1) return item; // Min quantity is 1
+        
+        // Prevent exceeding max stock if known
+        if (diff > 0 && item.maxStock !== undefined && updatedQty > item.maxStock) {
+          toast.error(`Only ${item.maxStock} items available in stock.`);
+          return item;
+        }
+
         return { ...item, quantity: updatedQty };
       }
       return item;

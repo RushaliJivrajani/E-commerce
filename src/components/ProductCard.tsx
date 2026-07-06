@@ -80,6 +80,7 @@ export function ProductCard({ product }: ProductCardProps) {
         sku: finalSku,
         price: finalPrice,
         quantity: 1,
+        maxStock: finalStock,
         image: product.images && product.images[0] ? product.images[0] : 'https://placehold.co/100',
         variantInfo
       };

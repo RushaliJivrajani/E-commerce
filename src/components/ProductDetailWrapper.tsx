@@ -105,6 +105,7 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
         sku: activeSku,
         price: activePrice,
         quantity: 1,
+        maxStock: activeStock,
         image: product.images && product.images[0] ? product.images[0] : 'https://placehold.co/100',
         variantInfo
       };
