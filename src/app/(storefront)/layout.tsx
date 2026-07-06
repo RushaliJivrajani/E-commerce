@@ -57,6 +57,7 @@ function StorefrontLayoutInner({ children }: { children: React.ReactNode }) {
   // Settings & Categories from DB
   const [settings, setSettings] = useState<any>(null);
   const [categories, setCategories] = useState<any[]>([]);
+  const [coupons, setCoupons] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Load Settings, Categories, and Customer Session
@@ -71,6 +72,7 @@ function StorefrontLayoutInner({ children }: { children: React.ReactNode }) {
           const data = await initRes.json();
           setSettings(data.settings);
           setCategories(data.categories || []);
+          setCoupons(data.coupons || []);
         }
         if (meRes.ok) {
           const meData = await meRes.json();
@@ -134,17 +136,25 @@ function StorefrontLayoutInner({ children }: { children: React.ReactNode }) {
 
   // Get only top level categories
   const mainCategories = categories.filter(c => !c.parentId);
+  const activePromo = coupons.length > 0 ? coupons[0] : null;
 
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground transition-colors duration-500">
       <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
 
       {/* --- TOP BANNER/ALERT LINE --- */}
-      <div className="bg-primary text-center py-2.5 px-4 text-[10px] font-bold text-primary-foreground uppercase tracking-[0.25em] flex justify-center items-center gap-2 shadow-md">
-        <Sparkles className="h-3.5 w-3.5" />
-        <span>Use Coupon code <span className="underline font-black">RUSH20</span> for 20% off on orders above ₹1,499!</span>
-        <ArrowRight className="h-3 w-3" />
-      </div>
+      {activePromo ? (
+        <div className="bg-primary text-center py-2.5 px-4 text-[10px] font-bold text-primary-foreground uppercase tracking-[0.25em] flex justify-center items-center gap-2 shadow-md">
+          <Sparkles className="h-3.5 w-3.5" />
+          <span>Use Coupon code <span className="underline font-black">{activePromo.code}</span> for {activePromo.type === 'Percentage' ? `${activePromo.value}%` : `₹${activePromo.value}`} off{activePromo.minAmount > 0 ? ` on orders above ₹${activePromo.minAmount.toLocaleString()}!` : '!'}</span>
+          <ArrowRight className="h-3 w-3" />
+        </div>
+      ) : (
+        <div className="bg-primary text-center py-2.5 px-4 text-[10px] font-bold text-primary-foreground uppercase tracking-[0.25em] flex justify-center items-center gap-2 shadow-md">
+          <Sparkles className="h-3.5 w-3.5" />
+          <span>Welcome to VIARO - Premium Fashion Worldwide</span>
+        </div>
+      )}
 
       {/* --- PREMIUM MARKETPLACE HEADER --- */}
       <motion.header 
