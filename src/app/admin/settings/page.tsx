@@ -247,7 +247,7 @@ export default function SettingsPage() {
                 required
                 value={storeName}
                 onChange={(e) => setStoreName(e.target.value)}
-                placeholder="Rush Closet"
+                placeholder="VIARO"
                 className="mt-1 block w-full rounded-xl border border-white/10 bg-card/5 py-2.5 px-3 focus:outline-none focus:border-primary text-white transition-colors"
               />
             </div>

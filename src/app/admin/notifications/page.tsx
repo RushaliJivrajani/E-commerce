@@ -270,7 +270,7 @@ export default function NotificationsPage() {
                     required
                     value={formSubject}
                     onChange={(e) => setFormSubject(e.target.value)}
-                    placeholder="Your Rush Closet Order..."
+                    placeholder="Your VIARO Order..."
                     className="mt-1 block w-full rounded-xl border border-border bg-card/50 py-2.5 px-3 focus:outline-none dark:border-slate-800 dark:bg-slate-950 text-foreground dark:text-white"
                   />
                 </div>

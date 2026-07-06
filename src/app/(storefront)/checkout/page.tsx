@@ -458,7 +458,7 @@ export default function CheckoutPage() {
                 <button
                   type="submit"
                   disabled={placingOrder}
-                  className="w-full flex items-center justify-center gap-2 py-4 bg-foreground text-background text-white rounded-xl text-xs font-bold uppercase tracking-[0.15em] shadow-md hover:bg-slate-800 transition-all disabled:opacity-50"
+                  className="w-full flex items-center justify-center gap-2 py-4 bg-foreground text-background rounded-xl text-xs font-bold uppercase tracking-[0.15em] shadow-md hover:opacity-90 transition-all disabled:opacity-50"
                 >
                   {placingOrder ? (
                     <>
@@ -487,7 +487,7 @@ export default function CheckoutPage() {
 
       {/* --- RAZORPAY GATEWAY SIMULATOR MODAL --- */}
       {razorpayModalOpen && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-foreground text-background/40 backdrop-blur-sm px-4">
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
           <div className="w-full max-w-md bg-card border border-border p-8 space-y-8 relative rounded-3xl shadow-2xl">
             
             <div className="flex items-center justify-between border-b border-border/30 pb-4">
@@ -529,7 +529,7 @@ export default function CheckoutPage() {
                   </button>
                   <button
                     onClick={() => runRazorpayPaymentSimulation('SUCCESS')}
-                    className="flex-1 py-4 bg-foreground text-background text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-slate-800 transition-all shadow-md"
+                    className="flex-1 py-4 bg-foreground text-background rounded-xl text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all shadow-md"
                   >
                     Approve
                   </button>

@@ -165,14 +165,19 @@ export function ProductCard({ product }: ProductCardProps) {
   const hoverImage = product.images && product.images[1] ? product.images[1] : mainImage;
 
   return (
-    <Link
-      href={`/product/${product.slug}`}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="group flex flex-col rounded-3xl overflow-hidden bg-card text-foreground transition-all duration-300 p-2.5 relative border border-border/40 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5"
+    <motion.div
+      whileHover={{ y: -8, scale: 1.02 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="h-full"
     >
+      <Link
+        href={`/product/${product.slug}`}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        className="group flex flex-col h-full rounded-3xl overflow-hidden bg-card text-foreground transition-all duration-300 p-2.5 relative border border-border/40 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10"
+      >
       {/* Product Image & Overlays */}
-      <div className="relative aspect-[4/5] overflow-hidden bg-muted mb-4 rounded-2xl">
+      <div className="relative aspect-[4/5] overflow-hidden bg-card border border-border/20 mb-4 rounded-2xl">
         {/* Discount Badge */}
         {hasDiscount && (
           <span className="absolute top-3.5 left-3.5 z-10 bg-primary px-2.5 py-1 text-[10px] font-bold text-white rounded-md tracking-wider uppercase border border-primary/50">
@@ -196,7 +201,7 @@ export function ProductCard({ product }: ProductCardProps) {
             <motion.span
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="absolute top-3.5 right-3.5 z-10 bg-viaro-charcoal px-2.5 py-1 text-[10px] font-bold text-muted-foreground/80 rounded-md tracking-wider uppercase border border-white/10"
+              className="absolute top-3.5 right-3.5 z-10 bg-muted px-2.5 py-1 text-[10px] font-bold text-muted-foreground rounded-md tracking-wider uppercase border border-border/50"
             >
               SOLD OUT
             </motion.span>
@@ -235,7 +240,7 @@ export function ProductCard({ product }: ProductCardProps) {
               initial={{ opacity: 0, y: 15 }}
               animate={hovered ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
               transition={{ duration: 0.25, ease: 'easeOut' }}
-              className="w-full bg-viaro-black text-white hover:bg-primary py-3 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg transition-colors border border-white/10 cursor-pointer"
+              className="w-full bg-foreground text-background hover:bg-primary hover:text-white py-3 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg transition-colors border border-border/20 cursor-pointer"
             >
               {addingToCart ? (
                 <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -316,6 +321,7 @@ export function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
       </div>
-    </Link>
+      </Link>
+    </motion.div>
   );
 }

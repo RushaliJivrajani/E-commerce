@@ -306,6 +306,7 @@ export default function MyOrdersPage() {
   return (
     <div className="min-h-screen">
       <Toaster position="top-right" toastOptions={{
+        duration: 4000,
         style: {
           background: 'rgba(15, 23, 42, 0.9)',
           color: '#fff',

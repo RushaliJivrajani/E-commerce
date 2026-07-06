@@ -183,7 +183,7 @@ function AccountLoginForm() {
         toast.error(data.message || 'Registration failed');
         return;
       }
-      toast.success(`Account created! Welcome to Rush Closet, ${data.customer.name}! 🛍️`);
+      toast.success(`Account created! Welcome to VIARO, ${data.customer.name}! 🛍️`);
       setTimeout(() => {
         window.location.href = callbackUrl;
       }, 1000);
@@ -200,7 +200,7 @@ function AccountLoginForm() {
 
   return (
     <div className="min-h-screen flex bg-background">
-      <Toaster position="top-right" />
+      <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
 
       {/* Left panel – Premium Brand Focus */}
       <div className="hidden lg:flex flex-col justify-between w-[42%] bg-card p-12 text-foreground relative overflow-hidden border-r border-slate-900">
@@ -215,7 +215,7 @@ function AccountLoginForm() {
               <ShoppingBag className="h-5 w-5" />
             </div>
             <span className="text-xl font-extrabold tracking-widest uppercase">
-              RUSH CLOSET
+              VIARO
             </span>
           </Link>
         </div>
@@ -227,7 +227,7 @@ function AccountLoginForm() {
               <span className="text-muted-foreground/80 font-light">Exclusive Access.</span>
             </h1>
             <p className="text-muted-foreground/50 text-sm leading-relaxed max-w-xs font-light tracking-wide">
-              Join thousands of fashion connoisseurs globally who curate their wardrobes with Rush Closet.
+              Join thousands of fashion connoisseurs globally who curate their wardrobes with VIARO.
             </p>
           </div>
 
@@ -242,7 +242,7 @@ function AccountLoginForm() {
         </div>
 
         <div className="relative z-10 text-[10px] text-muted-foreground tracking-widest uppercase">
-          © {new Date().getFullYear()} Rush Closet · International Delivery
+          © {new Date().getFullYear()} VIARO · International Delivery
         </div>
       </div>
 
@@ -257,7 +257,7 @@ function AccountLoginForm() {
                 <ShoppingBag className="h-5 w-5" />
               </div>
               <span className="text-xl font-extrabold uppercase tracking-widest text-foreground">
-                RUSH CLOSET
+                VIARO
               </span>
             </Link>
           </div>

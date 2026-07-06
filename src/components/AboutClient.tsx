@@ -83,7 +83,7 @@ export default function AboutClient({ data }: { data: AboutData }) {
     <div className="bg-background text-foreground overflow-hidden">
       
       {/* 1. HERO SECTION */}
-      <section className="relative min-h-[60vh] flex flex-col justify-center items-center text-center px-4 py-20 overflow-hidden bg-viaro-black text-white">
+      <section className="relative min-h-[60vh] flex flex-col justify-center items-center text-center px-4 py-20 overflow-hidden bg-background text-foreground border-b border-border/20">
         {/* Subtle velvet/grain texture overlay */}
         <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }} />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,45,45,0.1),transparent_70%)]" />
@@ -182,11 +182,12 @@ export default function AboutClient({ data }: { data: AboutData }) {
           {values.map((v, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="flex flex-col items-center text-center space-y-3 p-6 rounded-2xl hover:bg-card transition-colors border border-transparent hover:border-border/50"
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: i * 0.1, type: "spring", stiffness: 100 }}
+              whileHover={{ y: -8, scale: 1.05 }}
+              className="flex flex-col items-center text-center space-y-3 p-6 rounded-2xl bg-card/10 hover:bg-card/50 transition-all duration-300 border border-transparent hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10 cursor-default"
             >
               <div className="p-3 bg-primary/10 text-primary rounded-full mb-2">
                 <v.icon className="h-6 w-6 stroke-[1.5]" />

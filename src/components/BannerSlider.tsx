@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { AnimatedButton } from '@/components/AnimatedButton';
+import { motion } from 'framer-motion';
 
 interface BannerItem {
   id: string;
@@ -64,19 +65,35 @@ export default function BannerSlider({ banners }: BannerSliderProps) {
 
               {/* Text Content Overlay */}
               <div className="absolute inset-0 flex items-center z-20 px-8 sm:px-16 lg:px-24">
-                <div className="max-w-xl space-y-4 md:space-y-6">
-                  <span className="text-[10px] font-black uppercase tracking-[0.25em] text-primary">VIARO Campaigns</span>
-                  <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-white leading-tight uppercase tracking-wide font-headings">
+                <motion.div 
+                  initial="hidden"
+                  animate={isActive ? "show" : "hidden"}
+                  variants={{
+                    hidden: { opacity: 0 },
+                    show: {
+                      opacity: 1,
+                      transition: { staggerChildren: 0.15, delayChildren: 0.3 }
+                    }
+                  }}
+                  className="max-w-xl space-y-4 md:space-y-6"
+                >
+                  <motion.div variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.2, 0.8, 0.2, 1] } } }}>
+                    <span className="text-[10px] font-black uppercase tracking-[0.25em] text-primary">VIARO Campaigns</span>
+                  </motion.div>
+                  <motion.h1 
+                    variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.2, 0.8, 0.2, 1] } } }}
+                    className="text-2xl sm:text-4xl md:text-5xl font-black text-white leading-tight uppercase tracking-wide font-headings"
+                  >
                     {banner.title}
-                  </h1>
-                  <div>
+                  </motion.h1>
+                  <motion.div variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.2, 0.8, 0.2, 1] } } }}>
                     <Link href={banner.redirectLink}>
                       <AnimatedButton variant="primary">
                         {banner.buttonText}
                       </AnimatedButton>
                     </Link>
-                  </div>
-                </div>
+                  </motion.div>
+                </motion.div>
               </div>
             </div>
           );

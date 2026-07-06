@@ -134,7 +134,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   return (
     <div className="flex min-h-screen bg-background text-foreground font-sans transition-colors duration-500">
-      <Toaster position="top-right" />
+      <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
 
       {/* --- SIDEBAR FOR DESKTOP --- */}
       <aside

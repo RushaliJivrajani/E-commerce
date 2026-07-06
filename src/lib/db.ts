@@ -365,15 +365,15 @@ class JSONDatabase {
         }
       ],
       settings: {
-        storeName: 'Rush Closet',
-        logo: 'https://placehold.co/150x50/slate/white?text=RUSH+CLOSET',
+        storeName: 'VIARO',
+        logo: 'https://placehold.co/150x50/slate/white?text=VIARO',
         favicon: 'https://placehold.co/32x32/slate/white?text=RF',
-        contactEmail: 'rushcloset@gmail.com',
+        contactEmail: 'care@viaro.in',
         contactPhone: '+91 79 4001 0203',
         address: '501-505, Titanium Square, Thaltej, Ahmedabad, Gujarat, India',
         socialLinks: {
-          facebook: 'https://facebook.com/rushcloset',
-          instagram: 'https://instagram.com/rushcloset'
+          facebook: 'https://facebook.com/viaro',
+          instagram: 'https://instagram.com/viaro'
         },
         currency: 'INR',
         currencySymbol: '₹',
@@ -443,7 +443,7 @@ class JSONDatabase {
           id: 'notif_1',
           type: 'Email',
           event: 'Order Placed',
-          subject: 'Order Confirmation - Rush Closet',
+          subject: 'Order Confirmation - VIARO',
           body: 'Hello {{customerName}}, thank you for placing your order {{orderId}} with us!',
           isActive: true,
           createdAt: new Date().toISOString()

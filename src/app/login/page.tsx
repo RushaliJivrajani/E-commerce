@@ -4,6 +4,7 @@ import React, { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
 import { Lock, Mail, ShieldAlert, ArrowRight, KeyRound, Loader2, Sparkles } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 function LoginForm() {
   const router = useRouter();
@@ -148,29 +149,46 @@ function LoginForm() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-12 sm:px-6 lg:px-8">
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position="top-right" reverseOrder={false} toastOptions={{ duration: 4000 }} />
 
-      <div className="relative w-full max-w-md space-y-8 z-10">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="relative w-full max-w-md space-y-8 z-10"
+      >
         
         {/* Header Branding */}
         <div className="flex flex-col items-center text-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 shadow-xl shadow-primary/20">
-            <Sparkles className="h-8 w-8 text-white" />
+          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-foreground shadow-xl shadow-foreground/10">
+            <Sparkles className="h-8 w-8 text-background" />
           </div>
-          <h2 className="mt-6 text-3xl font-black tracking-tight text-foreground sm:text-4xl text-glow">
-            RUSH <span className="bg-gradient-to-r from-indigo-600 to-pink-500 bg-clip-text text-transparent">CLOSET</span>
+          <h2 className="mt-6 text-3xl font-black tracking-tight text-foreground sm:text-4xl font-headings uppercase">
+            VIARO
           </h2>
-          <p className="mt-2 text-sm font-bold text-muted-foreground uppercase tracking-widest">
+          <p className="mt-2 text-xs font-bold text-muted-foreground uppercase tracking-[0.2em]">
             Enterprise Management Panel
           </p>
         </div>
 
         {/* Form Container */}
-        <div className="glass-panel border-white/40 rounded-3xl p-8 shadow-2xl backdrop-blur-2xl">
-          
+        <motion.div 
+          animate={{ y: [0, -5, 0] }}
+          transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+          className="bg-card border border-border/50 rounded-3xl p-8 shadow-2xl relative overflow-hidden"
+        >
+          <AnimatePresence mode="wait">
           {/* LOGIN VIEW */}
           {view === 'login' && (
-            <form className="space-y-6" onSubmit={handleLogin}>
+            <motion.form 
+              key="login"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-6" 
+              onSubmit={handleLogin}
+            >
               <div>
                 <h3 className="text-xl font-bold text-foreground">Sign In</h3>
                 <p className="text-xs font-medium text-muted-foreground mt-1">Access your secure control panel session</p>
@@ -238,7 +256,7 @@ function LoginForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="group relative flex w-full justify-center rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-3.5 text-sm font-black text-white shadow-lg shadow-primary/30 transition-all hover:shadow-primary/50 hover:scale-[1.02] focus:outline-none disabled:opacity-50 cursor-pointer overflow-hidden mt-8 glow-on-hover uppercase tracking-wider"
+                className="group relative flex w-full justify-center rounded-2xl bg-foreground py-4 text-sm font-bold text-background shadow-lg shadow-foreground/10 transition-all hover:shadow-foreground/20 hover:-translate-y-0.5 focus:outline-none disabled:opacity-50 cursor-pointer overflow-hidden mt-8 uppercase tracking-[0.1em]"
               >
                 {loading ? (
                   <Loader2 className="h-5 w-5 animate-spin" />
@@ -249,12 +267,20 @@ function LoginForm() {
                   </>
                 )}
               </button>
-            </form>
+            </motion.form>
           )}
 
           {/* TWO-FACTOR VIEW */}
           {view === '2fa' && (
-            <form className="space-y-6" onSubmit={handle2FAVerify}>
+            <motion.form 
+              key="2fa"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-6" 
+              onSubmit={handle2FAVerify}
+            >
               <div className="text-center">
                 <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary mb-4 border border-primary shadow-md">
                   <ShieldAlert className="h-8 w-8" />
@@ -283,7 +309,7 @@ function LoginForm() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex w-full justify-center rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-3.5 text-sm font-black text-white shadow-lg shadow-primary/30 transition-all hover:shadow-primary/50 hover:scale-[1.02] focus:outline-none cursor-pointer glow-on-hover uppercase tracking-wider"
+                  className="flex w-full justify-center rounded-2xl bg-foreground py-4 text-sm font-bold text-background shadow-lg shadow-foreground/10 transition-all hover:shadow-foreground/20 hover:-translate-y-0.5 focus:outline-none cursor-pointer uppercase tracking-[0.1em]"
                 >
                   {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : 'Verify and Login'}
                 </button>
@@ -295,12 +321,20 @@ function LoginForm() {
                   Back to Sign In
                 </button>
               </div>
-            </form>
+            </motion.form>
           )}
 
           {/* FORGOT PASSWORD VIEW */}
           {view === 'forgot' && (
-            <form className="space-y-6" onSubmit={handleRecovery}>
+            <motion.form 
+              key="forgot"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-6" 
+              onSubmit={handleRecovery}
+            >
               <div>
                 <h3 className="text-xl font-bold text-foreground">Reset Password</h3>
                 <p className="text-xs font-medium text-muted-foreground mt-1">
@@ -381,7 +415,7 @@ function LoginForm() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex w-full justify-center rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-3.5 text-sm font-black text-white shadow-lg shadow-primary/30 transition-all hover:shadow-primary/50 hover:scale-[1.02] focus:outline-none cursor-pointer glow-on-hover uppercase tracking-wider mt-4"
+                  className="flex w-full justify-center rounded-2xl bg-foreground py-4 text-sm font-bold text-background shadow-lg shadow-foreground/10 transition-all hover:shadow-foreground/20 hover:-translate-y-0.5 focus:outline-none cursor-pointer uppercase tracking-[0.1em] mt-4"
                 >
                   {loading ? (
                     <Loader2 className="h-5 w-5 animate-spin" />
@@ -402,11 +436,11 @@ function LoginForm() {
                   Cancel and Go Back
                 </button>
               </div>
-            </form>
+            </motion.form>
           )}
-
-        </div>
-      </div>
+          </AnimatePresence>
+        </motion.div>
+      </motion.div>
     </div>
   );
 }

@@ -392,7 +392,7 @@ export default function OrdersPage() {
         <div className="hidden print:block bg-card text-black p-8 font-sans min-h-screen text-sm">
           <div className="flex justify-between items-start border-b pb-6">
             <div>
-              <h1 className="text-2xl font-bold">RUSH CLOSET</h1>
+              <h1 className="text-2xl font-bold">VIARO</h1>
               <p className="text-xs text-gray-500 mt-1">Enterprise eCommerce Billing System</p>
               <p className="text-xs text-gray-500">Ahmedabad, Gujarat, India</p>
             </div>

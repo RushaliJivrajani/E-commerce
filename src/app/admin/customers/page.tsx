@@ -17,6 +17,7 @@ import {
   X,
   Plus
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface Address {
   addressLine: string;
@@ -197,9 +198,24 @@ export default function CustomersPage() {
                 <th className="px-6 py-4 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <motion.tbody 
+              initial="hidden" 
+              animate="visible" 
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1, transition: { staggerChildren: 0.05 } }
+              }}
+              className="divide-y divide-border/20"
+            >
               {customers.map((c) => (
-                <tr key={c.id} className="hover:bg-card/50 transition-colors">
+                <motion.tr 
+                  variants={{
+                    hidden: { opacity: 0, y: 10 },
+                    visible: { opacity: 1, y: 0 }
+                  }}
+                  key={c.id} 
+                  className="hover:bg-card/50 transition-colors group"
+                >
                   <td className="px-6 py-4">
                     <div>
                       <span className="font-bold text-foreground block">{c.name}</span>
@@ -258,24 +274,37 @@ export default function CustomersPage() {
                       </button>
                     </div>
                   </td>
-                </tr>
+                </motion.tr>
               ))}
               {customers.length === 0 && (
                 <tr>
                   <td colSpan={7} className="text-center py-12 text-muted-foreground">No customers registered under search parameters.</td>
                 </tr>
               )}
-            </tbody>
+            </motion.tbody>
           </table>
         </div>
       </div>
 
       {/* --- PROFILE DETAILS MODAL PANEL --- */}
+      <AnimatePresence>
       {profileOpen && selectedCustomer && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="fixed inset-0 bg-foreground text-background/40 backdrop-blur-md" onClick={() => setProfileOpen(false)} />
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-y-auto">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-foreground/20 backdrop-blur-sm" 
+            onClick={() => setProfileOpen(false)} 
+          />
           
-          <div className="relative w-full max-w-4xl rounded-2xl border border-border bg-card p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="relative w-full max-w-4xl rounded-2xl border border-border bg-card p-6 shadow-2xl max-h-[90vh] overflow-y-auto z-10"
+          >
             <button
               onClick={() => setProfileOpen(false)}
               className="absolute top-4 right-4 rounded-lg p-1 text-muted-foreground/80 hover:text-foreground hover:bg-card/80 transition-colors"
@@ -411,9 +440,10 @@ export default function CustomersPage() {
 
             </div>
 
-          </div>
+          </motion.div>
         </div>
       )}
+      </AnimatePresence>
 
     </div>
   );

@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import FadeIn from '@/components/FadeIn';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function CartPage() {
   const router = useRouter();
@@ -233,9 +234,13 @@ export default function CartPage() {
               </div>
 
               <div className="space-y-8">
-                {cart.map((item) => (
-                  <div
+                <AnimatePresence>
+                {cart.map((item, index) => (
+                  <motion.div
                     key={item.sku}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0, transition: { delay: index * 0.1 } }}
+                    exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
                     className="flex flex-col sm:grid sm:grid-cols-12 gap-6 items-center pb-8 border-b border-white/10 group"
                   >
                     {/* Product Info */}
@@ -290,13 +295,19 @@ export default function CartPage() {
                         Remove
                       </button>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
+                </AnimatePresence>
               </div>
             </div>
 
             {/* Right: Order Summary Sidebar */}
-            <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-8">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              className="lg:col-span-4 lg:sticky lg:top-24 space-y-8"
+            >
               
               <div className="glass-panel border border-white/10 rounded-2xl p-8 space-y-8 shadow-xl">
                 <h3 className="text-xs font-extrabold uppercase tracking-[0.2em] text-white text-glow">Order Summary</h3>
@@ -375,8 +386,7 @@ export default function CartPage() {
                   </form>
                 )}
               </div>
-
-            </div>
+            </motion.div>
           </div>
         </FadeIn>
       )}

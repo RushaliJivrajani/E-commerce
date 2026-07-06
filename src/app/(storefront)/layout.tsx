@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import {
   ShoppingBag,
   ShoppingCart,
@@ -40,6 +41,19 @@ function StorefrontLayoutInner({ children }: { children: React.ReactNode }) {
   const [cartCount, setCartCount] = useState(0);
   const [customerSession, setCustomerSession] = useState<any>(null);
   
+  // Scroll Navbar hide logic
+  const { scrollY } = useScroll();
+  const [navHidden, setNavHidden] = useState(false);
+  
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    if (latest > previous && latest > 150) {
+      setNavHidden(true);
+    } else {
+      setNavHidden(false);
+    }
+  });
+
   // Settings & Categories from DB
   const [settings, setSettings] = useState<any>(null);
   const [categories, setCategories] = useState<any[]>([]);
@@ -123,23 +137,28 @@ function StorefrontLayoutInner({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground transition-colors duration-500">
-      <Toaster position="top-right" />
+      <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
 
       {/* --- TOP BANNER/ALERT LINE --- */}
-      <div className="bg-primary text-center py-2.5 px-4 text-[10px] font-bold text-white uppercase tracking-[0.25em] flex justify-center items-center gap-2 shadow-md">
+      <div className="bg-primary text-center py-2.5 px-4 text-[10px] font-bold text-primary-foreground uppercase tracking-[0.25em] flex justify-center items-center gap-2 shadow-md">
         <Sparkles className="h-3.5 w-3.5" />
         <span>Use Coupon code <span className="underline font-black">RUSH20</span> for 20% off on orders above ₹1,499!</span>
         <ArrowRight className="h-3 w-3" />
       </div>
 
       {/* --- PREMIUM MARKETPLACE HEADER --- */}
-      <header className="sticky top-0 z-50 w-full glass-panel border-b border-border/10">
+      <motion.header 
+        variants={{ visible: { y: 0 }, hidden: { y: "-100%" } }}
+        animate={navHidden ? "hidden" : "visible"}
+        transition={{ duration: 0.35, ease: "easeInOut" }}
+        className="sticky top-0 z-50 w-full glass-panel border-b border-border/10"
+      >
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 text-foreground">
           
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 -ml-2 text-foreground hover:text-primary transition-colors"
+            className="md:hidden p-2 -ml-2 text-foreground hover:text-primary transition-colors cursor-pointer"
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -153,30 +172,33 @@ function StorefrontLayoutInner({ children }: { children: React.ReactNode }) {
           <nav className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
             <a
               href="/shop"
-              className={`text-xs font-bold uppercase tracking-widest transition-colors hover:text-primary ${
+              className={`group relative text-xs font-bold uppercase tracking-widest transition-colors hover:text-primary ${
                 pathname === '/shop' && !activeCategory ? 'text-primary' : 'text-foreground/80'
               }`}
             >
               Collection
+              <span className={`absolute -bottom-1 left-0 h-[2px] bg-primary transition-all duration-300 ${pathname === '/shop' && !activeCategory ? 'w-full' : 'w-0 group-hover:w-full'}`} />
             </a>
             {mainCategories.map((cat) => (
               <a
                 key={cat.id}
                 href={`/shop?category=${cat.id}`}
-                className={`text-xs font-bold uppercase tracking-widest transition-colors hover:text-primary ${
+                className={`group relative text-xs font-bold uppercase tracking-widest transition-colors hover:text-primary ${
                   activeCategory === cat.id ? 'text-primary' : 'text-foreground/80'
                 }`}
               >
                 {cat.name}
+                <span className={`absolute -bottom-1 left-0 h-[2px] bg-primary transition-all duration-300 ${activeCategory === cat.id ? 'w-full' : 'w-0 group-hover:w-full'}`} />
               </a>
             ))}
             <Link
               href="/about"
-              className={`text-xs font-bold uppercase tracking-widest transition-colors hover:text-primary ${
+              className={`group relative text-xs font-bold uppercase tracking-widest transition-colors hover:text-primary ${
                 pathname === '/about' ? 'text-primary' : 'text-foreground/80'
               }`}
             >
               About
+              <span className={`absolute -bottom-1 left-0 h-[2px] bg-primary transition-all duration-300 ${pathname === '/about' ? 'w-full' : 'w-0 group-hover:w-full'}`} />
             </Link>
           </nav>
 
@@ -186,20 +208,26 @@ function StorefrontLayoutInner({ children }: { children: React.ReactNode }) {
             <ThemeToggle />
 
             {customerSession ? (
-              <div className="hidden md:flex items-center gap-4">
+              <div className="hidden md:flex items-center gap-4 relative group">
                 <Link
                   href="/account/orders"
-                  className="text-xs font-bold uppercase tracking-widest text-foreground/80 hover:text-primary transition-all flex items-center gap-2"
+                  className="text-xs font-bold uppercase tracking-widest text-foreground/80 hover:text-primary transition-all flex items-center gap-2 py-2"
                 >
                   <User className="h-4 w-4" /> Account
                 </Link>
-                <button
-                  onClick={handleCustomerLogout}
-                  className="text-xs font-bold uppercase tracking-widest text-foreground/80 hover:text-primary transition-all cursor-pointer"
-                  title="Sign Out"
-                >
-                  Sign Out
-                </button>
+                
+                {/* Dropdown Menu */}
+                <div className="absolute top-full right-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 w-48 pointer-events-none group-hover:pointer-events-auto z-50">
+                  <div className="glass-panel bg-card border border-border/50 p-2 flex flex-col gap-1 shadow-2xl rounded-xl">
+                    <Link href="/account/orders" className="px-4 py-3 text-xs font-bold uppercase tracking-widest text-foreground/80 hover:text-primary hover:bg-muted/50 rounded-lg transition-colors flex items-center gap-3">
+                      <Package className="h-4 w-4" /> Orders
+                    </Link>
+                    <div className="h-px bg-border/40 my-1 mx-2" />
+                    <button onClick={handleCustomerLogout} className="px-4 py-3 text-xs font-bold uppercase tracking-widest text-primary hover:bg-primary/10 rounded-lg transition-colors text-left flex items-center gap-3 w-full cursor-pointer">
+                      <LogOut className="h-4 w-4" /> Sign Out
+                    </button>
+                  </div>
+                </div>
               </div>
             ) : (
               <Link
@@ -219,59 +247,87 @@ function StorefrontLayoutInner({ children }: { children: React.ReactNode }) {
               <ShoppingCart className="h-5 w-5" />
               <span className="hidden sm:inline text-xs font-bold uppercase tracking-widest">Cart</span>
               {cartCount > 0 && (
-                <span className="absolute -top-1 right-0 sm:right-7 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-primary text-[9px] font-black text-white border-2 border-background shadow-md">
+                <span className="absolute -top-1 right-0 sm:right-7 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-primary text-[9px] font-black text-primary-foreground border-2 border-background shadow-md">
                   {cartCount}
                 </span>
               )}
             </Link>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-[60] flex md:hidden bg-background/95 backdrop-blur-md">
-          <div className="w-full flex flex-col h-full p-6">
-            <div className="flex justify-between items-center mb-12">
-              <Link href="/home">
-                <LogoWordmark className="h-6 w-auto text-foreground" />
-              </Link>
-              <button onClick={() => setMobileMenuOpen(false)} className="p-2 -mr-2 text-foreground">
-                <X className="h-6 w-6" />
-              </button>
-            </div>
-
-            <nav className="flex-1 flex flex-col gap-6">
-              <a href="/shop" onClick={() => setMobileMenuOpen(false)} className={`text-lg font-bold uppercase tracking-widest ${pathname === '/shop' && !activeCategory ? 'text-primary' : 'text-foreground'}`}>
-                Collection
-              </a>
-              {mainCategories.map((cat) => (
-                <a key={cat.id} href={`/shop?category=${cat.id}`} onClick={() => setMobileMenuOpen(false)} className={`text-lg font-bold uppercase tracking-widest hover:text-primary ${activeCategory === cat.id ? 'text-primary' : 'text-foreground/85'}`}>
-                  {cat.name}
-                </a>
-              ))}
-              <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold uppercase tracking-widest text-foreground/85 hover:text-primary">
-                About
-              </Link>
-              <div className="h-px bg-border/20 my-4" />
-              {customerSession ? (
-                <>
-                  <Link href="/account/orders" onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold uppercase tracking-widest text-foreground/80 flex items-center gap-2">
-                    <User className="h-5 w-5 text-primary" /> My Account
-                  </Link>
-                  <button onClick={() => { handleCustomerLogout(); setMobileMenuOpen(false); }} className="text-left text-lg font-bold uppercase tracking-widest text-primary">
-                    Sign Out
-                  </button>
-                </>
-              ) : (
-                <Link href="/account/login" onClick={() => setMobileMenuOpen(false)} className="text-sm font-bold uppercase tracking-widest text-white bg-primary px-4 py-3 rounded-lg text-center flex justify-center items-center gap-2 hover:opacity-90 transition-opacity">
-                  <User className="h-5 w-5" /> Sign In / Register
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[60] flex md:hidden bg-black/60 backdrop-blur-sm"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <motion.div 
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="w-4/5 max-w-sm flex flex-col h-full bg-background p-6 shadow-2xl border-r border-border/10"
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="flex justify-between items-center mb-12">
+                <Link href="/home" onClick={() => setMobileMenuOpen(false)}>
+                  <LogoWordmark className="h-6 w-auto text-foreground" />
                 </Link>
-              )}
-            </nav>
-          </div>
-        </div>
-      )}
+                <button onClick={() => setMobileMenuOpen(false)} className="p-2 -mr-2 text-foreground cursor-pointer">
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+
+              <motion.nav 
+                variants={{ show: { transition: { staggerChildren: 0.1 } } }}
+                initial="hidden"
+                animate="show"
+                className="flex-1 flex flex-col gap-6"
+              >
+                <motion.div variants={{ hidden: { opacity: 0, x: -20 }, show: { opacity: 1, x: 0 } }}>
+                  <a href="/shop" onClick={() => setMobileMenuOpen(false)} className={`text-lg font-bold uppercase tracking-widest ${pathname === '/shop' && !activeCategory ? 'text-primary' : 'text-foreground'}`}>
+                    Collection
+                  </a>
+                </motion.div>
+                {mainCategories.map((cat) => (
+                  <motion.div key={cat.id} variants={{ hidden: { opacity: 0, x: -20 }, show: { opacity: 1, x: 0 } }}>
+                    <a href={`/shop?category=${cat.id}`} onClick={() => setMobileMenuOpen(false)} className={`text-lg font-bold uppercase tracking-widest hover:text-primary ${activeCategory === cat.id ? 'text-primary' : 'text-foreground/85'}`}>
+                      {cat.name}
+                    </a>
+                  </motion.div>
+                ))}
+                <motion.div variants={{ hidden: { opacity: 0, x: -20 }, show: { opacity: 1, x: 0 } }}>
+                  <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold uppercase tracking-widest text-foreground/85 hover:text-primary">
+                    About
+                  </Link>
+                </motion.div>
+                <motion.div variants={{ hidden: { opacity: 0, x: -20 }, show: { opacity: 1, x: 0 } }} className="h-px bg-border/20 my-4" />
+                {customerSession ? (
+                  <motion.div variants={{ hidden: { opacity: 0, x: -20 }, show: { opacity: 1, x: 0 } }} className="flex flex-col gap-6">
+                    <Link href="/account/orders" onClick={() => setMobileMenuOpen(false)} className="text-lg font-bold uppercase tracking-widest text-foreground/80 flex items-center gap-2">
+                      <User className="h-5 w-5 text-primary" /> My Account
+                    </Link>
+                    <button onClick={() => { handleCustomerLogout(); setMobileMenuOpen(false); }} className="text-left text-lg font-bold uppercase tracking-widest text-primary cursor-pointer">
+                      Sign Out
+                    </button>
+                  </motion.div>
+                ) : (
+                  <motion.div variants={{ hidden: { opacity: 0, x: -20 }, show: { opacity: 1, x: 0 } }}>
+                    <Link href="/account/login" onClick={() => setMobileMenuOpen(false)} className="text-sm font-bold uppercase tracking-widest text-primary-foreground bg-primary px-4 py-3 rounded-lg text-center flex justify-center items-center gap-2 hover:opacity-90 transition-opacity">
+                      <User className="h-5 w-5" /> Sign In / Register
+                    </Link>
+                  </motion.div>
+                )}
+              </motion.nav>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* --- CONTENT OUTLET --- */}
       <main className="flex-1">

@@ -39,42 +39,34 @@ export default async function StorefrontHome() {
 
       {/* --- VALUE PROPS --- */}
       <FadeIn direction="up">
-        <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 py-8 px-8 glass-panel rounded-3xl border border-border/40">
-            <div className="flex items-center gap-4">
-              <div className="p-3.5 rounded-2xl bg-primary/10 text-primary shrink-0 border border-primary/20">
-                <Truck className="h-6 w-6" />
-              </div>
+        <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-10 border-y border-border/30">
+            <div className="flex flex-col items-center text-center gap-3">
+              <Truck className="h-6 w-6 text-primary" strokeWidth={1.5} />
               <div>
-                <p className="text-sm font-bold uppercase tracking-wider text-foreground">Free Shipping</p>
-                <p className="text-xs text-muted-foreground">On all orders above ₹1,499</p>
+                <p className="text-xs font-bold uppercase tracking-[0.15em] text-foreground mb-1">Free Shipping</p>
+                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">On orders above ₹1,499</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="p-3.5 rounded-2xl bg-primary/10 text-primary shrink-0 border border-primary/20">
-                <RefreshCw className="h-6 w-6" />
-              </div>
+            <div className="flex flex-col items-center text-center gap-3">
+              <RefreshCw className="h-6 w-6 text-primary" strokeWidth={1.5} />
               <div>
-                <p className="text-sm font-bold uppercase tracking-wider text-foreground">7 Days Returns</p>
-                <p className="text-xs text-muted-foreground">Hassle-free exchange policy</p>
+                <p className="text-xs font-bold uppercase tracking-[0.15em] text-foreground mb-1">7 Days Returns</p>
+                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Hassle-free exchange</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="p-3.5 rounded-2xl bg-primary/10 text-primary shrink-0 border border-primary/20">
-                <ShieldCheck className="h-6 w-6" />
-              </div>
+            <div className="flex flex-col items-center text-center gap-3">
+              <ShieldCheck className="h-6 w-6 text-primary" strokeWidth={1.5} />
               <div>
-                <p className="text-sm font-bold uppercase tracking-wider text-foreground">100% Secured</p>
-                <p className="text-xs text-muted-foreground">Secure checkout process</p>
+                <p className="text-xs font-bold uppercase tracking-[0.15em] text-foreground mb-1">100% Secured</p>
+                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Safe checkout</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="p-3.5 rounded-2xl bg-primary/10 text-primary shrink-0 border border-primary/20">
-                <Sparkles className="h-6 w-6" />
-              </div>
+            <div className="flex flex-col items-center text-center gap-3">
+              <Sparkles className="h-6 w-6 text-primary" strokeWidth={1.5} />
               <div>
-                <p className="text-sm font-bold uppercase tracking-wider text-foreground">Premium Quality</p>
-                <p className="text-xs text-muted-foreground">Handpicked rich textures</p>
+                <p className="text-xs font-bold uppercase tracking-[0.15em] text-foreground mb-1">Premium Quality</p>
+                <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Finest textures</p>
               </div>
             </div>
           </div>
@@ -102,19 +94,19 @@ export default async function StorefrontHome() {
                 <Link
                   key={cat.id}
                   href={`/shop?category=${cat.id}`}
-                  className="group relative flex flex-col rounded-3xl overflow-hidden transition-all duration-500 glass-card"
+                  className="group relative flex flex-col overflow-hidden transition-all duration-500 bg-background"
                 >
-                  <div className="h-72 overflow-hidden relative">
-                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors z-10" />
+                  <div className="h-[400px] overflow-hidden relative">
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors z-10 duration-500" />
                     <img
                       src={cat.image || catImg}
                       alt={cat.name}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110"
                       loading="lazy"
                     />
-                    <div className="absolute bottom-6 left-6 z-20">
-                      <h3 className="text-xl font-bold uppercase tracking-wider text-white drop-shadow-md">{cat.name}</h3>
-                      <span className="text-xs font-bold uppercase tracking-widest text-white/95 group-hover:text-primary transition-colors underline decoration-2 underline-offset-4 mt-2 inline-block">Explore Now</span>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <h3 className="text-3xl font-black uppercase tracking-[0.2em] text-white drop-shadow-xl">{cat.name}</h3>
+                      <span className="text-xs font-bold uppercase tracking-widest text-white mt-4 border-b border-white pb-1">Explore</span>
                     </div>
                   </div>
                 </Link>
@@ -144,26 +136,26 @@ export default async function StorefrontHome() {
 
       {/* --- PROMOTION STRIP --- */}
       <FadeIn direction="up" delay={0.3}>
-        <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-6">
-          <div className="rounded-3xl overflow-hidden glass-panel p-10 md:p-12 text-foreground flex flex-col md:flex-row items-center justify-between border border-border/40 relative">
-            <div className="absolute top-0 right-0 p-8 opacity-5">
-              <Sparkles className="h-32 w-32 text-primary" />
+        <section className="mt-16 mb-16">
+          <div className="w-full bg-card text-foreground border-y border-border py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden transition-colors">
+            <div className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/4 opacity-5 pointer-events-none">
+              <Sparkles className="h-96 w-96 text-foreground" />
             </div>
-            <div className="space-y-3 z-10">
-              <span className="text-[10px] font-black uppercase tracking-[0.25em] text-primary">Limited Time Drops</span>
-              <h3 className="text-2xl md:text-3xl font-extrabold uppercase tracking-wide">
-                Festival Season Sale
-              </h3>
-              <p className="text-xs text-muted-foreground max-w-md">
-                Apply the coupon code <span className="text-primary font-bold bg-primary/10 px-2 py-0.5 rounded ml-1">RUSH20</span> during checkout for 20% off. Minimum cart size of ₹1,499.
-              </p>
-            </div>
-            <div className="mt-6 md:mt-0 z-10">
-              <Link href="/shop">
-                <AnimatedButton variant="primary">
+            <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between relative z-10 gap-8">
+              <div className="space-y-4 text-center md:text-left">
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">Limited Time Drops</span>
+                <h3 className="text-3xl md:text-5xl font-extrabold uppercase tracking-widest font-headings">
+                  Festival Season Sale
+                </h3>
+                <p className="text-sm text-muted-foreground max-w-md mx-auto md:mx-0 font-light tracking-wide leading-relaxed mt-2">
+                  Apply the coupon code <span className="text-foreground font-bold uppercase tracking-widest border-b border-primary ml-1">RUSH20</span> during checkout for 20% off. Minimum cart size of ₹1,499.
+                </p>
+              </div>
+              <div className="mt-4 md:mt-0 z-10">
+                <Link href="/shop" className="inline-flex items-center justify-center bg-foreground text-background px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-primary hover:text-white transition-colors">
                   Shop Now
-                </AnimatedButton>
-              </Link>
+                </Link>
+              </div>
             </div>
           </div>
         </section>

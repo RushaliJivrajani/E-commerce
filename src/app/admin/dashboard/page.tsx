@@ -19,6 +19,7 @@ import {
   Sparkles,
   RefreshCcw
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 import {
   ResponsiveContainer,
   LineChart,
@@ -204,15 +205,28 @@ export default function DashboardPage() {
       </div>
 
       {/* Metrics Card Grid */}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
+      <motion.div 
+        className="grid grid-cols-2 gap-4 lg:grid-cols-5"
+        variants={{
+          hidden: { opacity: 0 },
+          show: { opacity: 1, transition: { staggerChildren: 0.1 } }
+        }}
+        initial="hidden"
+        animate="show"
+      >
         {metricCards.map((card, idx) => {
           const Icon = card.icon;
           const isLowStockAlert = card.title === 'Low Stock' && metrics.lowStockProducts > 0;
           return (
-            <div
+            <motion.div
               key={idx}
-              className={`bg-card border p-5 rounded-3xl flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow duration-300 ${
-                isLowStockAlert ? 'border-primary/30 bg-primary/5' : 'border-border/40'
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+              }}
+              whileHover={{ y: -5, scale: 1.02 }}
+              className={`bg-card border p-5 rounded-3xl flex flex-col justify-between shadow-sm transition-all duration-300 ${
+                isLowStockAlert ? 'border-primary/30 bg-primary/5' : 'border-border/40 hover:shadow-xl hover:shadow-primary/5 hover:border-primary/30'
               }`}
             >
               <div className="flex justify-between items-start mb-4">
@@ -245,13 +259,18 @@ export default function DashboardPage() {
                   </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
 
       {/* Graphs & Charts Grid */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
+        className="grid grid-cols-1 gap-6 lg:grid-cols-2"
+      >
         
         {/* Sales trends lines */}
         <div className="bg-card p-6 rounded-3xl border border-border/40 shadow-sm hover:shadow-md transition-shadow duration-300">
@@ -388,10 +407,15 @@ export default function DashboardPage() {
           </div>
         </div>
 
-      </div>
+      </motion.div>
 
       {/* Row list of detailed products & inventory alerts */}
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
+        className="grid grid-cols-1 gap-6 xl:grid-cols-3"
+      >
         {/* Top sales table */}
         <div className="xl:col-span-2 bg-card border border-border/40 rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-350">
           <div className="p-6 border-b border-border/40">
@@ -466,7 +490,7 @@ export default function DashboardPage() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
     </div>
   );

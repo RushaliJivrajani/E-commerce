@@ -15,6 +15,7 @@ import {
   X,
   Tag
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface Coupon {
   id: string;
@@ -231,9 +232,24 @@ export default function CouponsPage() {
                 <th className="px-6 py-4 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            <motion.tbody 
+              initial="hidden" 
+              animate="visible" 
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1, transition: { staggerChildren: 0.05 } }
+              }}
+              className="divide-y divide-slate-100 dark:divide-slate-800"
+            >
               {coupons.map((c) => (
-                <tr key={c.id} className="hover:bg-card/50/50 dark:hover:bg-slate-950/20">
+                <motion.tr 
+                  variants={{
+                    hidden: { opacity: 0, y: 10 },
+                    visible: { opacity: 1, y: 0 }
+                  }}
+                  key={c.id} 
+                  className="hover:bg-card/50/50 dark:hover:bg-slate-950/20"
+                >
                   
                   <td className="px-6 py-4">
                     <span className="font-extrabold text-muted-foreground dark:text-muted-foreground/80 text-sm tracking-wider font-mono bg-card/500/10 px-2.5 py-1 rounded-lg">
@@ -281,24 +297,37 @@ export default function CouponsPage() {
                     </div>
                   </td>
 
-                </tr>
+                </motion.tr>
               ))}
               {coupons.length === 0 && (
                 <tr>
                   <td colSpan={8} className="text-center py-12 text-muted-foreground/80">No discount codes created yet.</td>
                 </tr>
               )}
-            </tbody>
+            </motion.tbody>
           </table>
         </div>
       </div>
 
       {/* --- ADD/EDIT MODAL --- */}
+      <AnimatePresence>
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={() => setModalOpen(false)} />
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm" 
+            onClick={() => setModalOpen(false)} 
+          />
           
-          <div className="relative w-full max-w-xl rounded-2xl border border-border bg-card p-6 shadow-2xl dark:border-slate-800 dark:bg-foreground text-background">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="relative w-full max-w-xl rounded-2xl border border-border bg-card p-6 shadow-2xl dark:border-slate-800 dark:bg-foreground text-background z-10"
+          >
             <button
               onClick={() => setModalOpen(false)}
               className="absolute top-4 right-4 rounded-lg p-1 text-muted-foreground/80 hover:bg-card/80 dark:hover:bg-slate-800"
@@ -450,9 +479,10 @@ export default function CouponsPage() {
                 </button>
               </div>
             </form>
-          </div>
+          </motion.div>
         </div>
       )}
+      </AnimatePresence>
 
     </div>
   );

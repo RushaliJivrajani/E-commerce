@@ -1235,7 +1235,7 @@ export default function ProductsPage() {
                       type="text"
                       value={formSeoTitle}
                       onChange={(e) => setFormSeoTitle(e.target.value)}
-                      placeholder="e.g. Buy Elegant Silk Saree Online | Rush Closet"
+                      placeholder="e.g. Buy Elegant Silk Saree Online | VIARO"
                       className="mt-1 block w-full rounded-xl border border-border bg-card/50 py-2.5 px-3 focus:outline-none   text-foreground"
                     />
                   </div>

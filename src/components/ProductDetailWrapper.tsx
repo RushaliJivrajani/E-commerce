@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import FadeIn from '@/components/FadeIn';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface ProductDetailWrapperProps {
   product: any;
@@ -228,12 +229,19 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
             >
-              <img
-                src={activeImage}
-                alt={product.name}
-                className="h-full w-full object-cover transition-transform duration-300 ease-out"
-                style={zoomStyle}
-              />
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={activeImage}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  src={activeImage}
+                  alt={product.name}
+                  className="h-full w-full object-cover transition-transform duration-300 ease-out"
+                  style={zoomStyle}
+                />
+              </AnimatePresence>
             </div>
           </FadeIn>
         </div>
@@ -267,7 +275,7 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
                   )}
                 </div>
                 {hasDiscount && (
-                  <span className="text-[10px] font-black uppercase tracking-widest text-white mt-4 bg-primary inline-block w-fit px-3 py-1.5 rounded-full shadow-md shadow-primary/20">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-primary-foreground mt-4 bg-primary inline-block w-fit px-3 py-1.5 rounded-full shadow-md shadow-primary/20">
                     Save ₹{(product.regularPrice - activePrice).toLocaleString()} ({discountPercent}%)
                   </span>
                 )}
@@ -368,7 +376,8 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
               </div>
               
               <div className="pt-2 flex flex-col gap-4">
-                <button
+                <motion.button
+                  whileTap={activeStock > 0 ? { scale: 0.95 } : {}}
                   onClick={handleAddToCart}
                   disabled={activeStock <= 0}
                   className={`w-full py-5 px-6 text-sm font-black uppercase tracking-[0.2em] rounded-2xl transition-all flex items-center justify-center gap-3 ${
@@ -379,7 +388,7 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
                 >
                   <ShoppingBag className="h-5 w-5" />
                   {activeStock > 0 ? 'Add to Bag' : 'Sold Out'}
-                </button>
+                </motion.button>
               </div>
 
               {/* Secure transaction indicator */}
@@ -453,7 +462,7 @@ export default function ProductDetailWrapper({ product, reviews, similarProducts
             <button
               type="submit"
               disabled={isSubmittingReview}
-              className="w-full py-4 bg-foreground text-background text-white rounded-xl text-sm font-bold shadow-md hover:bg-slate-800 transition-colors uppercase tracking-widest"
+              className="w-full py-4 bg-foreground text-background rounded-xl text-sm font-bold shadow-md hover:opacity-90 transition-opacity uppercase tracking-widest"
             >
               {isSubmittingReview ? 'Submitting...' : 'Post Review'}
             </button>
