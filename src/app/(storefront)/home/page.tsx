@@ -14,10 +14,12 @@ export default async function StorefrontHome() {
   const products = await db.find('products', (p: any) => p.status === 'Active');
   const categories = await db.find('categories', (c: any) => c.status === 'Active');
   const banners = await db.find('banners', (b: any) => b.status === 'Active' && b.type === 'Homepage Slider');
+  const coupons = await db.find('coupons', (c: any) => c.status === 'Active');
 
   const featuredProducts = products.filter((p: any) => p.featured).slice(0, 4);
   const trendingProducts = products.filter((p: any) => p.trending).slice(0, 4);
   const mainCategories = categories.filter((c: any) => !c.parentId);
+  const activePromo = coupons.length > 0 ? coupons[0] : null;
 
   // Fallback banner if none configured in DB
   const sliderBanners = banners.length > 0 ? banners : [
@@ -134,32 +136,33 @@ export default async function StorefrontHome() {
         </section>
       </FadeIn>
 
-      {/* --- PROMOTION STRIP --- */}
-      <FadeIn direction="up" delay={0.3}>
-        <section className="mt-16 mb-16">
-          <div className="w-full bg-card text-foreground border-y border-border py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden transition-colors">
-            <div className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/4 opacity-5 pointer-events-none">
-              <Sparkles className="h-96 w-96 text-foreground" />
-            </div>
-            <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between relative z-10 gap-8">
-              <div className="space-y-4 text-center md:text-left">
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">Limited Time Drops</span>
-                <h3 className="text-3xl md:text-5xl font-extrabold uppercase tracking-widest font-headings">
-                  Festival Season Sale
-                </h3>
-                <p className="text-sm text-muted-foreground max-w-md mx-auto md:mx-0 font-light tracking-wide leading-relaxed mt-2">
-                  Apply the coupon code <span className="text-foreground font-bold uppercase tracking-widest border-b border-primary ml-1">RUSH20</span> during checkout for 20% off. Minimum cart size of ₹1,499.
-                </p>
+      {activePromo && (
+        <FadeIn direction="up">
+          <section className="mt-16 mb-16">
+            <div className="w-full bg-card text-foreground border-y border-border py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden transition-colors">
+              <div className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/4 opacity-5 pointer-events-none">
+                <Sparkles className="h-96 w-96 text-foreground" />
               </div>
-              <div className="mt-4 md:mt-0 z-10">
-                <Link href="/shop" className="inline-flex items-center justify-center bg-foreground text-background px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-primary hover:text-white transition-colors">
-                  Shop Now
-                </Link>
+              <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between relative z-10 gap-8">
+                <div className="space-y-4 text-center md:text-left">
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary">Limited Time Drops</span>
+                  <h3 className="text-3xl md:text-5xl font-extrabold uppercase tracking-widest font-headings">
+                    {activePromo.code} Sale
+                  </h3>
+                  <p className="text-sm text-muted-foreground max-w-md mx-auto md:mx-0 font-light tracking-wide leading-relaxed mt-2">
+                    Apply the coupon code <span className="text-foreground font-bold uppercase tracking-widest border-b border-primary ml-1">{activePromo.code}</span> during checkout for {activePromo.type === 'Percentage' ? `${activePromo.value}%` : `₹${activePromo.value}`} off. {activePromo.minAmount > 0 && `Minimum cart size of ₹${activePromo.minAmount.toLocaleString()}.`}
+                  </p>
+                </div>
+                <div className="mt-4 md:mt-0 z-10">
+                  <Link href="/shop" className="inline-flex items-center justify-center bg-foreground text-background px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-primary hover:text-white transition-colors">
+                    Shop Now
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-      </FadeIn>
+          </section>
+        </FadeIn>
+      )}
 
       {/* --- TRENDING PRODUCTS --- */}
       <FadeIn direction="up" delay={0.1}>
